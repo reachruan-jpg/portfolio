@@ -515,6 +515,8 @@ body.figma-nav-open {
   text-decoration: none;
   color: inherit;
   transition: transform 0.25s ease, box-shadow 0.25s ease;
+  /* 由卡片本身占位，避免移动端 WebKit 下图仅靠 img 高度坍塌（只剩文字细条） */
+  isolation: isolate;
 }
 
 .figma-masonry-card:focus-visible {
@@ -527,25 +529,28 @@ body.figma-nav-open {
   box-shadow: 0 22px 56px rgba(0, 0, 0, 0.55);
 }
 
-.figma-masonry-card img {
-  width: 100%;
-  height: auto;
-  display: block;
-  object-fit: cover;
-}
-
-.figma-masonry-card--short img {
+.figma-masonry-card--short {
   aspect-ratio: 696 / 427;
 }
 
-.figma-masonry-card--tall img {
+.figma-masonry-card--tall {
   aspect-ratio: 696 / 874;
+}
+
+.figma-masonry-card img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
 }
 
 .figma-masonry-cap {
   position: absolute;
   inset-inline: 0;
   bottom: 0;
+  z-index: 1;
   padding: clamp(16px, 3vw, 28px);
   display: flex;
   flex-direction: column;
@@ -557,7 +562,7 @@ body.figma-nav-open {
 .figma-masonry-kicker {
   margin: 0;
   font-family: var(--font-inter);
-  font-size: clamp(12px, 1.5vw, 14px);
+  font-size: clamp(12px, 3.2vw, 14px);
   font-weight: 500;
   letter-spacing: 0.04em;
   color: rgba(255, 255, 255, 0.88);
@@ -566,7 +571,7 @@ body.figma-nav-open {
 .figma-masonry-title {
   margin: 0;
   font-family: var(--font-inter);
-  font-size: clamp(14px, 2vw, 18px);
+  font-size: clamp(14px, 3.8vw, 18px);
   font-weight: 600;
   line-height: 1.35;
   letter-spacing: -0.02em;
