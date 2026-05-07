@@ -11,7 +11,7 @@ body:has(.figma-page--detail) {
 /* 详情页左右边距 24px（与作品栅格对齐） */
 .project-detail {
   padding: 32px 24px 80px;
-  max-width: 900px;
+  max-width: min(1040px, 100%);
   margin: 0 auto;
 }
 
@@ -36,22 +36,65 @@ body:has(.figma-page--detail) {
   color: var(--figma-text);
 }
 
-.project-detail h1 {
-  margin: 0 0 16px;
+/* 详情内容：左栏标题 + 标签 | 右栏作品简介；窄屏单列顺序不变 */
+.project-detail-intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(20px, 3.5vw, 40px);
+  align-items: start;
+  margin-bottom: 32px;
+}
+
+@media (max-width: 720px) {
+  .project-detail-intro {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}
+
+.project-detail-intro .project-detail-header {
+  margin-bottom: 24px;
+}
+
+/* 右栏多段简介（如饿小宝） */
+.project-detail-intro-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25em;
+  min-width: 0;
+}
+
+.project-detail-header {
+  margin-bottom: 30px;
+}
+
+.project-detail-header h1 {
+  margin: 0;
   font-family: var(--font-inter);
   font-weight: 600;
-  font-size: clamp(28px, 4vw, 40px);
-  line-height: 1.2;
+  font-size: clamp(26px, 4vw, 40px);
+  line-height: 1.15;
   letter-spacing: -0.02em;
   color: var(--figma-text);
 }
 
-.project-detail-lead {
+.project-detail .project-detail-lead {
   margin: 0 0 32px;
-  font-size: 17px;
-  line-height: 1.55;
+  max-width: 52ch;
+  font-family: var(--font-inter);
+  font-size: clamp(15px, 1.85vw, 18px);
+  font-weight: 400;
+  line-height: 1.65;
+  letter-spacing: -0.01em;
   color: var(--figma-gray-797979);
-  max-width: 42rem;
+}
+
+.project-detail .project-detail-lead code {
+  font-size: 0.88em;
+  padding: 0.12em 0.35em;
+  border-radius: 6px;
+  background: var(--figma-surface-raised);
+  color: var(--figma-text-muted);
 }
 
 .project-detail-gallery {
@@ -106,6 +149,13 @@ body:has(.figma-page--detail) {
 }
 
 .project-detail .figma-tags {
-  margin-bottom: 28px;
+  margin-bottom: 30px;
 }
 
+.project-detail .project-detail-intro .figma-tags {
+  margin-bottom: 0;
+}
+
+.project-detail .project-detail-intro .project-detail-lead {
+  margin: 0;
+}

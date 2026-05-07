@@ -26,7 +26,14 @@
 
   --figma-artboard-w: 1512px;
   --figma-pad-x: clamp(16px, 5vw, 48px);
+  /* 首页作品瀑布流：卡片之间纵横间距统一 · 封面圆角 */
+  --figma-masonry-gap: 20px;
+  --figma-masonry-card-radius: 16px;
   --figma-chip-radius: 16px;
+  /* 顶部导航：胶囊 / 链接 / Contact / 汉堡（固定 10px，不参与 nav-scale） */
+  --figma-nav-radius: 10px;
+  /* 主导航深灰底胶囊外壳圆角 */
+  --figma-nav-pill-radius: 14px;
   /* 主导航（胶囊 + Contact）整体等比缩放系数 */
   --figma-nav-scale: 1.2;
 
@@ -147,7 +154,7 @@ body {
   flex-wrap: wrap;
   gap: calc(4px * var(--figma-nav-scale));
   background: var(--figma-surface-raised);
-  border-radius: calc(var(--figma-chip-radius) * var(--figma-nav-scale));
+  border-radius: var(--figma-nav-pill-radius);
   padding: calc(4px * var(--figma-nav-scale)) calc(6px * var(--figma-nav-scale));
   min-height: calc(48px * var(--figma-nav-scale));
   box-shadow: 0 calc(8px * var(--figma-nav-scale)) calc(32px * var(--figma-nav-scale)) rgba(0, 0, 0, 0.35);
@@ -161,7 +168,7 @@ body {
   color: var(--figma-text);
   text-decoration: none;
   padding: calc(10px * var(--figma-nav-scale)) calc(14px * var(--figma-nav-scale));
-  border-radius: calc(var(--figma-chip-radius) * var(--figma-nav-scale));
+  border-radius: var(--figma-nav-radius);
   line-height: 1;
   white-space: nowrap;
 }
@@ -189,14 +196,90 @@ body {
   color: var(--figma-white);
 }
 
+/* 导航：触控去高亮；按压态与常态/hover 完全一致（含抽屉内过渡关闭） */
+.figma-header a,
+.figma-header button,
+.figma-nav-overlay a,
+.figma-nav-overlay button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.figma-nav-link:active:not(.figma-nav-link--active) {
+  background: transparent;
+}
+
+.figma-nav-link:hover:active:not(.figma-nav-link--active) {
+  background: #343434;
+}
+
+.figma-nav-link--active:active {
+  background: var(--figma-lime-d2ff72);
+  color: var(--figma-black);
+}
+
+.figma-nav-link--muted:active:not(.figma-nav-link--active) {
+  color: var(--figma-nav-muted);
+}
+
+.figma-nav-link[href*="what-we-provide"]:active:not(.figma-nav-link--active) {
+  color: var(--figma-white);
+}
+
+.figma-book:active {
+  box-shadow: none;
+}
+
+.figma-book:hover:active {
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+}
+
+.figma-nav-toggle:active {
+  background: var(--figma-surface-raised);
+  color: var(--figma-white);
+}
+
+.figma-nav-sheet .figma-nav-sheet-link:active:not(.figma-nav-link--active) {
+  background: transparent;
+}
+
+.figma-nav-sheet .figma-nav-sheet-link:hover:active:not(.figma-nav-link--active) {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.figma-nav-sheet .figma-nav-link--active:active {
+  background: var(--figma-lime-d2ff72);
+  color: var(--figma-black);
+}
+
+.figma-nav-link:focus:not(:focus-visible),
+.figma-book:focus:not(:focus-visible),
+.figma-logo:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.figma-nav-link:focus-visible {
+  outline: 2px solid var(--figma-lime-77fb38);
+  outline-offset: 3px;
+}
+
+.figma-book:focus-visible {
+  outline: 2px solid var(--figma-lime-d2ff72);
+  outline-offset: 3px;
+}
+
+.figma-logo:focus-visible {
+  outline: 2px solid var(--figma-lime-77fb38);
+  outline-offset: 3px;
+}
+
 .figma-book {
   display: inline-flex;
   align-items: center;
   gap: calc(10px * var(--figma-nav-scale));
-  padding: 0 clamp(calc(14px * var(--figma-nav-scale)), calc(3vw * var(--figma-nav-scale)), calc(22px * var(--figma-nav-scale)));
-  min-height: calc(48px * var(--figma-nav-scale));
+  /* 与胶囊内 nav 链接同上下内边距，高度与 Home 选中态一致 */
+  padding: calc(10px * var(--figma-nav-scale)) clamp(calc(10px * var(--figma-nav-scale)), calc(2.2vw * var(--figma-nav-scale)), calc(16px * var(--figma-nav-scale)));
   background: var(--figma-lime-77fb38);
-  border-radius: calc(var(--figma-chip-radius) * var(--figma-nav-scale));
+  border-radius: var(--figma-nav-radius);
   font-family: var(--font-albert);
   font-weight: 600;
   font-size: clamp(calc(14px * var(--figma-nav-scale)), calc(3.5vw * var(--figma-nav-scale)), calc(16px * var(--figma-nav-scale)));
@@ -207,7 +290,7 @@ body {
 }
 
 .figma-book:hover {
-  filter: brightness(1.03);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2);
 }
 
 .figma-book-icon,
@@ -229,7 +312,7 @@ body {
   padding: 0;
   flex-shrink: 0;
   border: 1px solid var(--figma-border);
-  border-radius: calc(12px * var(--figma-nav-scale));
+  border-radius: var(--figma-nav-radius);
   background: var(--figma-surface-raised);
   color: var(--figma-white);
   cursor: pointer;
@@ -328,8 +411,7 @@ body {
   color: var(--figma-black);
   text-decoration: none;
   padding: 16px 18px;
-  border-radius: 14px;
-  transition: background 0.15s ease;
+  border-radius: var(--figma-nav-radius);
 }
 
 .figma-nav-sheet .figma-nav-sheet-link:hover {
@@ -345,14 +427,29 @@ body {
   background: var(--figma-lime-d2ff72);
 }
 
+.figma-nav-sheet .figma-nav-sheet-link:focus:not(:focus-visible),
+.figma-book--sheet:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.figma-nav-sheet .figma-nav-sheet-link:focus-visible {
+  outline: 2px solid rgba(0, 0, 0, 0.4);
+  outline-offset: 2px;
+}
+
+.figma-book--sheet:focus-visible {
+  outline: 2px solid rgba(0, 0, 0, 0.45);
+  outline-offset: 2px;
+}
+
 .figma-book--sheet {
   display: flex;
   width: 100%;
   justify-content: center;
   margin-top: 20px;
   min-height: 52px;
-  padding: 0 20px;
-  border-radius: 14px;
+  padding: 0 14px;
+  border-radius: var(--figma-nav-radius);
   font-size: clamp(15px, 3.8vw, 17px);
 }
 
@@ -446,16 +543,20 @@ body.figma-nav-open {
   display: block;
 }
 
+/* 仅与「complexity」同宽，绿线左右与单词对齐 */
 .figma-hero-line--mid {
+  display: inline-block;
   position: relative;
   padding-bottom: 14px;
+  width: max-content;
+  max-width: 100%;
 }
 
 .figma-hero-underline {
   position: absolute;
   left: 0;
   bottom: 6px;
-  width: min(575px, 92%);
+  width: 100%;
   height: 9px;
   background: var(--figma-lime-d2ff72);
   border-radius: 2px;
@@ -488,7 +589,7 @@ body.figma-nav-open {
 .figma-portfolio-masonry {
   display: flex;
   flex-direction: column;
-  gap: clamp(18px, 3vw, 22px);
+  gap: var(--figma-masonry-gap);
   padding: 0 var(--figma-pad-x);
 }
 
@@ -496,21 +597,22 @@ body.figma-nav-open {
   display: flex;
   flex-wrap: wrap;
   align-items: stretch;
-  gap: clamp(18px, 3vw, 22px);
+  gap: var(--figma-masonry-gap);
 }
 
 .figma-masonry-stack {
-  flex: 1 1 calc(50% - 11px);
+  flex: 1 1 calc((100% - var(--figma-masonry-gap)) / 2);
   display: flex;
   flex-direction: column;
-  gap: clamp(18px, 3vw, 22px);
+  gap: var(--figma-masonry-gap);
   min-width: min(100%, 340px);
 }
 
 .figma-masonry-card {
   position: relative;
   display: block;
-  border-radius: 36px;
+  width: 100%;
+  border-radius: var(--figma-masonry-card-radius);
   overflow: hidden;
   text-decoration: none;
   color: inherit;
@@ -529,52 +631,78 @@ body.figma-nav-open {
   box-shadow: 0 22px 56px rgba(0, 0, 0, 0.55);
 }
 
-.figma-masonry-card--short {
+/* 比例写在 img 上并保持文档流：避免窄屏 WebKit 下 flex 子项仅靠 aspect-ratio + 绝对定位图导致高度坍塌 */
+.figma-masonry-card--short img {
   aspect-ratio: 696 / 427;
 }
 
-.figma-masonry-card--tall {
+.figma-masonry-card--tall img {
   aspect-ratio: 696 / 874;
 }
 
 .figma-masonry-card img {
-  position: absolute;
-  inset: 0;
+  position: relative;
+  z-index: 0;
   width: 100%;
-  height: 100%;
+  height: auto;
   display: block;
   object-fit: cover;
+}
+
+/* 底部深色渐变遮罩（与标题层叠：遮罩在中、文字在上） */
+.figma-masonry-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.9) 0%,
+    rgba(0, 0, 0, 0.42) 38%,
+    transparent 68%
+  );
+  opacity: 1;
+  transition: opacity 0.3s ease;
 }
 
 .figma-masonry-cap {
   position: absolute;
   inset-inline: 0;
   bottom: 0;
-  z-index: 1;
-  padding: clamp(16px, 3vw, 28px);
+  z-index: 2;
+  padding: clamp(18px, 3.5vw, 32px);
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.78), transparent);
+  gap: 0;
   pointer-events: none;
+  opacity: 1;
+  transition: opacity 0.3s ease;
 }
 
+/* 精准悬停设备：默认仅展示封面图，悬停 / 键盘聚焦时显现遮罩与标题 */
+@media (hover: hover) {
+  .figma-masonry-card::after,
+  .figma-masonry-cap {
+    opacity: 0;
+  }
+
+  .figma-masonry-card:hover::after,
+  .figma-masonry-card:focus-visible::after,
+  .figma-masonry-card:hover .figma-masonry-cap,
+  .figma-masonry-card:focus-visible .figma-masonry-cap {
+    opacity: 1;
+  }
+}
+
+/* 封面仅保留作品名，字号放大 */
 .figma-masonry-kicker {
   margin: 0;
   font-family: var(--font-inter);
-  font-size: clamp(12px, 3.2vw, 14px);
-  font-weight: 500;
-  letter-spacing: 0.04em;
-  color: rgba(255, 255, 255, 0.88);
-}
-
-.figma-masonry-title {
-  margin: 0;
-  font-family: var(--font-inter);
-  font-size: clamp(14px, 3.8vw, 18px);
+  font-size: clamp(15.4px, 3.85vw, 23.8px);
   font-weight: 600;
-  line-height: 1.35;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
   color: #ffffff;
 }
 
@@ -632,17 +760,24 @@ body.figma-nav-open {
   min-width: 0;
   width: 100%;
   text-align: left;
-  margin-left: 40px;
+  /* 用 padding 缩进内容：分隔线与图标列同宽对齐；margin 整块右移会导致线条与图标错位感 */
+  padding-left: clamp(0px, 4vw, 40px);
+  box-sizing: border-box;
 }
 
+/* 分隔线画在「模块与模块之间」：用下一列的 border-top，保证整条横线与内容区等宽对齐 */
 .figma-services-column {
   padding-bottom: clamp(22px, 4vw, 32px);
-  border-bottom: 1px solid var(--figma-services-rule);
+  border-bottom: none;
+}
+
+.figma-services-column + .figma-services-column {
+  border-top: 1px solid var(--figma-services-rule);
+  padding-top: clamp(18px, 3.5vw, 28px);
 }
 
 .figma-services-column:last-child {
   padding-bottom: 0;
-  border-bottom: none;
 }
 
 .figma-services-column-head {
@@ -808,6 +943,26 @@ body.figma-nav-open {
 .figma-awards-row--head {
   padding-top: 0;
   font-weight: 500;
+  /* 相对正文约缩小 30%（×0.7） */
+  font-size: calc(clamp(15px, 2vw, 22px) * 0.7);
+  line-height: 1.35;
+  color: #666666;
+  align-items: start;
+}
+
+/* 表头与下方同列对齐：前三列左对齐，年份列与数字列同为右对齐 */
+.figma-awards-row--head [role="columnheader"]:nth-child(-n + 3) {
+  text-align: left;
+}
+
+.figma-awards-row--head [role="columnheader"]:nth-child(4) {
+  text-align: right;
+}
+
+/* 第二列英文：隔离双向排版，使「Award」表头与下方英文名左缘一致 */
+.figma-awards-row > span:nth-child(2) {
+  unicode-bidi: isolate;
+  text-align: left;
 }
 
 .figma-awards-year {
@@ -938,6 +1093,11 @@ body.figma-nav-open {
   .figma-masonry-card:hover {
     transform: none;
   }
+
+  .figma-masonry-card::after,
+  .figma-masonry-cap {
+    transition: none;
+  }
 }
 
 @media (max-width: 900px) {
@@ -968,6 +1128,10 @@ body.figma-nav-open {
     border-bottom: 1px solid var(--figma-services-rule);
   }
 
+  /* 窄屏：与「My abilities」同一左缘，不再额外右缩进 */
+  .figma-services-columns {
+    padding-left: 0;
+  }
 }
 
 @media (max-width: 720px) {

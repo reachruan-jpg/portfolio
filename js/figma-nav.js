@@ -6,6 +6,20 @@
   var sectionIds = ["hero", "portfolio-masonry", "what-we-provide"];
   var desktopMq = window.matchMedia("(min-width: 721px)");
 
+  /** 点击锚点导航后短暂锁定高亮为「即将滚到的区块」，避免 scroll 同步仍判为上一段而造成闪烁 */
+  var pendingNavHash = null;
+  var navIgnoreScroll = false;
+  var navScrollEndTimer = null;
+
+  function scheduleNavScrollLockEnd() {
+    clearTimeout(navScrollEndTimer);
+    navScrollEndTimer = setTimeout(function () {
+      navIgnoreScroll = false;
+      pendingNavHash = null;
+      syncFromScroll();
+    }, 160);
+  }
+
   function linkHash(link) {
     var href = link.getAttribute("href") || "";
     var i = href.lastIndexOf("#");
@@ -40,6 +54,11 @@
       return;
     }
 
+    if (navIgnoreScroll && pendingNavHash) {
+      setActiveLink(pendingNavHash);
+      return;
+    }
+
     var y = window.scrollY + scrollOffset();
     var activeId = "hero";
     sectionIds.forEach(function (id) {
@@ -63,9 +82,10 @@
     link.addEventListener("click", function () {
       var h = linkHash(link);
       if (!h) return;
-      window.requestAnimationFrame(function () {
-        setActiveLink(h);
-      });
+      pendingNavHash = normalizeHash(h);
+      navIgnoreScroll = true;
+      setActiveLink(pendingNavHash);
+      scheduleNavScrollLockEnd();
     });
   });
 
@@ -121,7 +141,16 @@
     }
   }
 
-  window.addEventListener("scroll", syncFromScroll, { passive: true });
+  window.addEventListener(
+    "scroll",
+    function () {
+      if (navIgnoreScroll) {
+        scheduleNavScrollLockEnd();
+      }
+      syncFromScroll();
+    },
+    { passive: true }
+  );
   window.addEventListener("resize", function () {
     syncFromScroll();
     onDesktopResize();
@@ -133,6 +162,9 @@
   }
 
   window.addEventListener("hashchange", function () {
+    navIgnoreScroll = false;
+    pendingNavHash = null;
+    clearTimeout(navScrollEndTimer);
     var h = location.hash;
     if (h === "#top" || h === "") {
       setActiveLink("#hero");
