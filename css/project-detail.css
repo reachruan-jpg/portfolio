@@ -1,0 +1,111 @@
+/* 详情页：图库拉满视口宽；允许突破全局 overflow-x，便于全屏宽展示 */
+body:has(.figma-page--detail) {
+  overflow-x: visible;
+}
+
+.figma-page.figma-page--detail {
+  overflow-x: visible;
+  min-height: auto;
+}
+
+/* 详情页左右边距 24px（与作品栅格对齐） */
+.project-detail {
+  padding: 32px 24px 80px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.figma-page--detail .figma-header {
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+.project-detail-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 32px;
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--figma-gray-474747);
+  text-decoration: none;
+}
+
+.project-detail-back:hover {
+  color: var(--figma-text);
+}
+
+.project-detail h1 {
+  margin: 0 0 16px;
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: clamp(28px, 4vw, 40px);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--figma-text);
+}
+
+.project-detail-lead {
+  margin: 0 0 32px;
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--figma-gray-797979);
+  max-width: 42rem;
+}
+
+.project-detail-gallery {
+  display: grid;
+  gap: 16px;
+  margin-bottom: 40px;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100vw;
+  max-width: 100vw;
+  padding-left: 24px;
+  padding-right: 24px;
+  box-sizing: border-box;
+}
+
+.project-detail-gallery img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 12px;
+  background: var(--figma-surface);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-detail-gallery {
+    transform: none;
+    left: auto;
+    width: calc(100% + 48px);
+    max-width: none;
+    margin-left: -24px;
+    margin-right: -24px;
+  }
+}
+
+.project-detail-note {
+  margin-top: 24px;
+  padding: 16px;
+  border-radius: 12px;
+  background: var(--figma-surface-raised);
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--figma-text-muted);
+  border: 1px dashed var(--figma-border-soft);
+}
+
+.project-detail-note code {
+  font-size: 0.92em;
+  padding: 0.1em 0.35em;
+  border-radius: 6px;
+  background: var(--figma-bg);
+}
+
+.project-detail .figma-tags {
+  margin-bottom: 28px;
+}
+

@@ -1,0 +1,47 @@
+/**
+ * studio.html：Spline viewer + fallback（旧版首页备份）
+ */
+:root {
+  --spline-hero-size: min(100%, 520px);
+  --spline-hero-min-h: min(52vw, 420px);
+}
+
+.hero-obriy-spline-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  margin-inline: auto;
+  aspect-ratio: 1;
+  min-height: min(70vw, 480px);
+  min-width: 200px;
+  isolation: isolate;
+}
+
+.hero-obriy-spline-wrap spline-viewer {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+}
+
+.hero-obriy-fallback {
+  display: none;
+  width: var(--spline-hero-size);
+  max-width: 520px;
+  height: auto;
+  margin-inline: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 24px 44px rgba(0, 0, 0, 0.14));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-obriy-spline-wrap {
+    display: none;
+  }
+
+  .hero-obriy-fallback {
+    display: block;
+  }
+}

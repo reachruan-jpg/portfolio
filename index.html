@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0b0b0b" />
+    <title>哈哈哈 — Portfolio</title>
+    <link rel="stylesheet" href="css/figma.css" />
+  </head>
+  <body>
+    <a class="figma-skip" href="#main">跳到主要内容</a>
+
+    <div class="figma-page" id="top">
+      <header class="figma-header">
+        <a class="figma-logo" href="#top" aria-label="首页">
+          <img src="assets/figma/logo-header.png" alt="" width="120" height="27" />
+        </a>
+        <button
+          type="button"
+          class="figma-nav-toggle"
+          id="figma-nav-toggle"
+          aria-expanded="false"
+          aria-controls="figma-nav-overlay"
+          aria-label="打开菜单"
+        >
+          <span class="figma-nav-toggle-box" aria-hidden="true">
+            <span class="figma-nav-toggle-bar"></span>
+            <span class="figma-nav-toggle-bar"></span>
+            <span class="figma-nav-toggle-bar"></span>
+          </span>
+        </button>
+        <div class="figma-nav-cluster">
+          <nav class="figma-nav-pill" aria-label="主导航">
+            <a class="figma-nav-link figma-nav-link--active" href="#hero">Home</a>
+            <a class="figma-nav-link" href="#portfolio-masonry">Works</a>
+            <a class="figma-nav-link" href="#what-we-provide">about</a>
+          </nav>
+          <a class="figma-book" href="#contact-footer">Contact me</a>
+        </div>
+      </header>
+
+      <div
+        id="figma-nav-overlay"
+        class="figma-nav-overlay"
+        hidden
+        aria-hidden="true"
+      >
+        <div class="figma-nav-overlay-backdrop" data-figma-nav-close tabindex="-1"></div>
+        <div class="figma-nav-sheet" role="dialog" aria-modal="true" aria-label="主导航菜单">
+          <nav class="figma-nav-sheet-nav" aria-label="主导航">
+            <a class="figma-nav-link figma-nav-sheet-link" href="#hero">Home</a>
+            <a class="figma-nav-link figma-nav-sheet-link" href="#portfolio-masonry">Works</a>
+            <a class="figma-nav-link figma-nav-sheet-link" href="#what-we-provide">about</a>
+          </nav>
+          <a class="figma-book figma-book--sheet" href="#contact-footer">Contact me</a>
+        </div>
+      </div>
+
+      <main id="main">
+        <section class="figma-hero-main" id="hero" aria-labelledby="hero-title">
+          <div class="figma-hero-scene" aria-hidden="true">
+            <video
+              class="figma-hero-video"
+              autoplay
+              muted
+              loop
+              playsinline
+              preload="auto"
+              disablepictureinpicture
+              disableremoteplayback
+            >
+              <source
+                src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260418_080021_d598092b-c4c2-4e53-8e46-94cf9064cd50.mp4"
+                type="video/mp4"
+              />
+            </video>
+            <div class="figma-hero-scene-vignette"></div>
+            <img
+              class="figma-hero-fallback"
+              src="assets/figma/hero-star-right.png"
+              alt=""
+              width="1920"
+              height="1080"
+              decoding="async"
+            />
+          </div>
+          <div class="figma-hero-inner">
+            <div class="figma-hero-copy">
+              <h1 class="figma-hero-title" id="hero-title">
+                <span class="figma-hero-line">Make</span>
+                <span class="figma-hero-line figma-hero-line--mid">
+                  complexity
+                  <span class="figma-hero-underline" aria-hidden="true"></span>
+                </span>
+                <span class="figma-hero-line">feel simple</span>
+              </h1>
+            </div>
+          </div>
+        </section>
+
+        <section class="figma-projects" aria-labelledby="projects-label">
+          <div class="figma-projects-intro" id="projects-label">
+            <span class="figma-projects-intro-muted">latest</span>
+            <span class="figma-projects-intro-strong">projects</span>
+          </div>
+
+          <div class="figma-portfolio-masonry" id="portfolio-masonry">
+            <!-- 组 1：左 1（高） · 右 2（矮） -->
+            <div class="figma-masonry-row">
+              <div class="figma-masonry-stack">
+                <a class="figma-masonry-card figma-masonry-card--tall" href="projects/strike.html">
+                  <img src="assets/projects/strike/21.jpg" alt="" width="696" height="874" loading="eager" decoding="async" />
+                  <span class="figma-masonry-cap">
+                    <span class="figma-masonry-kicker">Strike</span>
+                    <span class="figma-masonry-title">Strike 运动健康 SaaS 产品设计</span>
+                  </span>
+                </a>
+              </div>
+              <div class="figma-masonry-stack">
+                <a class="figma-masonry-card figma-masonry-card--short" href="projects/elem.html">
+                  <img src="assets/projects/elem/51.jpg" alt="" width="696" height="427" loading="lazy" decoding="async" />
+                  <span class="figma-masonry-cap">
+                    <span class="figma-masonry-kicker">Elem</span>
+                    <span class="figma-masonry-title">Elem / 饿了么方向作品</span>
+                  </span>
+                </a>
+                <a class="figma-masonry-card figma-masonry-card--short" href="projects/bae.html">
+                  <img src="assets/projects/bae/66.jpg" alt="" width="696" height="427" loading="lazy" decoding="async" />
+                  <span class="figma-masonry-cap">
+                    <span class="figma-masonry-kicker">BAE</span>
+                    <span class="figma-masonry-title">BAE 作品展示</span>
+                  </span>
+                </a>
+              </div>
+            </div>
+            <!-- 组 2：左 2（矮） · 右 1（高） -->
+            <div class="figma-masonry-row">
+              <div class="figma-masonry-stack">
+                <a class="figma-masonry-card figma-masonry-card--short" href="projects/exiaobao.html">
+                  <img src="assets/projects/饿小宝/41.jpg" alt="" width="696" height="427" loading="lazy" decoding="async" />
+                  <span class="figma-masonry-cap">
+                    <span class="figma-masonry-kicker">饿小宝</span>
+                    <span class="figma-masonry-title">饿小宝 IP 与视觉延展</span>
+                  </span>
+                </a>
+                <a class="figma-masonry-card figma-masonry-card--short" href="projects/pin.html">
+                  <img src="assets/projects/pin/74.jpg" alt="" width="696" height="427" loading="lazy" decoding="async" />
+                  <span class="figma-masonry-cap">
+                    <span class="figma-masonry-kicker">Pin</span>
+                    <span class="figma-masonry-title">Pin 系列界面与物料</span>
+                  </span>
+                </a>
+              </div>
+              <div class="figma-masonry-stack">
+                <a class="figma-masonry-card figma-masonry-card--tall" href="projects/zhouxiaxia.html">
+                  <img src="assets/projects/周大侠/60.jpg" alt="" width="696" height="874" loading="lazy" decoding="async" />
+                  <span class="figma-masonry-cap">
+                    <span class="figma-masonry-kicker">周大侠</span>
+                    <span class="figma-masonry-title">周大侠主题视觉与延展</span>
+                  </span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="figma-services" id="what-we-provide" aria-labelledby="services-heading">
+          <div class="figma-services-intro">
+            <h2 class="figma-services-heading" id="services-heading">
+              <span class="figma-services-line">My abilities</span>
+            </h2>
+          </div>
+          <div class="figma-services-columns">
+            <div class="figma-services-column">
+              <div class="figma-services-column-head">
+                <span class="figma-services-icon" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path d="M4 7a2 2 0 012-2h12a2 2 0 012 2v9a2 2 0 01-2 2H6a2 2 0 01-2-2V7z" stroke="currentColor" stroke-width="2" />
+                    <path d="M8 21h8M12 17v4" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                  </svg>
+                </span>
+                <h3 class="figma-services-column-title">Web design</h3>
+              </div>
+              <div class="figma-services-pills">
+                <span class="figma-service-pill figma-service-pill--outline">E-commerce</span>
+                <span class="figma-service-pill figma-service-pill--outline">Promo</span>
+                <span class="figma-service-pill figma-service-pill--outline">Corporate</span>
+                <span class="figma-service-pill figma-service-pill--outline">One-pager</span>
+              </div>
+            </div>
+            <div class="figma-services-column">
+              <div class="figma-services-column-head">
+                <span class="figma-services-icon" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <rect x="7" y="3" width="10" height="18" rx="2.5" stroke="currentColor" stroke-width="2" />
+                    <path d="M10 18.5h4" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                  </svg>
+                </span>
+                <h3 class="figma-services-column-title">App design</h3>
+              </div>
+              <div class="figma-services-pills">
+                <span class="figma-service-pill figma-service-pill--outline">UX/UI</span>
+                <span class="figma-service-pill figma-service-pill--outline">Mobile app</span>
+                <span class="figma-service-pill figma-service-pill--outline">Web app</span>
+                <span class="figma-service-pill figma-service-pill--outline">Product</span>
+              </div>
+            </div>
+            <div class="figma-services-column">
+              <div class="figma-services-column-head">
+                <span class="figma-services-icon" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <rect x="4" y="5" width="16" height="14" rx="2" stroke="currentColor" stroke-width="2" />
+                    <circle cx="9" cy="10" r="1.5" fill="currentColor" />
+                    <path d="M4 17l4-4 3 3 5-6 4 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </span>
+                <h3 class="figma-services-column-title">Branding</h3>
+              </div>
+              <div class="figma-services-pills">
+                <span class="figma-service-pill figma-service-pill--outline">Logo design</span>
+                <span class="figma-service-pill figma-service-pill--outline">Brandbook</span>
+                <span class="figma-service-pill figma-service-pill--outline">Brand identity</span>
+                <span class="figma-service-pill figma-service-pill--outline">Rebranding</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="figma-awards" aria-labelledby="awards-heading">
+          <h2 class="figma-awards-title" id="awards-heading">Awards</h2>
+          <div class="figma-awards-table" role="table" aria-label="获奖列表">
+            <div class="figma-awards-row figma-awards-row--head" role="row">
+              <span role="columnheader">奖项</span>
+              <span role="columnheader">Award</span>
+              <span role="columnheader">地区</span>
+              <span role="columnheader">年份</span>
+            </div>
+            <div class="figma-awards-row" role="row">
+              <span role="cell">IF设计奖</span>
+              <span role="cell">IF Design Award</span>
+              <span role="cell">德国</span>
+              <span role="cell" class="figma-awards-year">2016</span>
+            </div>
+            <div class="figma-awards-row" role="row">
+              <span role="cell">红点设计奖</span>
+              <span role="cell">Red Dot Award</span>
+              <span role="cell">德国</span>
+              <span role="cell" class="figma-awards-year">2016</span>
+            </div>
+            <div class="figma-awards-row" role="row">
+              <span role="cell">德国国家设计奖</span>
+              <span role="cell">German Design Award</span>
+              <span role="cell">德国</span>
+              <span role="cell" class="figma-awards-year">2016</span>
+            </div>
+            <div class="figma-awards-row" role="row">
+              <span role="cell">优良设计奖</span>
+              <span role="cell">Good Design Award</span>
+              <span role="cell">日本</span>
+              <span role="cell" class="figma-awards-year">2015</span>
+            </div>
+            <div class="figma-awards-row" role="row">
+              <span role="cell">金点设计奖</span>
+              <span role="cell">Golden Pin Design Award</span>
+              <span role="cell">中国台湾</span>
+              <span role="cell" class="figma-awards-year">2015</span>
+            </div>
+          </div>
+        </section>
+
+        <footer class="figma-footer" id="contact-footer" aria-labelledby="contact-footer-heading">
+          <h2 class="figma-footer-heading" id="contact-footer-heading">Contact me</h2>
+          <div class="figma-footer-band">
+            <div class="figma-footer-grid">
+              <div class="figma-footer-block">
+                <p class="figma-footer-label">Contact me</p>
+                <p class="figma-footer-value">
+                  <a href="tel:+8615026605388">+86 150 2660 5388</a>
+                </p>
+              </div>
+              <div class="figma-footer-block">
+                <p class="figma-footer-label">Get in touch</p>
+                <p class="figma-footer-value">
+                  <a href="mailto:reachruan@163.com">reachruan@163.com</a>
+                </p>
+              </div>
+              <div class="figma-footer-block">
+                <p class="figma-footer-label">Follow me</p>
+                <ul class="figma-footer-links">
+                  <li>
+                    <a href="https://www.behance.net/" rel="noopener noreferrer" target="_blank">Behance</a>
+                  </li>
+                  <li>
+                    <a href="https://www.xiaohongshu.com/" rel="noopener noreferrer" target="_blank">Xiaohongshu</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </footer>
+      </main>
+    </div>
+
+    <script src="js/figma-nav.js" defer></script>
+  </body>
+</html>

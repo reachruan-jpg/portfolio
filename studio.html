@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="设计师作品集 — 品牌、界面与网页开发。用作品说话，用流程交付。"
+    />
+    <meta name="theme-color" content="#f8f8f8" />
+    <title>作品集 — 你的名字</title>
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/spline-embed.css" />
+    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.12.92/build/spline-viewer.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">跳到主要内容</a>
+
+    <header class="site-header site-header--obriy">
+        <div class="container obriy-header-inner">
+          <a class="obriy-logo" href="#top" aria-label="返回顶部">
+            <span class="obriy-logo-mark" aria-hidden="true">
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="5" y="5" width="22" height="22" rx="4" stroke="#1a1a1a" stroke-width="2" fill="none" />
+                <circle cx="16" cy="16" r="5" fill="#1a1a1a" />
+                <circle cx="16" cy="16" r="1.75" fill="#f8f8f8" />
+              </svg>
+            </span>
+            <span class="obriy-logo-text">STUDIO</span>
+          </a>
+
+          <button
+            type="button"
+            class="nav-toggle nav-toggle--obriy"
+            aria-expanded="false"
+            aria-controls="site-nav"
+            aria-label="打开菜单"
+          >
+            <span class="nav-toggle-bar" aria-hidden="true"></span>
+            <span class="nav-toggle-bar" aria-hidden="true"></span>
+            <span class="nav-toggle-bar" aria-hidden="true"></span>
+          </button>
+
+          <nav class="site-nav site-nav--obriy" id="site-nav" aria-label="主导航">
+            <div class="nav-pill">
+              <ul class="nav-pill-list">
+                <li>
+                  <a class="nav-pill-link is-active" href="#top" aria-current="page">Home</a>
+                </li>
+                <li><a class="nav-pill-link" href="#works">Works</a></li>
+                <li class="nav-pill-item has-sub">
+                  <a class="nav-pill-link nav-pill-link--sub" href="#skills">
+                    Services
+                    <svg class="nav-chevron" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true">
+                      <path
+                        d="M3 4.5L6 7.5L9 4.5"
+                        stroke="currentColor"
+                        stroke-width="1.5"
+                        fill="none"
+                        stroke-linecap="round"
+                      />
+                    </svg>
+                  </a>
+                  <ul class="nav-sub" role="list">
+                    <li><a href="#skills">Web Design</a></li>
+                    <li><a href="#skills">App Design</a></li>
+                    <li><a href="#skills">Branding</a></li>
+                    <li><a href="#skills">Development</a></li>
+                  </ul>
+                </li>
+                <li><a class="nav-pill-link" href="#contact">Blog</a></li>
+                <li class="nav-pill-cta-mobile">
+                  <a class="obriy-header-cta obriy-header-cta--mobile" href="#contact">Book a call</a>
+                </li>
+              </ul>
+            </div>
+          </nav>
+
+          <a class="obriy-header-cta obriy-header-cta--desktop" href="#contact">
+            <span>Book a call</span>
+            <svg class="obriy-cta-icon" width="20" height="20" viewBox="0 0 20 20" aria-hidden="true">
+              <path
+                d="M10 2l1.2 3.6h3.8l-3 2.4 1.1 3.6L10 11l-3.1 2.6 1.1-3.6-3-2.4h3.8L10 2z"
+                fill="currentColor"
+              />
+              <path d="M14 8h5M15.5 6.5L17 8l-1.5 1.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" />
+            </svg>
+          </a>
+        </div>
+      </header>
+
+    <div class="obriy-first-screen" id="top">
+      <section class="hero-obriy" aria-labelledby="hero-title">
+        <div class="hero-obriy-glow" aria-hidden="true"></div>
+        <div class="container hero-obriy-inner">
+          <div class="hero-obriy-copy">
+            <h1 class="hero-obriy-title" id="hero-title">
+              <span class="hero-obriy-line">Your reliable</span>
+              <span class="hero-obriy-line hero-obriy-line--accent">
+                <span class="hero-obriy-accent-text">br</span>
+                <span class="hero-obriy-accent-bar" aria-hidden="true"></span>
+              </span>
+              <span class="hero-obriy-line">design partner</span>
+            </h1>
+          </div>
+          <div class="hero-obriy-visual">
+            <div class="hero-obriy-spline-wrap">
+              <spline-viewer
+                url="https://prod.spline.design/cRs-lhKBbazvvZdv/scene.splinecode"
+                background="#f8f8f8"
+                loading="eager"
+              ></spline-viewer>
+            </div>
+            <img
+              class="hero-obriy-fallback"
+              src="assets/figma/hero-star-right.png"
+              width="520"
+              height="520"
+              alt=""
+              decoding="async"
+            />
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <main id="main">
+
+      <section class="skills section reveal" id="skills" aria-labelledby="skills-title">
+        <div class="container">
+          <header class="section-head">
+            <h2 class="section-title" id="skills-title">我能为你做什么</h2>
+            <p class="section-desc">
+              从策略沟通到上线协作，可按项目阶段组合服务。
+            </p>
+          </header>
+          <ul class="card-grid card-grid--skills">
+            <li class="card skill-card">
+              <span class="card-icon" aria-hidden="true">◇</span>
+              <h3 class="card-title">界面与体验</h3>
+              <p class="card-text">
+                信息架构、线框与高保真界面，注重可用性与品牌一致性。
+              </p>
+            </li>
+            <li class="card skill-card">
+              <span class="card-icon" aria-hidden="true">◎</span>
+              <h3 class="card-title">网页实现</h3>
+              <p class="card-text">
+                语义化 HTML、响应式布局与性能友好的静态或组件化页面。
+              </p>
+            </li>
+            <li class="card skill-card">
+              <span class="card-icon" aria-hidden="true">◆</span>
+              <h3 class="card-title">品牌与视觉</h3>
+              <p class="card-text">
+                Logo、色彩与字体规范，让线上线下触点统一、好延展。
+              </p>
+            </li>
+            <li class="card skill-card">
+              <span class="card-icon" aria-hidden="true">▸</span>
+              <h3 class="card-title">协作与交付</h3>
+              <p class="card-text">
+                清晰里程碑、源文件与说明文档，方便你与开发继续迭代。
+              </p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="works section reveal" id="works" aria-labelledby="works-title">
+        <div class="container">
+          <header class="section-head">
+            <h2 class="section-title" id="works-title">精选作品</h2>
+            <p class="section-desc">以下为示例项目，请替换为你的真实案例与链接。</p>
+          </header>
+          <ul class="works-grid">
+            <li>
+              <article class="work-card">
+                <a class="work-card-link" href="#" aria-label="查看项目：云记账 SaaS 控制台">
+                  <div class="work-card-media">
+                    <img
+                      src="assets/images/work-01.svg"
+                      alt=""
+                      width="800"
+                      height="450"
+                      loading="lazy"
+                    />
+                    <span class="work-card-tag">Web · SaaS</span>
+                  </div>
+                  <div class="work-card-body">
+                    <h3 class="work-card-title">云记账控制台</h3>
+                    <p class="work-card-meta">B 端后台 · 数据密集型界面</p>
+                  </div>
+                </a>
+              </article>
+            </li>
+            <li>
+              <article class="work-card">
+                <a class="work-card-link" href="#" aria-label="查看项目：生活方式品牌站">
+                  <div class="work-card-media">
+                    <img
+                      src="assets/images/work-02.svg"
+                      alt=""
+                      width="800"
+                      height="450"
+                      loading="lazy"
+                    />
+                    <span class="work-card-tag">品牌官网</span>
+                  </div>
+                  <div class="work-card-body">
+                    <h3 class="work-card-title">生活方式品牌站</h3>
+                    <p class="work-card-meta">单页叙事 · 动效克制</p>
+                  </div>
+                </a>
+              </article>
+            </li>
+            <li>
+              <article class="work-card">
+                <a class="work-card-link" href="#" aria-label="查看项目：移动应用概念稿">
+                  <div class="work-card-media">
+                    <img
+                      src="assets/images/work-03.svg"
+                      alt=""
+                      width="800"
+                      height="450"
+                      loading="lazy"
+                    />
+                    <span class="work-card-tag">App · 概念</span>
+                  </div>
+                  <div class="work-card-body">
+                    <h3 class="work-card-title">健康追踪应用</h3>
+                    <p class="work-card-meta">移动端 · 设计系统探索</p>
+                  </div>
+                </a>
+              </article>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="process section reveal" id="process" aria-labelledby="process-title">
+        <div class="container">
+          <header class="section-head">
+            <h2 class="section-title" id="process-title">协作流程</h2>
+            <p class="section-desc">节奏透明，每个阶段目标清晰，减少来回猜测。</p>
+          </header>
+          <ol class="process-steps">
+            <li class="process-step">
+              <span class="process-step-num" aria-hidden="true">01</span>
+              <h3 class="process-step-title">沟通与对齐</h3>
+              <p>了解目标用户、成功指标与时间节点，确认交付范围。</p>
+            </li>
+            <li class="process-step">
+              <span class="process-step-num" aria-hidden="true">02</span>
+              <h3 class="process-step-title">方案与估算</h3>
+              <p>给出方向稿或结构草案，并附阶段划分与粗略工时。</p>
+            </li>
+            <li class="process-step">
+              <span class="process-step-num" aria-hidden="true">03</span>
+              <h3 class="process-step-title">设计深化</h3>
+              <p>迭代界面与组件，同步标注与资源，便于开发接手。</p>
+            </li>
+            <li class="process-step">
+              <span class="process-step-num" aria-hidden="true">04</span>
+              <h3 class="process-step-title">交付与复盘</h3>
+              <p>打包源文件、说明文档，并根据反馈做小步优化。</p>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <section class="stats section reveal" id="about" aria-labelledby="stats-title">
+        <div class="container">
+          <header class="section-head section-head--inline">
+            <h2 class="section-title" id="stats-title">一些数字</h2>
+            <p class="section-desc">
+              可按实际情况修改；避免填写无法核实的「奖项」表述。
+            </p>
+          </header>
+          <ul class="stats-grid">
+            <li class="stat-item">
+              <span class="stat-value">12+</span>
+              <span class="stat-label">完整项目</span>
+            </li>
+            <li class="stat-item">
+              <span class="stat-value">5</span>
+              <span class="stat-label">年相关经验</span>
+            </li>
+            <li class="stat-item">
+              <span class="stat-value">Figma</span>
+              <span class="stat-label">主要设计工具</span>
+            </li>
+            <li class="stat-item">
+              <span class="stat-value">中文 / EN</span>
+              <span class="stat-label">沟通语言</span>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="contact section reveal" id="contact" aria-labelledby="contact-title">
+        <div class="container contact-grid">
+          <div class="contact-intro">
+            <h2 class="section-title" id="contact-title">有项目想聊？</h2>
+            <p class="section-desc">
+              简单介绍下背景与期望完成时间，我会在几个工作日内回复。以下表单为前端演示，提交后不会发送到服务器；你可改为
+              <code>mailto:</code> 或托管表单服务。
+            </p>
+            <p class="contact-direct">
+              <span class="contact-label">直接邮件</span>
+              <a href="mailto:hello@example.com">hello@example.com</a>
+            </p>
+          </div>
+          <form class="contact-form" id="contact-form" action="#" method="get" novalidate>
+            <div class="form-row">
+              <label for="name">称呼</label>
+              <input id="name" name="name" type="text" autocomplete="name" required />
+            </div>
+            <div class="form-row">
+              <label for="email">邮箱</label>
+              <input id="email" name="email" type="email" autocomplete="email" required />
+            </div>
+            <div class="form-row">
+              <label for="message">项目简述</label>
+              <textarea id="message" name="message" rows="5" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">发送（演示）</button>
+            <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <p class="footer-copy">© <span id="year"></span> 你的名字 · 保留所有权利</p>
+        <ul class="footer-social" aria-label="社交媒体">
+          <li>
+            <a href="https://github.com/" rel="noopener noreferrer" target="_blank">GitHub</a>
+          </li>
+          <li>
+            <a href="https://www.behance.net/" rel="noopener noreferrer" target="_blank">Behance</a>
+          </li>
+          <li>
+            <a href="https://www.linkedin.com/" rel="noopener noreferrer" target="_blank">LinkedIn</a>
+          </li>
+        </ul>
+        <a class="footer-top" href="#top">返回顶部</a>
+      </div>
+    </footer>
+
+    <script src="js/spline-parallax.js" defer></script>
+    <script src="js/main.js" defer></script>
+  </body>
+</html>
