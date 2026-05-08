@@ -3,8 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#0b0b0b" />
+    <meta name="theme-color" content="#000000" />
     <title>哈哈哈 — Portfolio</title>
+    <link rel="preconnect" href="https://d8j0ntlcm91z4.cloudfront.net" crossorigin />
     <link rel="stylesheet" href="css/figma.css" />
   </head>
   <body>
@@ -33,9 +34,9 @@
           <nav class="figma-nav-pill" aria-label="主导航">
             <a class="figma-nav-link figma-nav-link--active" href="#hero">Home</a>
             <a class="figma-nav-link" href="#portfolio-masonry">Works</a>
-            <a class="figma-nav-link" href="#what-we-provide">about</a>
+            <a class="figma-nav-link" href="#experience">about</a>
           </nav>
-          <a class="figma-book" href="#contact-footer">Contact me</a>
+          <a class="figma-book" href="#contact-footer">Contact</a>
         </div>
       </header>
 
@@ -50,9 +51,9 @@
           <nav class="figma-nav-sheet-nav" aria-label="主导航">
             <a class="figma-nav-link figma-nav-sheet-link" href="#hero">Home</a>
             <a class="figma-nav-link figma-nav-sheet-link" href="#portfolio-masonry">Works</a>
-            <a class="figma-nav-link figma-nav-sheet-link" href="#what-we-provide">about</a>
+            <a class="figma-nav-link figma-nav-sheet-link" href="#experience">about</a>
           </nav>
-          <a class="figma-book figma-book--sheet" href="#contact-footer">Contact me</a>
+          <a class="figma-book figma-book--sheet" href="#contact-footer">Contact</a>
         </div>
       </div>
 
@@ -65,7 +66,7 @@
               muted
               loop
               playsinline
-              preload="auto"
+              preload="metadata"
               disablepictureinpicture
               disableremoteplayback
             >
@@ -85,27 +86,151 @@
             />
           </div>
           <div class="figma-hero-inner">
-            <div class="figma-hero-copy">
-              <h1 class="figma-hero-title" id="hero-title">
-                <span class="figma-hero-line">Make</span>
-                <span class="figma-hero-line figma-hero-line--mid">
-                  complexity
-                  <span class="figma-hero-underline" aria-hidden="true"></span>
+            <div class="figma-hero-top">
+              <p class="figma-hero-greeting">
+                <span class="figma-hero-greeting-icon" aria-hidden="true">
+                  <img src="assets/figma/kicker-star.png" alt="" width="36" height="36" decoding="async" />
                 </span>
-                <span class="figma-hero-line">feel simple</span>
+                Hey! It’s me Reach,
+              </p>
+              <h1 class="figma-hero-title" id="hero-title">
+                <span class="figma-hero-title-line">Crafting <span class="figma-hero-accent">purpose</span></span>
+                <span class="figma-hero-title-line figma-hero-accent">driven experiences</span>
+                <span class="figma-hero-title-line">that inspire &amp;</span>
+                <span class="figma-hero-title-line">engage.</span>
               </h1>
+            </div>
+            <div class="figma-hero-footer">
+              <div class="figma-hero-rule-wrap">
+                <hr class="figma-hero-rule" />
+              </div>
+              <p class="figma-hero-lede">
+                I work with brands globally to build pixel-perfect, engaging, and accessible digital experiences that drive
+                results and achieve business goals.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section class="figma-experience" id="experience" aria-labelledby="experience-heading">
+          <div class="figma-exp-grid">
+            <div class="figma-exp-intro">
+              <p class="figma-section-kicker">
+                <span class="figma-section-kicker-star" aria-hidden="true">
+                  <img src="assets/figma/kicker-star.png" alt="" width="36" height="36" decoding="async" />
+                </span>
+                Work history
+              </p>
+              <h2 class="figma-exp-title" id="experience-heading">Experience</h2>
+              <p class="figma-exp-lede">
+                Product and brand design across education, travel e‑commerce, retail marketing, and studio practice — tap a role for highlights.
+              </p>
+            </div>
+            <div class="figma-exp-panel">
+              <ul class="figma-exp-list">
+                <li class="figma-exp-item">
+                  <details class="figma-exp-details">
+                    <summary class="figma-exp-summary">
+                      <span class="figma-exp-summary-main">
+                        <span class="figma-exp-summary-row">
+                          <span class="figma-exp-company">ClassIn</span>
+                          <time class="figma-exp-dates">Aug 2023 — Present</time>
+                        </span>
+                        <span class="figma-exp-role">Product Designer</span>
+                      </span>
+                      <span class="figma-exp-chevron" aria-hidden="true"></span>
+                    </summary>
+                    <div class="figma-exp-body">
+                      <p>
+                        Led the ClassIn 6.0 redesign. Drove execution through unified multi‑terminal page frameworks, tighter core flows, and a refined design language — lifting class penetration by 27%.
+                      </p>
+                    </div>
+                  </details>
+                </li>
+                <li class="figma-exp-item">
+                  <details class="figma-exp-details">
+                    <summary class="figma-exp-summary">
+                      <span class="figma-exp-summary-main">
+                        <span class="figma-exp-summary-row">
+                          <span class="figma-exp-company">Meituan</span>
+                          <time class="figma-exp-dates">May 2021 — Jul 2023</time>
+                        </span>
+                        <span class="figma-exp-role">Product Designer</span>
+                      </span>
+                      <span class="figma-exp-chevron" aria-hidden="true"></span>
+                    </summary>
+                    <div class="figma-exp-body">
+                      <p>
+                        Contributed to Meituan's accommodation platform visual refresh. Shipped the homepage, merchant detail, and related surfaces with clearer hierarchy for marketing content — user perception rose about 20% after launch.
+                      </p>
+                    </div>
+                  </details>
+                </li>
+                <li class="figma-exp-item">
+                  <details class="figma-exp-details">
+                    <summary class="figma-exp-summary">
+                      <span class="figma-exp-summary-main">
+                        <span class="figma-exp-summary-row">
+                          <span class="figma-exp-company">eleme</span>
+                          <time class="figma-exp-dates">Jun 2017 — Jan 2021</time>
+                        </span>
+                        <span class="figma-exp-role">Brand Marketing Designer</span>
+                      </span>
+                      <span class="figma-exp-chevron" aria-hidden="true"></span>
+                    </summary>
+                    <div class="figma-exp-body">
+                      <p>
+                        Owned brand assets and campaign design — from VI guidelines and IP imagery through nationwide online and offline rollout — keeping communications consistent to grow recognition.
+                      </p>
+                    </div>
+                  </details>
+                </li>
+                <li class="figma-exp-item">
+                  <details class="figma-exp-details">
+                    <summary class="figma-exp-summary">
+                      <span class="figma-exp-summary-main">
+                        <span class="figma-exp-summary-row">
+                          <span class="figma-exp-company">Rongdesign</span>
+                          <time class="figma-exp-dates">Oct 2012 — Aug 2016</time>
+                        </span>
+                        <span class="figma-exp-role">Brand Designer</span>
+                      </span>
+                      <span class="figma-exp-chevron" aria-hidden="true"></span>
+                    </summary>
+                    <div class="figma-exp-body">
+                      <p>
+                        Corporate identity, VI systems, packaging, and supporting brand work — projects recognized by multiple international design awards.
+                      </p>
+                    </div>
+                  </details>
+                </li>
+              </ul>
             </div>
           </div>
         </section>
 
         <section class="figma-projects" aria-labelledby="projects-label">
-          <div class="figma-projects-intro" id="projects-label">
-            <span class="figma-projects-intro-muted">latest</span>
-            <span class="figma-projects-intro-strong">projects</span>
-          </div>
+          <header class="figma-projects-head">
+            <p class="figma-block-kicker">
+              <span class="figma-block-kicker-icon" aria-hidden="true">
+                <img src="assets/figma/kicker-star.png" alt="" width="36" height="36" decoding="async" />
+              </span>
+              My work
+            </p>
+            <h2 class="figma-projects-title" id="projects-label">
+              <span class="figma-projects-title-line">Product &amp;</span>
+              <span class="figma-projects-title-line">Brand Design</span>
+            </h2>
+          </header>
 
           <div class="figma-portfolio-masonry" id="portfolio-masonry">
-            <!-- 组 1：左 1（高） · 右 2（矮） -->
+            <!--
+              固定排序（每组一行 .figma-masonry-row）：
+              · 奇数组（第 1、3、5… 行）：左列 1 张 · 右列 2 张（左常为高卡，右为两张矮卡）
+              · 偶数组（第 2、4、6… 行）：左列 2 张 · 右列 1 张（左为两张矮卡，右常为高卡）
+              一行只剩一张短卡时：用「左栈卡片 + 右栈留空」保持与其它矮卡相同的半幅宽度；勿用 .figma-masonry-row--single（会把叠层拉成全屏宽，矮卡显得过大）。
+            -->
+            <!-- 组 1（奇数）：左 1 · 右 2 -->
             <div class="figma-masonry-row">
               <div class="figma-masonry-stack">
                 <a class="figma-masonry-card figma-masonry-card--tall" href="projects/strike.html">
@@ -130,36 +255,36 @@
                 </a>
               </div>
             </div>
-            <!-- 组 2：左 2（矮） · 右 1（高） -->
+            <!-- 组 2（偶数）：左 2 · 右 1 — 周大侠 / BAE 左，饿了么 右高 -->
             <div class="figma-masonry-row">
               <div class="figma-masonry-stack">
-                <a class="figma-masonry-card figma-masonry-card--short" href="projects/elem.html">
-                  <img src="assets/projects/elem/51.jpg" alt="" width="696" height="427" loading="lazy" decoding="async" />
+                <a class="figma-masonry-card figma-masonry-card--short" href="projects/zhouxiaxia.html">
+                  <img src="assets/projects/周大侠/62.jpg" alt="" width="696" height="427" loading="lazy" decoding="async" />
                   <span class="figma-masonry-cap">
-                    <span class="figma-masonry-kicker">饿了么设计品牌升级</span>
+                    <span class="figma-masonry-kicker">周大侠</span>
                   </span>
                 </a>
-                <a class="figma-masonry-card figma-masonry-card--short" href="projects/bae.html">
-                  <img src="assets/projects/bae/66.jpg" alt="" width="696" height="427" loading="lazy" decoding="async" />
+                <a class="figma-masonry-card figma-masonry-card--short figma-masonry-card--bae-cover" href="projects/bae.html">
+                  <img src="assets/projects/bae/cover.png" alt="BAE project logo" width="1024" height="659" loading="lazy" decoding="async" />
                   <span class="figma-masonry-cap">
                     <span class="figma-masonry-kicker">BAE</span>
                   </span>
                 </a>
               </div>
               <div class="figma-masonry-stack">
-                <a class="figma-masonry-card figma-masonry-card--tall" href="projects/zhouxiaxia.html">
-                  <img src="assets/projects/周大侠/62.jpg" alt="" width="696" height="874" loading="lazy" decoding="async" />
+                <a class="figma-masonry-card figma-masonry-card--tall" href="projects/elem.html">
+                  <img src="assets/projects/elem/51.jpg" alt="" width="696" height="874" loading="lazy" decoding="async" />
                   <span class="figma-masonry-cap">
-                    <span class="figma-masonry-kicker">周大侠</span>
+                    <span class="figma-masonry-kicker">饿了么设计品牌升级</span>
                   </span>
                 </a>
               </div>
             </div>
-            <!-- 组 3：左 1 · 右 1（矮卡） -->
+            <!-- 组 3（奇数）：左 1 · 右 2 -->
             <div class="figma-masonry-row">
               <div class="figma-masonry-stack">
-                <a class="figma-masonry-card figma-masonry-card--short" href="projects/exiaobao.html">
-                  <img src="assets/projects/饿小宝/cover.png" alt="" width="696" height="427" loading="lazy" decoding="async" />
+                <a class="figma-masonry-card figma-masonry-card--tall" href="projects/exiaobao.html">
+                  <img src="assets/projects/饿小宝/34.jpg" alt="" width="1920" height="1080" loading="lazy" decoding="async" />
                   <span class="figma-masonry-cap">
                     <span class="figma-masonry-kicker">饿小宝IP形象设计</span>
                   </span>
@@ -172,121 +297,226 @@
                     <span class="figma-masonry-kicker">Pin</span>
                   </span>
                 </a>
+                <a class="figma-masonry-card figma-masonry-card--short" href="projects/eleme-star-marketing.html">
+                  <img src="assets/projects/饿了么明星营销/13.jpg" alt="" width="696" height="427" loading="lazy" decoding="async" />
+                  <span class="figma-masonry-cap">
+                    <span class="figma-masonry-kicker">饿了么明星营销</span>
+                  </span>
+                </a>
               </div>
+            </div>
+            <!-- 组 4（偶数）：仅一张矮卡；右栈留空以保持与其它 short 卡相同的列宽 -->
+            <div class="figma-masonry-row">
+              <div class="figma-masonry-stack">
+                <a class="figma-masonry-card figma-masonry-card--short" href="projects/exiaobao-2.html">
+                  <img src="assets/projects/饿小宝2.0/45-1.jpg" alt="" width="3840" height="2716" loading="lazy" decoding="async" />
+                  <span class="figma-masonry-cap">
+                    <span class="figma-masonry-kicker">饿小宝 2.0</span>
+                  </span>
+                </a>
+              </div>
+              <div class="figma-masonry-stack" aria-hidden="true"></div>
             </div>
           </div>
         </section>
 
-        <section class="figma-services" id="what-we-provide" aria-labelledby="services-heading">
-          <div class="figma-services-intro">
-            <h2 class="figma-services-heading" id="services-heading">
-              <span class="figma-services-line">My abilities</span>
-            </h2>
+        <section class="figma-process" id="design-process" aria-labelledby="process-heading">
+          <div class="figma-process-head">
+            <p class="figma-section-kicker">
+              <span class="figma-section-kicker-star" aria-hidden="true">
+                <img src="assets/figma/kicker-star.png" alt="" width="36" height="36" decoding="async" />
+              </span>
+              Steps I follow
+            </p>
+            <h2 class="figma-process-title" id="process-heading">My Design Process</h2>
+            <p class="figma-process-lede">
+              I have worked with some of the most innovative industry leaders to help build their top-notch products.
+            </p>
           </div>
-          <div class="figma-services-columns">
-            <div class="figma-services-column">
-              <div class="figma-services-column-head">
-                <span class="figma-services-icon" aria-hidden="true">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <path d="M4 7a2 2 0 012-2h12a2 2 0 012 2v9a2 2 0 01-2 2H6a2 2 0 01-2-2V7z" stroke="currentColor" stroke-width="2" />
-                    <path d="M8 21h8M12 17v4" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          <div
+            class="figma-process-scroll"
+            tabindex="0"
+            role="region"
+            aria-label="Design process steps — swipe or scroll sideways"
+          >
+            <div class="figma-process-cards">
+              <article class="figma-process-card">
+                <div class="figma-process-icon" aria-hidden="true">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.75" />
+                    <path d="M16 16l4.5 4.5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" />
                   </svg>
-                </span>
-                <h3 class="figma-services-column-title">Web design</h3>
-              </div>
-              <div class="figma-services-pills">
-                <span class="figma-service-pill figma-service-pill--outline">E-commerce</span>
-                <span class="figma-service-pill figma-service-pill--outline">Promo</span>
-                <span class="figma-service-pill figma-service-pill--outline">Corporate</span>
-                <span class="figma-service-pill figma-service-pill--outline">One-pager</span>
-              </div>
-            </div>
-            <div class="figma-services-column">
-              <div class="figma-services-column-head">
-                <span class="figma-services-icon" aria-hidden="true">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <rect x="7" y="3" width="10" height="18" rx="2.5" stroke="currentColor" stroke-width="2" />
-                    <path d="M10 18.5h4" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                </div>
+                <h3 class="figma-process-card-title">01. Discovery</h3>
+                <p class="figma-process-card-body">
+                  Clarify goals, audience, and constraints up front — research and alignment before the first pixel.
+                </p>
+              </article>
+              <article class="figma-process-card">
+                <div class="figma-process-icon" aria-hidden="true">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L7.5 21.036 3 21l.964-4.5L15.232 5.232z"
+                      stroke="currentColor"
+                      stroke-width="1.75"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
                   </svg>
-                </span>
-                <h3 class="figma-services-column-title">App design</h3>
-              </div>
-              <div class="figma-services-pills">
-                <span class="figma-service-pill figma-service-pill--outline">UX/UI</span>
-                <span class="figma-service-pill figma-service-pill--outline">Mobile app</span>
-                <span class="figma-service-pill figma-service-pill--outline">Web app</span>
-                <span class="figma-service-pill figma-service-pill--outline">Product</span>
-              </div>
-            </div>
-            <div class="figma-services-column">
-              <div class="figma-services-column-head">
-                <span class="figma-services-icon" aria-hidden="true">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <rect x="4" y="5" width="16" height="14" rx="2" stroke="currentColor" stroke-width="2" />
-                    <circle cx="9" cy="10" r="1.5" fill="currentColor" />
-                    <path d="M4 17l4-4 3 3 5-6 4 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </div>
+                <h3 class="figma-process-card-title">02. Wireframe</h3>
+                <p class="figma-process-card-body">
+                  After hashing out the details of the website, it’s easy to throw the ideas onto pen &amp; paper.
+                </p>
+              </article>
+              <article class="figma-process-card">
+                <div class="figma-process-icon" aria-hidden="true">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 19.5A2.5 2.5 0 016.5 17H20" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" />
+                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z" stroke="currentColor" stroke-width="1.75" />
+                    <path d="M8 7h8M8 11h6" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" />
                   </svg>
-                </span>
-                <h3 class="figma-services-column-title">Branding</h3>
-              </div>
-              <div class="figma-services-pills">
-                <span class="figma-service-pill figma-service-pill--outline">Logo design</span>
-                <span class="figma-service-pill figma-service-pill--outline">Brandbook</span>
-                <span class="figma-service-pill figma-service-pill--outline">Brand identity</span>
-                <span class="figma-service-pill figma-service-pill--outline">Rebranding</span>
-              </div>
+                </div>
+                <h3 class="figma-process-card-title">03. Design</h3>
+                <p class="figma-process-card-body">
+                  The most fun part of all — adding pizzaz to the wireframes and bring it to life.
+                </p>
+              </article>
+              <article class="figma-process-card">
+                <div class="figma-process-icon" aria-hidden="true">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M16 18l6-6-6-6M8 6l-6 6 6 6"
+                      stroke="currentColor"
+                      stroke-width="1.75"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </div>
+                <h3 class="figma-process-card-title">04. Development</h3>
+                <p class="figma-process-card-body">
+                  The design may be final but it needs to be functional and practical. Development is key.
+                </p>
+              </article>
+              <article class="figma-process-card">
+                <div class="figma-process-icon" aria-hidden="true">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"
+                      stroke="currentColor"
+                      stroke-width="1.75"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </div>
+                <h3 class="figma-process-card-title">05. Quality Assurance</h3>
+                <p class="figma-process-card-body">
+                  Website load times, SEO, file optimization, etc., weigh in to the quality of the site.
+                </p>
+              </article>
             </div>
           </div>
         </section>
 
         <section class="figma-awards" aria-labelledby="awards-heading">
-          <h2 class="figma-awards-title" id="awards-heading">Awards</h2>
-          <div class="figma-awards-table" role="table" aria-label="获奖列表">
-            <div class="figma-awards-row figma-awards-row--head" role="row">
-              <span role="columnheader">奖项</span>
-              <span role="columnheader">Award</span>
-              <span role="columnheader">地区</span>
-              <span role="columnheader">年份</span>
+          <div class="figma-exp-grid">
+            <div class="figma-exp-intro">
+              <p class="figma-section-kicker">
+                <span class="figma-section-kicker-star" aria-hidden="true">
+                  <img src="assets/figma/kicker-star.png" alt="" width="36" height="36" decoding="async" />
+                </span>
+                Honors
+              </p>
+              <h2 class="figma-exp-title" id="awards-heading">
+                <span class="figma-exp-title-line figma-exp-title-line--awards">Awards &amp;</span>
+                <span class="figma-exp-title-line figma-exp-title-line--awards">Recognition</span>
+              </h2>
+              <p class="figma-exp-lede">
+                Selected international honors across product, brand, and communication design.
+              </p>
             </div>
-            <div class="figma-awards-row" role="row">
-              <span role="cell">IF设计奖</span>
-              <span role="cell">IF Design Award</span>
-              <span role="cell">德国</span>
-              <span role="cell" class="figma-awards-year">2016</span>
-            </div>
-            <div class="figma-awards-row" role="row">
-              <span role="cell">红点设计奖</span>
-              <span role="cell">Red Dot Award</span>
-              <span role="cell">德国</span>
-              <span role="cell" class="figma-awards-year">2016</span>
-            </div>
-            <div class="figma-awards-row" role="row">
-              <span role="cell">德国国家设计奖</span>
-              <span role="cell">German Design Award</span>
-              <span role="cell">德国</span>
-              <span role="cell" class="figma-awards-year">2016</span>
-            </div>
-            <div class="figma-awards-row" role="row">
-              <span role="cell">优良设计奖</span>
-              <span role="cell">Good Design Award</span>
-              <span role="cell">日本</span>
-              <span role="cell" class="figma-awards-year">2015</span>
-            </div>
-            <div class="figma-awards-row" role="row">
-              <span role="cell">金点设计奖</span>
-              <span role="cell">Golden Pin Design Award</span>
-              <span role="cell">中国台湾</span>
-              <span role="cell" class="figma-awards-year">2015</span>
+            <div class="figma-exp-panel">
+              <ul class="figma-exp-list figma-awards-list" aria-label="Award list">
+                <li class="figma-exp-item">
+                  <div class="figma-awards-entry">
+                    <div class="figma-exp-summary-main">
+                      <span class="figma-exp-summary-row">
+                        <span class="figma-exp-company">IF设计奖</span>
+                        <time class="figma-exp-dates">2016</time>
+                      </span>
+                      <span class="figma-exp-role">IF Design Award · Germany</span>
+                    </div>
+                  </div>
+                </li>
+                <li class="figma-exp-item">
+                  <div class="figma-awards-entry">
+                    <div class="figma-exp-summary-main">
+                      <span class="figma-exp-summary-row">
+                        <span class="figma-exp-company">红点设计奖</span>
+                        <time class="figma-exp-dates">2016</time>
+                      </span>
+                      <span class="figma-exp-role">Red Dot Award · Germany</span>
+                    </div>
+                  </div>
+                </li>
+                <li class="figma-exp-item">
+                  <div class="figma-awards-entry">
+                    <div class="figma-exp-summary-main">
+                      <span class="figma-exp-summary-row">
+                        <span class="figma-exp-company">德国国家设计奖</span>
+                        <time class="figma-exp-dates">2016</time>
+                      </span>
+                      <span class="figma-exp-role">German Design Award · Germany</span>
+                    </div>
+                  </div>
+                </li>
+                <li class="figma-exp-item">
+                  <div class="figma-awards-entry">
+                    <div class="figma-exp-summary-main">
+                      <span class="figma-exp-summary-row">
+                        <span class="figma-exp-company">优良设计奖</span>
+                        <time class="figma-exp-dates">2015</time>
+                      </span>
+                      <span class="figma-exp-role">Good Design Award · Japan</span>
+                    </div>
+                  </div>
+                </li>
+                <li class="figma-exp-item">
+                  <div class="figma-awards-entry">
+                    <div class="figma-exp-summary-main">
+                      <span class="figma-exp-summary-row">
+                        <span class="figma-exp-company">金点设计奖</span>
+                        <time class="figma-exp-dates">2015</time>
+                      </span>
+                      <span class="figma-exp-role">Golden Pin Design Award · Taiwan</span>
+                    </div>
+                  </div>
+                </li>
+              </ul>
             </div>
           </div>
         </section>
 
         <footer class="figma-footer" id="contact-footer" aria-labelledby="contact-footer-heading">
-          <h2 class="figma-footer-heading" id="contact-footer-heading">Contact me</h2>
+          <header class="figma-footer-head">
+            <p class="figma-block-kicker">
+              <span class="figma-block-kicker-icon" aria-hidden="true">
+                <img src="assets/figma/kicker-star.png" alt="" width="36" height="36" decoding="async" />
+              </span>
+              Connect with me
+            </p>
+            <h2 class="figma-footer-heading" id="contact-footer-heading">
+              <span class="figma-footer-heading-line">Let's start a</span>
+              <span class="figma-footer-heading-line">project together</span>
+            </h2>
+          </header>
           <div class="figma-footer-band">
             <div class="figma-footer-grid">
               <div class="figma-footer-block">
-                <p class="figma-footer-label">Contact me</p>
+                <p class="figma-footer-label">Contact</p>
                 <p class="figma-footer-value">
                   <a href="tel:+8615026605388">+86 150 2660 5388</a>
                 </p>

@@ -3,7 +3,7 @@
   var overlay = document.getElementById("figma-nav-overlay");
   var toggle = document.getElementById("figma-nav-toggle");
   var links = document.querySelectorAll("a.figma-nav-link");
-  var sectionIds = ["hero", "portfolio-masonry", "what-we-provide"];
+  var sectionIds = ["hero", "experience", "portfolio-masonry"];
   var desktopMq = window.matchMedia("(min-width: 721px)");
 
   /** 点击锚点导航后短暂锁定高亮为「即将滚到的区块」，避免 scroll 同步仍判为上一段而造成闪烁 */
@@ -170,7 +170,7 @@
       setActiveLink("#hero");
       return;
     }
-    if (["#hero", "#portfolio-masonry", "#what-we-provide"].indexOf(h) !== -1) {
+    if (["#hero", "#experience", "#portfolio-masonry"].indexOf(h) !== -1) {
       setActiveLink(h);
     }
   });

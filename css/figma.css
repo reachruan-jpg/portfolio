@@ -3,7 +3,7 @@
 
 :root {
   color-scheme: dark;
-  --figma-bg: #0b0b0b;
+  --figma-bg: #000000;
   --figma-surface: #141414;
   --figma-surface-raised: #1a1a1a;
   --figma-text: #f2f2f2;
@@ -16,6 +16,8 @@
   --figma-gray-474747: #b5b5b5;
   --figma-lime-d2ff72: #c5ec6a;
   --figma-lime-77fb38: #72f038;
+  /* 首屏高亮绿（与参考稿一致） */
+  --figma-hero-accent: #b0ff61;
   --figma-white: #ffffff;
   --figma-nav-muted: #a3a3a3;
   --figma-card-outline: #2a2a2a;
@@ -45,8 +47,8 @@
   --figma-pill-font-weight: 500;
   --figma-services-rule: rgba(255, 255, 255, 0.14);
 
-  /* 主流程各模块之间的统一竖向间距（单一变量，避免上下 padding 叠加） */
-  --figma-section-y: clamp(56px, 10vw, 96px);
+  /* 主流程各模块之间的统一竖向间距（模块大标题上方留白；单一变量，避免上下 padding 叠加） */
+  --figma-section-y: 90px;
   /* 模块内部：分区标题 ↔ 主体内容 */
   --figma-section-inner-gap: clamp(28px, 5vw, 48px);
 
@@ -118,7 +120,7 @@ body {
   gap: calc(16px * var(--figma-nav-scale));
   padding: calc(16px * var(--figma-nav-scale)) var(--figma-pad-x);
   min-height: calc(63px * var(--figma-nav-scale));
-  background: rgba(11, 11, 11, 0.88);
+  background: rgba(0, 0, 0, 0.88);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--figma-border);
@@ -192,7 +194,8 @@ body {
   color: var(--figma-nav-muted);
 }
 
-.figma-nav-link[href*="what-we-provide"]:not(.figma-nav-link--active) {
+/* 仅顶栏深底胶囊内：about 用白字；白底抽屉内同选择器会看不到，故必须限制在 .figma-nav-pill */
+.figma-nav-pill .figma-nav-link[href*="experience"]:not(.figma-nav-link--active) {
   color: var(--figma-white);
 }
 
@@ -221,7 +224,7 @@ body {
   color: var(--figma-nav-muted);
 }
 
-.figma-nav-link[href*="what-we-provide"]:active:not(.figma-nav-link--active) {
+.figma-nav-pill .figma-nav-link[href*="experience"]:active:not(.figma-nav-link--active) {
   color: var(--figma-white);
 }
 
@@ -458,7 +461,7 @@ body.figma-nav-open {
   touch-action: none;
 }
 
-/* 首屏：全幅 MP4 背景 + 前景标题 */
+/* 首屏：全幅 MP4 + 晕影 + 参考稿式排版（问候左上、大标题左中、说明右下、底部分割线） */
 .figma-hero-main {
   position: relative;
   z-index: 2;
@@ -469,6 +472,7 @@ body.figma-nav-open {
   min-height: min(88vh, 900px);
   margin-bottom: var(--figma-section-y);
   overflow: hidden;
+  background: #000000;
 }
 
 .figma-hero-scene {
@@ -477,6 +481,7 @@ body.figma-nav-open {
   z-index: 0;
   background: #000000;
   overflow: hidden;
+  pointer-events: none;
 }
 
 .figma-hero-video {
@@ -514,78 +519,118 @@ body.figma-nav-open {
   max-width: var(--figma-artboard-w);
   margin: 0 auto;
   min-height: min(88vh, 900px);
-  padding: clamp(48px, 10vh, 120px) var(--figma-pad-x);
+  padding: clamp(72px, 11vh, 132px) var(--figma-pad-x) clamp(36px, 5vh, 64px);
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: clamp(40px, 7vh, 72px);
 }
 
-.figma-hero-copy {
-  max-width: min(720px, 100%);
-  padding: 0;
+.figma-hero-top {
   min-width: 0;
-  background: transparent;
-  border-radius: 0;
-  box-shadow: none;
+}
+
+.figma-hero-greeting {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 clamp(20px, 3.5vh, 40px);
+  font-family: var(--font-inter);
+  font-size: clamp(14px, 1.45vw, 16px);
+  font-weight: 400;
+  line-height: 1.4;
+  color: #ffffff;
+  text-shadow: 0 1px 24px rgba(0, 0, 0, 0.65);
+}
+
+.figma-hero-greeting-icon {
+  display: inline-flex;
+  flex-shrink: 0;
+}
+
+.figma-hero-greeting-icon img {
+  display: block;
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
 }
 
 .figma-hero-title {
   margin: 0;
   font-family: var(--font-inter);
-  font-weight: 500;
-  font-size: clamp(36px, 10vw, 115px);
-  line-height: 1.103;
-  letter-spacing: -0.022em;
+  font-weight: 700;
+  font-size: clamp(34px, 7.2vw, 104px);
+  line-height: 1.06;
+  letter-spacing: -0.028em;
   color: #ffffff;
   text-shadow: 0 2px 40px rgba(0, 0, 0, 0.55);
 }
 
-.figma-hero-line {
+.figma-hero-title-line {
   display: block;
 }
 
-/* 仅与「complexity」同宽，绿线左右与单词对齐 */
-.figma-hero-line--mid {
-  display: inline-block;
-  position: relative;
-  padding-bottom: 14px;
-  width: max-content;
-  max-width: 100%;
+.figma-hero-accent {
+  color: var(--figma-hero-accent);
 }
 
-.figma-hero-underline {
-  position: absolute;
-  left: 0;
-  bottom: 6px;
+.figma-hero-footer {
+  display: flex;
+  align-items: flex-end;
+  gap: clamp(20px, 3.5vw, 44px);
   width: 100%;
-  height: 9px;
-  background: var(--figma-lime-d2ff72);
-  border-radius: 2px;
+}
+
+.figma-hero-rule-wrap {
+  flex: 1;
+  min-width: 0;
+  padding-bottom: 0.35em;
+}
+
+.figma-hero-rule {
+  border: 0;
+  height: 1px;
+  margin: 0;
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.figma-hero-lede {
+  margin: 0;
+  max-width: min(420px, 42vw);
+  font-family: var(--font-inter);
+  font-size: clamp(13px, 1.35vw, 15px);
+  font-weight: 400;
+  line-height: 1.55;
+  letter-spacing: -0.01em;
+  color: #ffffff;
+  flex-shrink: 0;
+  text-shadow: 0 1px 20px rgba(0, 0, 0, 0.6);
 }
 
 .figma-projects {
   margin-bottom: var(--figma-section-y);
 }
 
-.figma-projects-intro {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 18px;
+.figma-projects-head {
   padding: 0 var(--figma-pad-x);
-  margin-bottom: var(--figma-section-inner-gap);
+  margin-bottom: clamp(28px, 4vw, 44px);
 }
 
-.figma-projects-intro-muted,
-.figma-projects-intro-strong {
-  font-family: var(--figma-section-title-ff);
-  font-weight: var(--figma-section-title-weight);
-  font-size: var(--figma-section-title-size);
-  line-height: var(--figma-section-title-lh);
-  letter-spacing: var(--figma-section-title-track);
-  color: var(--figma-section-title-color);
+.figma-projects-title {
+  margin: 0;
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: clamp(36px, 6vw, 64px);
+  line-height: 1.06;
+  letter-spacing: -0.03em;
+  color: #ffffff;
 }
 
-/* Portfolio masonry: alternating rows — (左1·右2) → (左2·右1) → … */
+.figma-projects-title-line {
+  display: block;
+}
+
+/* Portfolio masonry：奇数组（左 1 · 右 2）↔ 偶数组（左 2 · 右 1）交替；见 index.html */
 .figma-portfolio-masonry {
   display: flex;
   flex-direction: column;
@@ -598,6 +643,13 @@ body.figma-nav-open {
   flex-wrap: wrap;
   align-items: stretch;
   gap: var(--figma-masonry-gap);
+}
+
+/* 该行只有一叠卡片时拉满宽（否则会只占半屏） */
+.figma-masonry-row--single .figma-masonry-stack {
+  flex: 1 1 100%;
+  max-width: 100%;
+  min-width: 0;
 }
 
 .figma-masonry-stack {
@@ -634,6 +686,12 @@ body.figma-nav-open {
 /* 比例写在 img 上并保持文档流：避免窄屏 WebKit 下 flex 子项仅靠 aspect-ratio + 绝对定位图导致高度坍塌 */
 .figma-masonry-card--short img {
   aspect-ratio: 696 / 427;
+}
+
+/* BAE：竖版 Logo 封面，contain + 白底避免裁切 */
+.figma-masonry-card--bae-cover img {
+  object-fit: contain;
+  background: #fff;
 }
 
 .figma-masonry-card--tall img {
@@ -706,148 +764,17 @@ body.figma-nav-open {
   color: #ffffff;
 }
 
-/* What we provide — 左 ≈40% 标题左对齐 · 右 ≈60% 列表左对齐 · 顶对齐 */
-.figma-services {
-  display: grid;
-  grid-template-columns: minmax(280px, 6fr) minmax(0, 7fr);
-  gap: clamp(32px, 5vw, 72px);
-  align-items: start;
-  justify-items: stretch;
-  padding: var(--figma-section-y) var(--figma-pad-x);
-  margin-bottom: var(--figma-section-y);
+/* 首屏已有 margin-bottom，Experience 无上 padding，避免竖向间距叠加 */
+.figma-hero-main + .figma-experience {
+  padding-top: 0;
 }
 
-.figma-services-intro {
-  text-align: left;
-  justify-self: start;
-  width: 100%;
-  max-width: 100%;
-  min-width: 0;
+/* Experience 已有 margin-bottom；作品集无上 padding，避免与下一区块间距翻倍 */
+.figma-experience + .figma-projects {
+  padding-top: 0;
 }
 
-.figma-services-heading {
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0;
-  text-align: left;
-  font-family: var(--figma-section-title-ff);
-  font-weight: var(--figma-section-title-weight);
-  font-size: var(--figma-section-title-size);
-  line-height: var(--figma-section-title-lh);
-  letter-spacing: var(--figma-section-title-track);
-  color: var(--figma-section-title-color);
-}
-
-.figma-services-line {
-  display: block;
-  color: inherit;
-  text-align: left;
-}
-
-/* 宽屏下首行保持一整行，避免 “What we” / “provide” 被拆碎 */
-@media (min-width: 1101px) {
-  .figma-services-line:first-child {
-    white-space: nowrap;
-  }
-}
-
-.figma-services-columns {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  min-width: 0;
-  width: 100%;
-  text-align: left;
-  /* 用 padding 缩进内容：分隔线与图标列同宽对齐；margin 整块右移会导致线条与图标错位感 */
-  padding-left: clamp(0px, 4vw, 40px);
-  box-sizing: border-box;
-}
-
-/* 分隔线画在「模块与模块之间」：用下一列的 border-top，保证整条横线与内容区等宽对齐 */
-.figma-services-column {
-  padding-bottom: clamp(22px, 4vw, 32px);
-  border-bottom: none;
-}
-
-.figma-services-column + .figma-services-column {
-  border-top: 1px solid var(--figma-services-rule);
-  padding-top: clamp(18px, 3.5vw, 28px);
-}
-
-.figma-services-column:last-child {
-  padding-bottom: 0;
-}
-
-.figma-services-column-head {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  margin-bottom: 16px;
-}
-
-.figma-services-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
-  flex-shrink: 0;
-  color: var(--figma-black);
-  background: linear-gradient(145deg, var(--figma-lime-d2ff72), var(--figma-lime-77fb38));
-}
-
-.figma-services-icon svg {
-  display: block;
-  width: 20px;
-  height: 20px;
-}
-
-.figma-services-column-title {
-  margin: 0;
-  font-family: var(--font-inter);
-  font-weight: 600;
-  font-size: clamp(18px, 2.2vw, 22px);
-  line-height: 1.3;
-  letter-spacing: -0.018em;
-  color: #ffffff;
-}
-
-.figma-services-pills {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.figma-service-pill {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: var(--figma-pill-min-h);
-  padding: 6px var(--figma-pill-pad-x);
-  border-radius: var(--figma-pill-radius);
-  font-family: var(--font-inter);
-  font-weight: var(--figma-pill-font-weight);
-  font-size: var(--figma-pill-font-size);
-  line-height: 1.15;
-  letter-spacing: -0.01em;
-}
-
-.figma-service-pill--lime {
-  background: var(--figma-lime-d2ff72);
-  color: var(--figma-black);
-  border: 1px solid var(--figma-lime-d2ff72);
-}
-
-.figma-service-pill--outline {
-  background: #ffffff;
-  color: var(--figma-black);
-  border: 1px solid #ffffff;
-}
-
-/* Detail page tags — 与首页服务 pill 同款（荧光绿首枚 + 白底黑字） */
+/* Detail page tags — 白底描边 / 荧光绿（首页已无「能力」pill，样式仍供详情页标签使用） */
 .figma-tags {
   display: flex;
   flex-wrap: wrap;
@@ -905,90 +832,393 @@ body.figma-nav-open {
   border: 1px solid #ffffff;
 }
 
-/* Awards table */
+.figma-experience {
+  padding: 0 var(--figma-pad-x);
+  margin-bottom: var(--figma-section-y);
+}
+
+.figma-exp-grid {
+  display: grid;
+  grid-template-columns: minmax(260px, 5fr) minmax(0, 7fr);
+  gap: clamp(36px, 6vw, 72px);
+  align-items: start;
+}
+
+.figma-section-kicker {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 14px;
+  font-family: var(--font-inter);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--figma-hero-accent);
+}
+
+.figma-section-kicker-star {
+  display: inline-flex;
+  color: var(--figma-hero-accent);
+}
+
+.figma-section-kicker-star img {
+  display: block;
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+}
+
+.figma-exp-title {
+  margin: 0 0 clamp(16px, 2.5vw, 22px);
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: clamp(36px, 5vw, 56px);
+  line-height: 1.12;
+  letter-spacing: -0.028em;
+  color: #ffffff;
+}
+
+.figma-exp-lede,
+.figma-process-lede {
+  margin: 0;
+  max-width: 42ch;
+  font-family: var(--font-inter);
+  font-size: clamp(15px, 1.65vw, 17px);
+  font-weight: 400;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.figma-exp-panel {
+  min-width: 0;
+}
+
+.figma-exp-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.figma-exp-item {
+  padding: clamp(18px, 2.5vw, 22px) 0;
+  border-bottom: 1px solid var(--figma-services-rule);
+}
+
+.figma-exp-item:first-child {
+  padding-top: 0;
+}
+
+.figma-exp-details {
+  margin: 0;
+}
+
+.figma-exp-summary {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: clamp(12px, 2vw, 18px);
+  list-style: none;
+  cursor: pointer;
+  padding: 0;
+  font-family: inherit;
+  color: inherit;
+}
+
+.figma-exp-summary::-webkit-details-marker {
+  display: none;
+}
+
+.figma-exp-summary::marker {
+  content: "";
+}
+
+.figma-exp-summary-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: left;
+}
+
+.figma-exp-summary-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px 20px;
+}
+
+.figma-exp-company {
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: clamp(17px, 1.85vw, 20px);
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+}
+
+.figma-exp-role {
+  font-family: var(--font-inter);
+  font-weight: 500;
+  font-size: clamp(14px, 1.45vw, 16px);
+  line-height: 1.35;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.figma-exp-dates {
+  font-family: var(--font-inter);
+  font-size: clamp(13px, 1.35vw, 14px);
+  line-height: 1.3;
+  font-weight: 500;
+  color: var(--figma-text-muted);
+  white-space: nowrap;
+  text-align: right;
+  margin-left: auto;
+}
+
+.figma-exp-chevron {
+  flex-shrink: 0;
+  width: 9px;
+  height: 9px;
+  margin-top: 7px;
+  border-right: 2px solid rgba(255, 255, 255, 0.45);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.45);
+  transform: rotate(45deg);
+  transition: transform 0.2s ease, margin 0.2s ease;
+}
+
+.figma-exp-details[open] .figma-exp-chevron {
+  transform: rotate(-135deg);
+  margin-top: 11px;
+}
+
+.figma-exp-summary:hover .figma-exp-chevron {
+  border-color: rgba(255, 255, 255, 0.7);
+}
+
+.figma-exp-body {
+  padding: clamp(14px, 2vw, 18px) 0 0;
+  margin: 0;
+}
+
+.figma-exp-body p {
+  margin: 0;
+  font-family: var(--font-inter);
+  font-size: clamp(14px, 1.45vw, 15px);
+  font-weight: 400;
+  line-height: 1.6;
+  color: #6a6a6a;
+}
+
+.figma-exp-summary:focus-visible {
+  outline: 2px solid var(--figma-hero-accent);
+  outline-offset: 6px;
+  border-radius: 4px;
+}
+
+/* Design process — cards：紧随作品集 */
+.figma-projects + .figma-process {
+  padding-top: 0;
+}
+
+.figma-process {
+  padding: 0 var(--figma-pad-x);
+  margin-bottom: var(--figma-section-y);
+}
+
+.figma-process-head {
+  margin-bottom: clamp(28px, 5vw, 44px);
+}
+
+.figma-process-title {
+  margin: 0 0 clamp(14px, 2vw, 18px);
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: clamp(36px, 5vw, 56px);
+  line-height: 1.12;
+  letter-spacing: -0.028em;
+  color: #ffffff;
+}
+
+/* 横向滑动：触控板 / 拖拽 / Shift+滚轮；scroll-snap 吸附卡片 */
+.figma-process-scroll {
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--figma-pad-x);
+  margin-inline: calc(-1 * var(--figma-pad-x));
+  padding-inline: var(--figma-pad-x);
+  padding-bottom: 12px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.22) transparent;
+}
+
+.figma-process-scroll:focus-visible {
+  outline: 2px solid var(--figma-hero-accent);
+  outline-offset: 4px;
+}
+
+.figma-process-scroll::-webkit-scrollbar {
+  height: 6px;
+}
+
+.figma-process-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.figma-process-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.22);
+  border-radius: 999px;
+}
+
+.figma-process-cards {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: clamp(14px, 2vw, 18px);
+  width: max-content;
+}
+
+.figma-process-card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  flex: 0 0 clamp(240px, 72vw, 300px);
+  scroll-snap-align: start;
+  padding: clamp(20px, 2.5vw, 26px);
+  border-radius: 16px;
+  background: var(--figma-surface);
+  border: 1px solid var(--figma-border);
+  min-height: auto;
+}
+
+.figma-process-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  color: var(--figma-hero-accent);
+  background: var(--figma-black);
+  border: 1px solid var(--figma-border);
+  flex-shrink: 0;
+}
+
+.figma-process-icon svg {
+  display: block;
+}
+
+.figma-process-card-title {
+  margin: 0;
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: clamp(15px, 1.5vw, 17px);
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+}
+
+.figma-process-card-body {
+  margin: 0;
+  font-family: var(--font-inter);
+  font-size: clamp(13px, 1.35vw, 14px);
+  font-weight: 400;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+@media (max-width: 1100px) {
+  .figma-exp-grid {
+    grid-template-columns: 1fr;
+    gap: clamp(28px, 5vw, 40px);
+  }
+}
+
+@media (max-width: 560px) {
+  .figma-exp-summary-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .figma-exp-dates {
+    margin-left: 0;
+    text-align: left;
+    white-space: normal;
+  }
+}
+
+/* Awards — 与 Experience 同款双栏：左 intro · 右列表（无表头多列） */
 .figma-awards {
   padding: 0 var(--figma-pad-x);
   margin-bottom: var(--figma-section-y);
 }
 
-.figma-awards-title {
-  margin: 0 0 clamp(24px, 4vw, 40px);
-  font-family: var(--figma-section-title-ff);
-  font-weight: var(--figma-section-title-weight);
-  font-size: var(--figma-section-title-size);
-  line-height: var(--figma-section-title-lh);
-  letter-spacing: var(--figma-section-title-track);
-  color: var(--figma-section-title-color);
+.figma-exp-title .figma-exp-title-line--awards {
+  display: block;
 }
 
-.figma-awards-table {
+.figma-awards-entry {
+  width: 100%;
+}
+
+.figma-block-kicker {
   display: flex;
-  flex-direction: column;
-  gap: 0;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 14px;
+  font-family: var(--font-inter);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--figma-hero-accent);
 }
 
-.figma-awards-row {
-  display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.35fr) minmax(0, 0.65fr) auto;
-  gap: clamp(12px, 2vw, 24px);
-  align-items: baseline;
-  padding: 18px 0;
-  border-bottom: 1px solid var(--figma-services-rule);
-  font-family: "Helvetica Neue", Helvetica, Arial, system-ui, sans-serif;
-  font-size: clamp(15px, 2vw, 22px);
-  line-height: 1.35;
-  color: var(--figma-text-muted);
+.figma-block-kicker-icon {
+  display: inline-flex;
+  color: var(--figma-hero-accent);
 }
 
-.figma-awards-row--head {
-  padding-top: 0;
-  font-weight: 500;
-  /* 相对正文约缩小 30%（×0.7） */
-  font-size: calc(clamp(15px, 2vw, 22px) * 0.7);
-  line-height: 1.35;
-  color: #666666;
-  align-items: start;
+.figma-block-kicker-icon img {
+  display: block;
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
 }
 
-/* 表头与下方同列对齐：前三列左对齐，年份列与数字列同为右对齐 */
-.figma-awards-row--head [role="columnheader"]:nth-child(-n + 3) {
-  text-align: left;
-}
-
-.figma-awards-row--head [role="columnheader"]:nth-child(4) {
-  text-align: right;
-}
-
-/* 第二列英文：隔离双向排版，使「Award」表头与下方英文名左缘一致 */
-.figma-awards-row > span:nth-child(2) {
-  unicode-bidi: isolate;
-  text-align: left;
-}
-
-.figma-awards-year {
-  text-align: right;
-  white-space: nowrap;
-}
-
-/* Footer — dark contact band (reference layout) */
+/* Footer — 参考：绿色星标 + Connect · 双行主标题（无上 padding：上一区块 margin-bottom 已构成标题上方留白） */
 .figma-footer {
-  background: var(--figma-bg);
+  background: #000000;
   color: #ffffff;
   margin-top: 0;
-  padding: var(--figma-section-y) var(--figma-pad-x);
+  padding: 0 var(--figma-pad-x) var(--figma-section-y);
   border-top: none;
 }
 
+.figma-footer-head {
+  margin-bottom: clamp(32px, 5vw, 52px);
+}
+
 .figma-footer-heading {
-  margin: 0 0 clamp(32px, 5vw, 52px);
+  margin: 0;
   padding: 0;
-  font-family: var(--figma-section-title-ff);
-  font-weight: var(--figma-section-title-weight);
-  font-size: var(--figma-section-title-size);
-  line-height: var(--figma-section-title-lh);
-  letter-spacing: var(--figma-section-title-track);
-  color: var(--figma-section-title-color);
+  font-family: var(--font-inter);
+  font-weight: 600;
+  font-size: clamp(36px, 6.2vw, 68px);
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  color: #ffffff;
   text-align: left;
+}
+
+.figma-footer-heading-line {
+  display: block;
 }
 
 .figma-footer-band {
@@ -1098,12 +1328,24 @@ body.figma-nav-open {
   .figma-masonry-cap {
     transition: none;
   }
+
+  .figma-process-scroll {
+    scroll-snap-type: none;
+  }
+
+  .figma-exp-chevron {
+    transition: none;
+  }
 }
 
 @media (max-width: 900px) {
   .figma-hero-main,
   .figma-hero-inner {
     min-height: min(82vh, 760px);
+  }
+
+  .figma-hero-lede {
+    max-width: min(420px, 100%);
   }
 
   .figma-masonry-row {
@@ -1116,21 +1358,16 @@ body.figma-nav-open {
   }
 }
 
-@media (max-width: 1100px) {
-  .figma-services {
-    grid-template-columns: 1fr;
-    gap: var(--figma-section-inner-gap);
+@media (max-width: 640px) {
+  .figma-hero-footer {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 20px;
   }
 
-  .figma-services-intro {
-    max-width: none;
-    padding-bottom: var(--figma-section-inner-gap);
-    border-bottom: 1px solid var(--figma-services-rule);
-  }
-
-  /* 窄屏：与「My abilities」同一左缘，不再额外右缩进 */
-  .figma-services-columns {
-    padding-left: 0;
+  .figma-hero-rule-wrap {
+    order: -1;
+    padding-bottom: 0;
   }
 }
 
@@ -1152,14 +1389,5 @@ body.figma-nav-open {
   .figma-footer-grid {
     grid-template-columns: 1fr;
     gap: clamp(28px, 6vw, 40px);
-  }
-
-  .figma-awards-table {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  .figma-awards-row {
-    min-width: 560px;
   }
 }
