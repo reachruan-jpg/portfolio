@@ -33,8 +33,8 @@
         <div class="figma-nav-cluster">
           <nav class="figma-nav-pill" aria-label="主导航">
             <a class="figma-nav-link figma-nav-link--active" href="#hero">Home</a>
-            <a class="figma-nav-link" href="#portfolio-masonry">Works</a>
-            <a class="figma-nav-link" href="#experience">about</a>
+            <a class="figma-nav-link" href="#projects-label">Works</a>
+            <a class="figma-nav-link" href="#process-heading">about</a>
           </nav>
           <a class="figma-book" href="#contact-footer">Contact</a>
         </div>
@@ -50,8 +50,8 @@
         <div class="figma-nav-sheet" role="dialog" aria-modal="true" aria-label="主导航菜单">
           <nav class="figma-nav-sheet-nav" aria-label="主导航">
             <a class="figma-nav-link figma-nav-sheet-link" href="#hero">Home</a>
-            <a class="figma-nav-link figma-nav-sheet-link" href="#portfolio-masonry">Works</a>
-            <a class="figma-nav-link figma-nav-sheet-link" href="#experience">about</a>
+            <a class="figma-nav-link figma-nav-sheet-link" href="#projects-label">Works</a>
+            <a class="figma-nav-link figma-nav-sheet-link" href="#process-heading">about</a>
           </nav>
           <a class="figma-book figma-book--sheet" href="#contact-footer">Contact</a>
         </div>
@@ -71,7 +71,7 @@
               disableremoteplayback
             >
               <source
-                src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260418_080021_d598092b-c4c2-4e53-8e46-94cf9064cd50.mp4"
+                src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260324_024928_1efd0b0d-6c02-45a8-8847-1030900c4f63.mp4"
                 type="video/mp4"
               />
             </video>
@@ -230,11 +230,11 @@
               · 偶数组（第 2、4、6… 行）：左列 2 张 · 右列 1 张（左为两张矮卡，右常为高卡）
               一行只剩一张短卡时：用「左栈卡片 + 右栈留空」保持与其它矮卡相同的半幅宽度；勿用 .figma-masonry-row--single（会把叠层拉成全屏宽，矮卡显得过大）。
             -->
-            <!-- 组 1（奇数）：左 1 · 右 2 -->
+            <!-- 组 1（奇数）：左 1 高 · 右 2 矮 — 美团民宿移除后，周大侠上移至本行右列 -->
             <div class="figma-masonry-row">
               <div class="figma-masonry-stack">
                 <a class="figma-masonry-card figma-masonry-card--tall" href="projects/strike.html">
-                  <img src="assets/projects/strike/21.jpg" alt="" width="696" height="874" loading="eager" decoding="async" />
+                  <img src="assets/projects/strike/cover-tall.png" alt="" width="828" height="1024" loading="eager" decoding="async" />
                   <span class="figma-masonry-cap">
                     <span class="figma-masonry-kicker">ClassIn 6.0改版</span>
                   </span>
@@ -247,27 +247,27 @@
                     <span class="figma-masonry-kicker">ClassIn 圆盘</span>
                   </span>
                 </a>
-                <a class="figma-masonry-card figma-masonry-card--short" href="projects/meituan-minsu.html">
-                  <img src="assets/projects/美团民宿/cover.png" alt="" width="696" height="427" loading="lazy" decoding="async" />
-                  <span class="figma-masonry-cap">
-                    <span class="figma-masonry-kicker">美团民宿</span>
-                  </span>
-                </a>
-              </div>
-            </div>
-            <!-- 组 2（偶数）：左 2 · 右 1 — 周大侠 / BAE 左，饿了么 右高 -->
-            <div class="figma-masonry-row">
-              <div class="figma-masonry-stack">
                 <a class="figma-masonry-card figma-masonry-card--short" href="projects/zhouxiaxia.html">
                   <img src="assets/projects/周大侠/62.jpg" alt="" width="696" height="427" loading="lazy" decoding="async" />
                   <span class="figma-masonry-cap">
                     <span class="figma-masonry-kicker">周大侠</span>
                   </span>
                 </a>
+              </div>
+            </div>
+            <!-- 组 2（偶数）：左 2 矮 · 右 1 高 -->
+            <div class="figma-masonry-row">
+              <div class="figma-masonry-stack">
                 <a class="figma-masonry-card figma-masonry-card--short figma-masonry-card--bae-cover" href="projects/bae.html">
                   <img src="assets/projects/bae/cover.png" alt="BAE project logo" width="1024" height="659" loading="lazy" decoding="async" />
                   <span class="figma-masonry-cap">
                     <span class="figma-masonry-kicker">BAE</span>
+                  </span>
+                </a>
+                <a class="figma-masonry-card figma-masonry-card--short" href="projects/pin.html">
+                  <img src="assets/projects/pin/74.jpg" alt="" width="696" height="427" loading="lazy" decoding="async" />
+                  <span class="figma-masonry-cap">
+                    <span class="figma-masonry-kicker">Pin</span>
                   </span>
                 </a>
               </div>
@@ -280,7 +280,7 @@
                 </a>
               </div>
             </div>
-            <!-- 组 3（奇数）：左 1 · 右 2 -->
+            <!-- 组 3（奇数）：左 1 高 · 右 2 矮 -->
             <div class="figma-masonry-row">
               <div class="figma-masonry-stack">
                 <a class="figma-masonry-card figma-masonry-card--tall" href="projects/exiaobao.html">
@@ -291,23 +291,12 @@
                 </a>
               </div>
               <div class="figma-masonry-stack">
-                <a class="figma-masonry-card figma-masonry-card--short" href="projects/pin.html">
-                  <img src="assets/projects/pin/74.jpg" alt="" width="696" height="427" loading="lazy" decoding="async" />
-                  <span class="figma-masonry-cap">
-                    <span class="figma-masonry-kicker">Pin</span>
-                  </span>
-                </a>
                 <a class="figma-masonry-card figma-masonry-card--short" href="projects/eleme-star-marketing.html">
                   <img src="assets/projects/饿了么明星营销/13.jpg" alt="" width="696" height="427" loading="lazy" decoding="async" />
                   <span class="figma-masonry-cap">
                     <span class="figma-masonry-kicker">饿了么明星营销</span>
                   </span>
                 </a>
-              </div>
-            </div>
-            <!-- 组 4（偶数）：仅一张矮卡；右栈留空以保持与其它 short 卡相同的列宽 -->
-            <div class="figma-masonry-row">
-              <div class="figma-masonry-stack">
                 <a class="figma-masonry-card figma-masonry-card--short" href="projects/exiaobao-2.html">
                   <img src="assets/projects/饿小宝2.0/45-1.jpg" alt="" width="3840" height="2716" loading="lazy" decoding="async" />
                   <span class="figma-masonry-cap">
@@ -315,7 +304,6 @@
                   </span>
                 </a>
               </div>
-              <div class="figma-masonry-stack" aria-hidden="true"></div>
             </div>
           </div>
         </section>

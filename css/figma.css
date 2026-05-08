@@ -17,7 +17,7 @@
   --figma-lime-d2ff72: #c5ec6a;
   --figma-lime-77fb38: #72f038;
   /* 首屏高亮绿（与参考稿一致） */
-  --figma-hero-accent: #b0ff61;
+  --figma-hero-accent: #d2ff73;
   --figma-white: #ffffff;
   --figma-nav-muted: #a3a3a3;
   --figma-card-outline: #2a2a2a;
@@ -181,12 +181,12 @@ body {
 }
 
 .figma-nav-link--active:hover {
-  background: var(--figma-lime-d2ff72);
+  background: var(--figma-hero-accent);
   color: var(--figma-black);
 }
 
 .figma-nav-link--active {
-  background: var(--figma-lime-d2ff72);
+  background: var(--figma-hero-accent);
   color: var(--figma-black);
 }
 
@@ -195,7 +195,7 @@ body {
 }
 
 /* 仅顶栏深底胶囊内：about 用白字；白底抽屉内同选择器会看不到，故必须限制在 .figma-nav-pill */
-.figma-nav-pill .figma-nav-link[href*="experience"]:not(.figma-nav-link--active) {
+.figma-nav-pill .figma-nav-link[href*="process-heading"]:not(.figma-nav-link--active) {
   color: var(--figma-white);
 }
 
@@ -216,7 +216,7 @@ body {
 }
 
 .figma-nav-link--active:active {
-  background: var(--figma-lime-d2ff72);
+  background: var(--figma-hero-accent);
   color: var(--figma-black);
 }
 
@@ -224,7 +224,7 @@ body {
   color: var(--figma-nav-muted);
 }
 
-.figma-nav-pill .figma-nav-link[href*="experience"]:active:not(.figma-nav-link--active) {
+.figma-nav-pill .figma-nav-link[href*="process-heading"]:active:not(.figma-nav-link--active) {
   color: var(--figma-white);
 }
 
@@ -250,7 +250,7 @@ body {
 }
 
 .figma-nav-sheet .figma-nav-link--active:active {
-  background: var(--figma-lime-d2ff72);
+  background: var(--figma-hero-accent);
   color: var(--figma-black);
 }
 
@@ -422,12 +422,12 @@ body {
 }
 
 .figma-nav-sheet .figma-nav-link--active {
-  background: var(--figma-lime-d2ff72);
+  background: var(--figma-hero-accent);
   color: var(--figma-black);
 }
 
 .figma-nav-sheet .figma-nav-link--active:hover {
-  background: var(--figma-lime-d2ff72);
+  background: var(--figma-hero-accent);
 }
 
 .figma-nav-sheet .figma-nav-sheet-link:focus:not(:focus-visible),
