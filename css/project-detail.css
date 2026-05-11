@@ -1,11 +1,13 @@
 /* 详情页：图库拉满视口宽；允许突破全局 overflow-x，便于全屏宽展示 */
 body:has(.figma-page--detail) {
   overflow-x: visible;
+  background: #000000;
 }
 
 .figma-page.figma-page--detail {
   overflow-x: visible;
   min-height: auto;
+  background: #000000;
 }
 
 /* 详情页左右边距 24px（与作品栅格对齐） */

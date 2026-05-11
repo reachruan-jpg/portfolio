@@ -123,7 +123,6 @@ body {
   background: rgba(0, 0, 0, 0.88);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--figma-border);
 }
 
 @supports (background: color-mix(in srgb, white 50%, black)) {
@@ -463,6 +462,7 @@ body.figma-nav-open {
 
 /* 首屏：全幅 MP4 + 晕影 + 参考稿式排版（问候左上、大标题左中、说明右下、底部分割线） */
 .figma-hero-main {
+  --figma-hero-cursor-size: clamp(88px, 18vw, 168px);
   position: relative;
   z-index: 2;
   width: 100vw;
@@ -473,6 +473,50 @@ body.figma-nav-open {
   margin-bottom: var(--figma-section-y);
   overflow: hidden;
   background: #000000;
+}
+
+/* 圆形光标：仅 hover 指针设备生效（触控不走这一套） */
+@media (hover: hover) and (pointer: fine) {
+  .figma-hero-cursor {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: var(--figma-hero-cursor-size);
+    height: var(--figma-hero-cursor-size);
+    border-radius: 50%;
+    background: #ffffff;
+    mix-blend-mode: difference;
+    pointer-events: none;
+    z-index: 50;
+    opacity: 0;
+    visibility: hidden;
+    transform: translate(-50%, -50%) scale(1);
+    transform-origin: center center;
+    transition:
+      opacity 0.12s ease,
+      transform 0.22s cubic-bezier(0.25, 0.9, 0.35, 1);
+    will-change: transform, opacity;
+  }
+
+  .figma-hero-main.figma-hero-cursor--on {
+    cursor: none;
+  }
+
+  .figma-hero-main.figma-hero-cursor--on .figma-hero-cursor {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  /* 悬停在文案上：圆形放大 + difference 反色更明显（放大镜感） */
+  .figma-hero-main.figma-hero-cursor--mag .figma-hero-cursor {
+    transform: translate(-50%, -50%) scale(1.32);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .figma-hero-cursor {
+    display: none !important;
+  }
 }
 
 .figma-hero-scene {
@@ -707,7 +751,7 @@ body.figma-nav-open {
   object-fit: cover;
 }
 
-/* 底部深色渐变遮罩（与标题层叠：遮罩在中、文字在上） */
+/* 渐变遮罩：深色压在左上角标题一侧（与标题层叠：遮罩在中、文字在上） */
 .figma-masonry-card::after {
   content: "";
   position: absolute;
@@ -715,7 +759,7 @@ body.figma-nav-open {
   z-index: 1;
   pointer-events: none;
   background: linear-gradient(
-    to top,
+    to bottom,
     rgba(0, 0, 0, 0.9) 0%,
     rgba(0, 0, 0, 0.42) 38%,
     transparent 68%
@@ -726,13 +770,18 @@ body.figma-nav-open {
 
 .figma-masonry-cap {
   position: absolute;
-  inset-inline: 0;
-  bottom: 0;
+  top: 0;
+  left: 0;
+  right: auto;
+  bottom: auto;
   z-index: 2;
+  max-width: 100%;
   padding: clamp(18px, 3.5vw, 32px);
+  padding-right: clamp(12px, 3vw, 24px);
   display: flex;
   flex-direction: column;
   gap: 0;
+  align-items: flex-start;
   pointer-events: none;
   opacity: 1;
   transition: opacity 0.3s ease;
@@ -751,17 +800,46 @@ body.figma-nav-open {
   .figma-masonry-card:focus-visible .figma-masonry-cap {
     opacity: 1;
   }
+
+  /* 悬停 / 键盘聚焦：整块 #191919 实色填充（取代默认渐变遮罩） */
+  .figma-masonry-card:hover::after,
+  .figma-masonry-card:focus-visible::after {
+    background: #191919;
+  }
 }
 
 /* 封面仅保留作品名，字号放大 */
 .figma-masonry-kicker {
   margin: 0;
   font-family: var(--font-inter);
-  font-size: clamp(15.4px, 3.85vw, 23.8px);
-  font-weight: 600;
+  font-size: clamp(20.33px, 5.08vw, 31.42px);
+  font-weight: 500;
   letter-spacing: -0.03em;
   line-height: 1.2;
   color: #ffffff;
+}
+
+/* ClassIn 6.0 卡片：三行层级标题 */
+.figma-masonry-kicker--tiered {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.28em;
+  max-width: 18ch;
+}
+
+.figma-masonry-kicker--tiered .figma-masonry-kicker-line {
+  display: block;
+  margin: 0;
+  font-size: clamp(21.12px, 5.15vw, 31.68px);
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  line-height: 1.18;
+  color: #ffffff;
+}
+
+.figma-masonry-kicker--tiered .figma-masonry-kicker-line--brand {
+  color: #8f8f8f;
 }
 
 /* 首屏已有 margin-bottom，Experience 无上 padding，避免竖向间距叠加 */
