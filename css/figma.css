@@ -1307,7 +1307,7 @@ body.figma-nav-open {
 
 .figma-footer-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
   gap: clamp(32px, 5vw, 64px);
   align-items: start;
 }
@@ -1338,6 +1338,11 @@ body.figma-nav-open {
   color: #ffffff;
   text-decoration: underline;
   text-underline-offset: 3px;
+}
+
+.figma-footer-value--url a {
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .figma-footer-links {
@@ -1433,6 +1438,11 @@ body.figma-nav-open {
   .figma-masonry-stack {
     flex: 1 1 100%;
     min-width: 0;
+  }
+
+  /* 窄屏单列：原「高」卡与「矮」卡统一为矮比例，避免过长滚动 */
+  .figma-masonry-card--tall img {
+    aspect-ratio: 696 / 427;
   }
 }
 
