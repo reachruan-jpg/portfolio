@@ -477,40 +477,82 @@ App.prototype.onTouchDown = function (e) {
   this.isDown = true;
   this.dragDistance = 0;
   this.scroll.position = this.scroll.current;
-  this.start = e.touches ? e.touches[0].clientX : e.clientX;
+  var point = e.touches ? e.touches[0] : e;
+  this.start = point.clientX;
   this.initialX = this.start;
+  this.initialY = point.clientY;
 };
 
 App.prototype.onTouchMove = function (e) {
   if (!this.isDown) return;
-  var x = e.touches ? e.touches[0].clientX : e.clientX;
-  this.dragDistance = Math.max(this.dragDistance, Math.abs(x - this.initialX));
+  var point = e.touches ? e.touches[0] : e;
+  var x = point.clientX;
+  var y = point.clientY;
+  this.dragDistance = Math.max(
+    this.dragDistance,
+    Math.abs(x - this.initialX),
+    Math.abs(y - (this.initialY || y))
+  );
   var distance = (this.start - x) * (this.scrollSpeed * 0.025);
   this.scroll.target = this.scroll.position + distance;
 };
 
-App.prototype.onTouchUp = function () {
-  if (this.isDown && this.dragDistance < 12) {
-    this.openCenterItem();
+App.prototype.onTouchUp = function (e) {
+  if (this.isDown && this.dragDistance < 12 && e) {
+    var point = e.changedTouches ? e.changedTouches[0] : e;
+    this.openItemAtPoint(point.clientX, point.clientY);
   }
   this.isDown = false;
   this.onCheck();
 };
 
-App.prototype.openCenterItem = function () {
-  if (!this.medias || !this.medias.length) return;
-  var closest = null;
-  var minDist = Infinity;
+App.prototype.openItemAtPoint = function (clientX, clientY) {
+  if (!this.medias || !this.medias.length || !this.viewport || !this.screen) return;
+
+  var rect = this.container.getBoundingClientRect();
+  var localX = clientX - rect.left;
+  var localY = clientY - rect.top;
+  var vw = this.viewport.width;
+  var vh = this.viewport.height;
+  var sw = this.screen.width;
+  var sh = this.screen.height;
+
+  var best = null;
+  var bestDist = Infinity;
+
   this.medias.forEach(function (media) {
-    var dist = Math.abs(media.plane.position.x);
-    if (dist < minDist && media.href) {
-      minDist = dist;
-      closest = media;
+    if (!media.href || !media.plane) return;
+
+    var wx = media.plane.position.x;
+    var wy = media.plane.position.y;
+    var halfW = media.plane.scale.x * 0.52;
+    var halfH = media.plane.scale.y * 0.72;
+
+    var px = sw * (0.5 + wx / vw);
+    var py = sh * (0.5 - wy / vh);
+
+    var inX = localX >= px - (halfW / vw) * sw && localX <= px + (halfW / vw) * sw;
+    var inY = localY >= py - (halfH / vh) * sh && localY <= py + (halfH / vh) * sh;
+    if (!inX || !inY) return;
+
+    var dx = localX - px;
+    var dy = localY - py;
+    var dist = dx * dx + dy * dy;
+    if (dist < bestDist) {
+      bestDist = dist;
+      best = media;
     }
   });
-  if (closest && closest.href && minDist < closest.width) {
-    window.location.href = closest.href;
+
+  if (best && best.href) {
+    window.location.href = best.href;
   }
+};
+
+App.prototype.openCenterItem = function () {
+  if (!this.container) return;
+  var rect = this.container.getBoundingClientRect();
+  this.openItemAtPoint(rect.left + rect.width / 2, rect.top + rect.height / 2);
 };
 
 App.prototype.onWheel = function (e) {
