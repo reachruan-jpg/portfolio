@@ -710,6 +710,14 @@ body.figma-nav-open {
   outline-offset: 4px;
 }
 
+.figma-circular-gallery--ready {
+  cursor: pointer;
+}
+
+.figma-circular-gallery--ready:active {
+  cursor: grabbing;
+}
+
 .figma-circular-gallery--static {
   height: auto;
   cursor: default;

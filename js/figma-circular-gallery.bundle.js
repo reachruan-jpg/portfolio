@@ -3192,18 +3192,21 @@ Curve.QUADRATICBEZIER = QUADRATICBEZIER;
 var PORTFOLIO_ITEMS = [
   {
     image: "assets/projects/elem/cover.jpg?v=20260522",
-    text: "\u997F\u4E86\u4E48\u8BBE\u8BA1\u54C1\u724C\u5347\u7EA7"
+    text: "\u997F\u4E86\u4E48\u8BBE\u8BA1\u54C1\u724C\u5347\u7EA7",
+    href: "projects/elem.html"
   },
-  { image: "assets/projects/pin/74.jpg", text: "Pin" },
-  { image: "assets/projects/\u5468\u5927\u4FA0/62.jpg", text: "\u5468\u5927\u4FA0" },
+  { image: "assets/projects/pin/74.jpg", text: "Pin", href: "projects/pin.html" },
+  { image: "assets/projects/\u5468\u5927\u4FA0/62.jpg", text: "\u5468\u5927\u4FA0", href: "projects/zhouxiaxia.html" },
   {
     image: "assets/projects/\u7D2B\u4E91\u7384\u6E05/\u7D2B\u4E91\u7384\u6E05_\u9875\u9762_02.jpg",
-    text: "\u7D2B\u4E91\u7384\u6E05"
+    text: "\u7D2B\u4E91\u7384\u6E05",
+    href: "projects/ziyun-xuanqing.html"
   },
-  { image: "assets/projects/bae/cover.png", text: "BAE" },
+  { image: "assets/projects/bae/cover.png", text: "BAE", href: "projects/bae.html" },
   {
     image: "assets/projects/\u997F\u5C0F\u5B9D2.0/cover.jpg?v=20260522",
-    text: "\u997F\u5C0F\u5B9D 2.0"
+    text: "\u997F\u5C0F\u5B9D 2.0",
+    href: "projects/exiaobao-2.html"
   }
 ];
 var DEFAULT_FONT = "bold 30px Figtree";
@@ -3384,6 +3387,7 @@ function Media(opts) {
   this.geometry = opts.geometry;
   this.gl = opts.gl;
   this.image = opts.image;
+  this.href = opts.href || "";
   this.index = opts.index;
   this.length = opts.length;
   this.renderer = opts.renderer;
@@ -3604,6 +3608,7 @@ App.prototype.createMedias = function(items, bend, textColor, borderRadius, font
       geometry: self.planeGeometry,
       gl: self.gl,
       image: data.image,
+      href: data.href,
       index,
       length: self.mediasImages.length,
       renderer: self.renderer,
@@ -3619,19 +3624,42 @@ App.prototype.createMedias = function(items, bend, textColor, borderRadius, font
   });
 };
 App.prototype.onTouchDown = function(e) {
+  var target = e.target;
+  if (target !== this.container && !this.container.contains(target)) return;
   this.isDown = true;
+  this.dragDistance = 0;
   this.scroll.position = this.scroll.current;
   this.start = e.touches ? e.touches[0].clientX : e.clientX;
+  this.initialX = this.start;
 };
 App.prototype.onTouchMove = function(e) {
   if (!this.isDown) return;
   var x = e.touches ? e.touches[0].clientX : e.clientX;
+  this.dragDistance = Math.max(this.dragDistance, Math.abs(x - this.initialX));
   var distance3 = (this.start - x) * (this.scrollSpeed * 0.025);
   this.scroll.target = this.scroll.position + distance3;
 };
 App.prototype.onTouchUp = function() {
+  if (this.isDown && this.dragDistance < 12) {
+    this.openCenterItem();
+  }
   this.isDown = false;
   this.onCheck();
+};
+App.prototype.openCenterItem = function() {
+  if (!this.medias || !this.medias.length) return;
+  var closest = null;
+  var minDist = Infinity;
+  this.medias.forEach(function(media) {
+    var dist = Math.abs(media.plane.position.x);
+    if (dist < minDist && media.href) {
+      minDist = dist;
+      closest = media;
+    }
+  });
+  if (closest && closest.href && minDist < closest.width) {
+    window.location.href = closest.href;
+  }
 };
 App.prototype.onWheel = function(e) {
   var delta = e.deltaY || e.wheelDelta || e.detail;
@@ -3654,6 +3682,11 @@ App.prototype.onKeyDown = function(e) {
       e.preventDefault();
       this.scroll.target = 0;
       this.onCheckDebounce();
+      break;
+    case "Enter":
+    case " ":
+      e.preventDefault();
+      this.openCenterItem();
       break;
     default:
       break;

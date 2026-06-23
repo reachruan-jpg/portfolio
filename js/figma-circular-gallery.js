@@ -7,17 +7,20 @@ var PORTFOLIO_ITEMS = [
   {
     image: "assets/projects/elem/cover.jpg?v=20260522",
     text: "饿了么设计品牌升级",
+    href: "projects/elem.html",
   },
-  { image: "assets/projects/pin/74.jpg", text: "Pin" },
-  { image: "assets/projects/周大侠/62.jpg", text: "周大侠" },
+  { image: "assets/projects/pin/74.jpg", text: "Pin", href: "projects/pin.html" },
+  { image: "assets/projects/周大侠/62.jpg", text: "周大侠", href: "projects/zhouxiaxia.html" },
   {
     image: "assets/projects/紫云玄清/紫云玄清_页面_02.jpg",
     text: "紫云玄清",
+    href: "projects/ziyun-xuanqing.html",
   },
-  { image: "assets/projects/bae/cover.png", text: "BAE" },
+  { image: "assets/projects/bae/cover.png", text: "BAE", href: "projects/bae.html" },
   {
     image: "assets/projects/饿小宝2.0/cover.jpg?v=20260522",
     text: "饿小宝 2.0",
+    href: "projects/exiaobao-2.html",
   },
 ];
 
@@ -216,6 +219,7 @@ function Media(opts) {
   this.geometry = opts.geometry;
   this.gl = opts.gl;
   this.image = opts.image;
+  this.href = opts.href || "";
   this.index = opts.index;
   this.length = opts.length;
   this.renderer = opts.renderer;
@@ -451,6 +455,7 @@ App.prototype.createMedias = function (items, bend, textColor, borderRadius, fon
       geometry: self.planeGeometry,
       gl: self.gl,
       image: data.image,
+      href: data.href,
       index: index,
       length: self.mediasImages.length,
       renderer: self.renderer,
@@ -467,21 +472,45 @@ App.prototype.createMedias = function (items, bend, textColor, borderRadius, fon
 };
 
 App.prototype.onTouchDown = function (e) {
+  var target = e.target;
+  if (target !== this.container && !this.container.contains(target)) return;
   this.isDown = true;
+  this.dragDistance = 0;
   this.scroll.position = this.scroll.current;
   this.start = e.touches ? e.touches[0].clientX : e.clientX;
+  this.initialX = this.start;
 };
 
 App.prototype.onTouchMove = function (e) {
   if (!this.isDown) return;
   var x = e.touches ? e.touches[0].clientX : e.clientX;
+  this.dragDistance = Math.max(this.dragDistance, Math.abs(x - this.initialX));
   var distance = (this.start - x) * (this.scrollSpeed * 0.025);
   this.scroll.target = this.scroll.position + distance;
 };
 
 App.prototype.onTouchUp = function () {
+  if (this.isDown && this.dragDistance < 12) {
+    this.openCenterItem();
+  }
   this.isDown = false;
   this.onCheck();
+};
+
+App.prototype.openCenterItem = function () {
+  if (!this.medias || !this.medias.length) return;
+  var closest = null;
+  var minDist = Infinity;
+  this.medias.forEach(function (media) {
+    var dist = Math.abs(media.plane.position.x);
+    if (dist < minDist && media.href) {
+      minDist = dist;
+      closest = media;
+    }
+  });
+  if (closest && closest.href && minDist < closest.width) {
+    window.location.href = closest.href;
+  }
 };
 
 App.prototype.onWheel = function (e) {
@@ -506,6 +535,11 @@ App.prototype.onKeyDown = function (e) {
       e.preventDefault();
       this.scroll.target = 0;
       this.onCheckDebounce();
+      break;
+    case "Enter":
+    case " ":
+      e.preventDefault();
+      this.openCenterItem();
       break;
     default:
       break;
