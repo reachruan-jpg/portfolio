@@ -109,6 +109,29 @@ body {
   overflow-x: clip;
 }
 
+/* 模块进场：淡入上移 + 子项错峰 */
+.figma-reveal-item {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: calc(var(--reveal-i, 0) * 90ms);
+}
+
+.figma-reveal-item.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.figma-hero-display-wrap.figma-reveal-item {
+  transform: translateY(calc(-40px + 28px));
+}
+
+.figma-hero-display-wrap.figma-reveal-item.is-visible {
+  transform: translateY(-40px);
+}
+
 .figma-header {
   position: sticky;
   top: 0;
@@ -460,9 +483,8 @@ body.figma-nav-open {
   touch-action: none;
 }
 
-/* 首屏：全幅 MP4 + 晕影 + 参考稿式排版（问候左上、大标题左中、说明右下、底部分割线） */
+/* 首屏：全幅 MP4 + 左右分栏（左大标题 · 右导语） */
 .figma-hero-main {
-  --figma-hero-cursor-size: clamp(88px, 18vw, 168px);
   position: relative;
   z-index: 2;
   width: 100vw;
@@ -475,48 +497,41 @@ body.figma-nav-open {
   background: #000000;
 }
 
-/* 圆形光标：仅 hover 指针设备生效（触控不走这一套） */
-@media (hover: hover) and (pointer: fine) {
-  .figma-hero-cursor {
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: var(--figma-hero-cursor-size);
-    height: var(--figma-hero-cursor-size);
-    border-radius: 50%;
-    background: #ffffff;
-    mix-blend-mode: difference;
-    pointer-events: none;
-    z-index: 50;
-    opacity: 0;
-    visibility: hidden;
-    transform: translate(-50%, -50%) scale(1);
-    transform-origin: center center;
-    transition:
-      opacity 0.12s ease,
-      transform 0.22s cubic-bezier(0.25, 0.9, 0.35, 1);
-    will-change: transform, opacity;
-  }
-
-  .figma-hero-main.figma-hero-cursor--on {
-    cursor: none;
-  }
-
-  .figma-hero-main.figma-hero-cursor--on .figma-hero-cursor {
-    opacity: 1;
-    visibility: visible;
-  }
-
-  /* 悬停在文案上：圆形放大 + difference 反色更明显（放大镜感） */
-  .figma-hero-main.figma-hero-cursor--mag .figma-hero-cursor {
-    transform: translate(-50%, -50%) scale(1.32);
-  }
+/* Fluid Glass WebGL 层（React Bits FluidGlass 同款 FBO + Transmission） */
+.figma-hero-fluid-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .figma-hero-cursor {
-    display: none !important;
-  }
+.figma-hero-main--fluid-glass {
+  cursor: none;
+}
+
+.figma-hero-main--fluid-glass .figma-hero-scene {
+  visibility: hidden;
+}
+
+/* 保留 DOM 导语供 SEO / 读屏；WebGL 层负责导语与透镜 */
+.figma-hero-main--fluid-glass .figma-hero-aside {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.figma-hero-main--fluid-glass .figma-hero-display-wrap {
+  position: relative;
+  z-index: 4;
+  pointer-events: none;
 }
 
 .figma-hero-scene {
@@ -566,93 +581,168 @@ body.figma-nav-open {
   padding: clamp(72px, 11vh, 132px) var(--figma-pad-x) clamp(36px, 5vh, 64px);
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  gap: clamp(40px, 7vh, 72px);
+  justify-content: flex-end;
 }
 
-.figma-hero-top {
-  min-width: 0;
+.figma-hero-inner--split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(200px, min(320px, 32vw));
+  align-items: end;
+  gap: clamp(28px, 5vw, 64px);
 }
 
-.figma-hero-greeting {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin: 0 0 clamp(20px, 3.5vh, 40px);
-  font-family: var(--font-inter);
-  font-size: clamp(14px, 1.45vw, 16px);
-  font-weight: 400;
-  line-height: 1.4;
-  color: #ffffff;
-  text-shadow: 0 1px 24px rgba(0, 0, 0, 0.65);
-}
-
-.figma-hero-greeting-icon {
-  display: inline-flex;
-  flex-shrink: 0;
-}
-
-.figma-hero-greeting-icon img {
-  display: block;
-  width: 18px;
-  height: 18px;
-  object-fit: contain;
-}
-
-.figma-hero-title {
-  margin: 0;
-  font-family: var(--font-inter);
-  font-weight: 700;
-  font-size: clamp(34px, 7.2vw, 104px);
-  line-height: 1.06;
-  letter-spacing: -0.028em;
-  color: #ffffff;
-  text-shadow: 0 2px 40px rgba(0, 0, 0, 0.55);
-}
-
-.figma-hero-title-line {
-  display: block;
-}
-
-.figma-hero-accent {
-  color: var(--figma-hero-accent);
-}
-
-.figma-hero-footer {
-  display: flex;
-  align-items: flex-end;
-  gap: clamp(20px, 3.5vw, 44px);
+.figma-hero-display-wrap {
+  grid-column: 1 / -1;
   width: 100%;
-}
-
-.figma-hero-rule-wrap {
-  flex: 1;
   min-width: 0;
-  padding-bottom: 0.35em;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  transform: translateY(-40px);
 }
 
-.figma-hero-rule {
-  border: 0;
-  height: 1px;
+.figma-hero-text-pressure-root {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+}
+
+.text-pressure-title {
   margin: 0;
-  background: rgba(255, 255, 255, 0.14);
+  width: 100%;
+  font-family: "Roboto Flex", var(--font-inter), sans-serif;
+  font-weight: 100;
+  text-transform: uppercase;
+  user-select: none;
+  white-space: nowrap;
+  text-shadow: 0 2px 48px rgba(0, 0, 0, 0.45);
+}
+
+.figma-hero-display.text-pressure-title {
+  width: auto;
+  max-width: 100%;
+  font-size: clamp(84px, 18.4vw, 268px);
+  line-height: 0.92;
+  letter-spacing: 0.08em;
+  text-align: center;
+  transform-origin: center top;
+}
+
+.text-pressure-flex {
+  display: flex;
+  justify-content: space-between;
+}
+
+.text-pressure-title span {
+  display: inline-block;
+}
+
+.text-pressure-stroke span {
+  position: relative;
+  color: var(--text-pressure-color, #f0ebe3);
+}
+
+.text-pressure-stroke span::after {
+  content: attr(data-char);
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: transparent;
+  z-index: -1;
+  -webkit-text-stroke-width: 3px;
+  -webkit-text-stroke-color: var(--text-pressure-stroke, #ff0000);
+}
+
+.figma-hero-display {
+  margin: 0;
+  min-width: 0;
+  color: #f0ebe3;
+}
+
+.figma-hero-aside {
+  grid-column: 1 / -1;
+  justify-self: end;
+  align-self: end;
+  min-width: 0;
+  max-width: min(480px, 72vw);
+  text-align: right;
 }
 
 .figma-hero-lede {
   margin: 0;
-  max-width: min(420px, 42vw);
   font-family: var(--font-inter);
-  font-size: clamp(13px, 1.35vw, 15px);
+  font-size: clamp(8px, 0.864vw, 9.6px);
   font-weight: 400;
   line-height: 1.55;
   letter-spacing: -0.01em;
-  color: #ffffff;
-  flex-shrink: 0;
+  color: rgba(255, 255, 255, 0.92);
   text-shadow: 0 1px 20px rgba(0, 0, 0, 0.6);
 }
 
 .figma-projects {
   margin-bottom: var(--figma-section-y);
+}
+
+/* CircularGallery — matches CircularGallery.css + portfolio layout */
+.circular-gallery,
+.figma-circular-gallery {
+  width: 100%;
+  height: clamp(480px, 60vh, 600px);
+  margin: 0 calc(-1 * var(--figma-pad-x));
+  padding: 0 var(--figma-pad-x);
+  box-sizing: border-box;
+  overflow: hidden;
+  cursor: grab;
+  outline: none;
+  touch-action: none;
+}
+
+.circular-gallery:active,
+.figma-circular-gallery:active {
+  cursor: grabbing;
+}
+
+.circular-gallery:focus-visible,
+.figma-circular-gallery:focus-visible {
+  outline: 2px solid var(--figma-lime-77fb38);
+  outline-offset: 4px;
+}
+
+.figma-circular-gallery--static {
+  height: auto;
+  cursor: default;
+  overflow: visible;
+}
+
+.figma-circular-gallery-fallback {
+  display: flex;
+  gap: var(--figma-masonry-gap);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 8px;
+  min-height: clamp(280px, 40vh, 420px);
+}
+
+.figma-circular-gallery--ready + .figma-circular-gallery-fallback {
+  display: none;
+}
+
+.figma-circular-gallery-fallback-item {
+  flex: 0 0 min(72vw, 320px);
+  scroll-snap-align: start;
+  border-radius: var(--figma-masonry-card-radius);
+  overflow: hidden;
+  text-decoration: none;
+}
+
+.figma-circular-gallery-fallback-item img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 696 / 874;
+  object-fit: cover;
 }
 
 .figma-projects-head {
@@ -702,6 +792,7 @@ body.figma-nav-open {
   flex-direction: column;
   gap: var(--figma-masonry-gap);
   min-width: min(100%, 340px);
+  perspective: 1200px;
 }
 
 .figma-masonry-card {
@@ -712,9 +803,18 @@ body.figma-nav-open {
   overflow: hidden;
   text-decoration: none;
   color: inherit;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-  /* 由卡片本身占位，避免移动端 WebKit 下图仅靠 img 高度坍塌（只剩文字细条） */
+  transition: box-shadow 0.25s ease;
   isolation: isolate;
+}
+
+.figma-masonry-card--tilt {
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.figma-masonry-card--tilt-hover {
+  box-shadow: 0 22px 56px rgba(0, 0, 0, 0.55);
+  z-index: 2;
 }
 
 .figma-masonry-card:focus-visible {
@@ -722,9 +822,15 @@ body.figma-nav-open {
   outline-offset: 4px;
 }
 
-.figma-masonry-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 22px 56px rgba(0, 0, 0, 0.55);
+@media (hover: none), (pointer: coarse) {
+  .figma-masonry-card {
+    will-change: auto;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .figma-masonry-card:active {
+    transform: translateY(-2px);
+  }
 }
 
 /* 比例写在 img 上并保持文档流：避免窄屏 WebKit 下 flex 子项仅靠 aspect-ratio + 绝对定位图导致高度坍塌 */
@@ -1403,6 +1509,10 @@ body.figma-nav-open {
     transition: none;
   }
 
+  .figma-masonry-card--tilt-hover {
+    box-shadow: none;
+  }
+
   .figma-masonry-card:hover {
     transform: none;
   }
@@ -1419,6 +1529,17 @@ body.figma-nav-open {
   .figma-exp-chevron {
     transition: none;
   }
+
+  .figma-reveal-item {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .figma-hero-display-wrap.figma-reveal-item,
+  .figma-hero-display-wrap.figma-reveal-item.is-visible {
+    transform: translateY(-40px) !important;
+  }
 }
 
 @media (max-width: 900px) {
@@ -1427,8 +1548,30 @@ body.figma-nav-open {
     min-height: min(82vh, 760px);
   }
 
-  .figma-hero-lede {
-    max-width: min(420px, 100%);
+  .figma-hero-inner--split {
+    grid-template-columns: 1fr;
+    align-items: end;
+    justify-items: center;
+    gap: clamp(14px, 2.5vh, 22px);
+    text-align: center;
+  }
+
+  .figma-hero-display-wrap {
+    max-width: 100%;
+  }
+
+  .figma-hero-display.text-pressure-title {
+    width: auto;
+    max-width: 100%;
+    font-size: clamp(70px, 22.4vw, 116px);
+    text-align: center;
+    transform-origin: center top;
+  }
+
+  .figma-hero-aside {
+    justify-self: end;
+    max-width: min(320px, 88vw);
+    text-align: right;
   }
 
   .figma-masonry-row {
@@ -1443,19 +1586,6 @@ body.figma-nav-open {
   /* 窄屏单列：原「高」卡与「矮」卡统一为矮比例，避免过长滚动 */
   .figma-masonry-card--tall img {
     aspect-ratio: 696 / 427;
-  }
-}
-
-@media (max-width: 640px) {
-  .figma-hero-footer {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 20px;
-  }
-
-  .figma-hero-rule-wrap {
-    order: -1;
-    padding-bottom: 0;
   }
 }
 
