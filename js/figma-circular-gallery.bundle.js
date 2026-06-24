@@ -3815,9 +3815,27 @@ function showStaticFallback(container) {
   container.classList.add("figma-circular-gallery--static");
   container.hidden = true;
 }
+var galleryApp = null;
+function resetGalleryContainer(container) {
+  if (!container) return;
+  container.classList.remove("figma-circular-gallery--ready");
+  container.classList.remove("figma-circular-gallery--static");
+  container.hidden = false;
+  var canvas = container.querySelector("canvas");
+  if (canvas) canvas.remove();
+}
+function destroyGallery() {
+  if (galleryApp) {
+    galleryApp.destroy();
+    galleryApp = null;
+  }
+  resetGalleryContainer(document.getElementById("portfolio-circular-gallery"));
+}
 function boot() {
   var container = document.getElementById("portfolio-circular-gallery");
   if (!container) return;
+  if (galleryApp && container.querySelector("canvas")) return;
+  destroyGallery();
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
     showStaticFallback(container);
     return;
@@ -3829,11 +3847,10 @@ function boot() {
   } catch (err) {
     console.warn("[figma-circular-gallery]", err);
   }
-  var app;
   withTimeout(resolveFont(DEFAULT_FONT, null), 3e3, DEFAULT_FONT).then(function(resolvedFont) {
-    if (!container) return;
+    if (!container || !container.isConnected) return;
     try {
-      app = new App(container, {
+      galleryApp = new App(container, {
         items,
         bend: 3,
         textColor: "#ffffff",
@@ -3851,12 +3868,21 @@ function boot() {
     console.warn("[figma-circular-gallery]", err);
     showStaticFallback(container);
   });
+}
+function setupGalleryLifecycle() {
   window.addEventListener("pagehide", function() {
-    if (app) app.destroy();
+    destroyGallery();
+  });
+  window.addEventListener("pageshow", function(e) {
+    if (e.persisted) boot();
   });
 }
 if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", boot);
+  document.addEventListener("DOMContentLoaded", function() {
+    setupGalleryLifecycle();
+    boot();
+  });
 } else {
+  setupGalleryLifecycle();
   boot();
 }
