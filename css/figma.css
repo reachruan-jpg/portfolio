@@ -32,12 +32,14 @@
   --figma-masonry-gap: 20px;
   --figma-masonry-card-radius: 16px;
   --figma-chip-radius: 16px;
-  /* 顶部导航：胶囊 / 链接 / Contact / 汉堡（固定 10px，不参与 nav-scale） */
-  --figma-nav-radius: 10px;
+  /* 顶部导航：胶囊 / 链接 / Contact / 汉堡（圆角随 scale 同比） */
+  --figma-nav-radius: 8.5px;
   /* 主导航深灰底胶囊外壳圆角 */
-  --figma-nav-pill-radius: 14px;
-  /* 主导航（胶囊 + Contact）整体等比缩放系数 */
-  --figma-nav-scale: 1.2;
+  --figma-nav-pill-radius: 11.9px;
+  /* 主导航（胶囊 + Contact）整体等比缩放系数（原 1.2，缩小 15%） */
+  --figma-nav-scale: 1.02;
+  /* 顶栏占位高度（JS 会按实际渲染高度覆盖；此为含 padding 的估算 fallback） */
+  --figma-header-h: calc((48px + 32px) * var(--figma-nav-scale));
 
   /* Pills — 与首页 What we provide / 详情标签共用 */
   --figma-pill-min-h: 32px;
@@ -73,6 +75,7 @@
 
 html {
   scroll-behavior: smooth;
+  margin: 0;
 }
 
 body {
@@ -163,22 +166,43 @@ body {
   gap: calc(16px * var(--figma-nav-scale));
   padding: calc(16px * var(--figma-nav-scale)) var(--figma-pad-x);
   min-height: calc(63px * var(--figma-nav-scale));
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  transition:
+    background-color 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    backdrop-filter 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    -webkit-backdrop-filter 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.figma-header.figma-header--scrolled {
   background: rgba(0, 0, 0, 0.88);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
 }
 
 @supports (background: color-mix(in srgb, white 50%, black)) {
-  .figma-header {
+  .figma-header.figma-header--scrolled {
     background: color-mix(in srgb, var(--figma-bg) 88%, transparent);
   }
 }
 
+/* 首页：顶栏浮在 hero 上，背景从视口最顶开始 */
+.figma-page:not(.figma-page--detail) .figma-header {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: var(--figma-artboard-w);
+  padding-top: calc(16px * var(--figma-nav-scale) + env(safe-area-inset-top, 0px));
+}
+
 .figma-logo img {
   display: block;
-  height: 27px;
+  height: calc(22.5px * var(--figma-nav-scale));
   width: auto;
-  max-width: min(120px, 40vw);
+  max-width: min(calc(100px * var(--figma-nav-scale)), 40vw);
   filter: brightness(0) invert(1);
 }
 
@@ -515,6 +539,16 @@ body.figma-nav-open {
   margin-bottom: var(--figma-section-y);
   overflow: hidden;
   background: #000000;
+}
+
+/* 首页：hero 从页面顶开始（顶栏 fixed 不占位） */
+.figma-page:not(.figma-page--detail) .figma-hero-main {
+  margin-top: calc(-1 * env(safe-area-inset-top, 0px));
+  padding-top: env(safe-area-inset-top, 0px);
+}
+
+.figma-page:not(.figma-page--detail) .figma-hero-inner {
+  padding-top: calc(clamp(72px, 11vh, 132px) + var(--figma-header-h));
 }
 
 /* Fluid Glass WebGL 层（React Bits FluidGlass 同款 FBO + Transmission） */

@@ -89,6 +89,20 @@
     });
   });
 
+  var scrollBgThreshold = 12;
+
+  function updateHeaderScrolledBg() {
+    if (!header) return;
+    var showBg =
+      window.scrollY > scrollBgThreshold || document.body.classList.contains("figma-nav-open");
+    header.classList.toggle("figma-header--scrolled", showBg);
+  }
+
+  function syncHeaderHeight() {
+    if (!header) return;
+    document.documentElement.style.setProperty("--figma-header-h", header.offsetHeight + "px");
+  }
+
   function closeNav() {
     if (!overlay || !toggle) return;
     overlay.setAttribute("hidden", "");
@@ -97,6 +111,7 @@
     toggle.classList.remove("figma-nav-toggle--open");
     document.body.classList.remove("figma-nav-open");
     toggle.setAttribute("aria-label", "打开菜单");
+    updateHeaderScrolledBg();
   }
 
   function openNav() {
@@ -107,6 +122,7 @@
     toggle.classList.add("figma-nav-toggle--open");
     document.body.classList.add("figma-nav-open");
     toggle.setAttribute("aria-label", "关闭菜单");
+    updateHeaderScrolledBg();
   }
 
   function toggleNav() {
@@ -148,12 +164,14 @@
         scheduleNavScrollLockEnd();
       }
       syncFromScroll();
+      updateHeaderScrolledBg();
     },
     { passive: true }
   );
   window.addEventListener("resize", function () {
     syncFromScroll();
     onDesktopResize();
+    syncHeaderHeight();
   });
   if (desktopMq.addEventListener) {
     desktopMq.addEventListener("change", onDesktopResize);
@@ -176,5 +194,39 @@
   });
 
   syncFromScroll();
-  window.addEventListener("load", syncFromScroll);
+  window.addEventListener("load", function () {
+    syncFromScroll();
+    syncHeaderHeight();
+  });
+  syncHeaderHeight();
+  updateHeaderScrolledBg();
+
+  /* 详情页：向下滚动隐藏顶栏，回顶或向上滑时渐现 */
+  var detailPage = document.querySelector(".figma-page--detail");
+  if (detailPage && header && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    var lastScrollY = window.scrollY;
+    var scrollThreshold = 8;
+    var topRevealY = 48;
+
+    function updateDetailHeaderVisibility() {
+      if (document.body.classList.contains("figma-nav-open")) {
+        header.classList.remove("figma-header--hidden");
+        lastScrollY = window.scrollY;
+        return;
+      }
+
+      var y = window.scrollY;
+      if (y <= topRevealY) {
+        header.classList.remove("figma-header--hidden");
+      } else if (y > lastScrollY + scrollThreshold) {
+        header.classList.add("figma-header--hidden");
+      } else if (y < lastScrollY - scrollThreshold) {
+        header.classList.remove("figma-header--hidden");
+      }
+      lastScrollY = y;
+    }
+
+    window.addEventListener("scroll", updateDetailHeaderVisibility, { passive: true });
+    updateDetailHeaderVisibility();
+  }
 })();
