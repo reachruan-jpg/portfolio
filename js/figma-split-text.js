@@ -99,18 +99,47 @@
     );
   }
 
+  function revealStuckChars() {
+    document.querySelectorAll(".split-char").forEach(function (char) {
+      var opacity = window.getComputedStyle(char).opacity;
+      if (parseFloat(opacity) < 0.05) {
+        char.style.opacity = "1";
+        char.style.transform = "none";
+      }
+    });
+  }
+
   function boot() {
     if (reduced) return;
     if (typeof gsap === "undefined" || typeof ScrollTrigger === "undefined") return;
 
     gsap.registerPlugin(ScrollTrigger);
     collectTitles().forEach(animateElement);
+    ScrollTrigger.refresh();
+    window.setTimeout(function () {
+      ScrollTrigger.refresh();
+      revealStuckChars();
+    }, 800);
+    window.setTimeout(revealStuckChars, 3500);
+  }
+
+  function waitForGsap(triesLeft, done) {
+    if (typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
+      done();
+      return;
+    }
+    if (triesLeft <= 0) return;
+    window.setTimeout(function () {
+      waitForGsap(triesLeft - 1, done);
+    }, 50);
   }
 
   function start() {
     var fontsReady =
       document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve();
-    fontsReady.then(boot);
+    fontsReady.then(function () {
+      waitForGsap(40, boot);
+    });
   }
 
   if (document.readyState === "loading") {

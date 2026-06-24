@@ -796,13 +796,13 @@ body.figma-nav-open {
   margin-bottom: var(--figma-section-y);
 }
 
-/* CircularGallery — matches CircularGallery.css + portfolio layout */
+/* CircularGallery — 左侧与标题对齐，右侧贴边无留白 */
 .circular-gallery,
 .figma-circular-gallery {
   width: 100%;
   height: clamp(480px, 60vh, 600px);
-  margin: 0 calc(-1 * var(--figma-pad-x));
-  padding: 0 var(--figma-pad-x);
+  margin: 0 calc(-1 * var(--figma-pad-x)) 0 0;
+  padding: 0 0 0 var(--figma-pad-x);
   box-sizing: border-box;
   overflow: hidden;
   cursor: grab;
@@ -840,7 +840,8 @@ body.figma-nav-open {
   gap: var(--figma-masonry-gap);
   overflow-x: auto;
   scroll-snap-type: x mandatory;
-  padding-bottom: 8px;
+  margin: 0 calc(-1 * var(--figma-pad-x)) 0 0;
+  padding: 0 0 8px var(--figma-pad-x);
   min-height: clamp(280px, 40vh, 420px);
 }
 

@@ -3195,7 +3195,7 @@ var PORTFOLIO_ITEMS = [
     text: "\u997F\u4E86\u4E48VI\u5347\u7EA7",
     href: "projects/elem.html"
   },
-  { image: "assets/projects/pin/74.jpg", text: "Pin", href: "projects/pin.html" },
+  { image: "assets/projects/pin/cover.jpg?v=20260624", text: "Pin", href: "projects/pin.html" },
   { image: "assets/projects/\u5468\u5927\u4FA0/62.jpg", text: "\u5468\u5927\u867E", href: "projects/zhouxiaxia.html" },
   {
     image: "assets/projects/\u7D2B\u4E91\u7384\u6E05/\u7D2B\u4E91\u7384\u6E05_\u9875\u9762_02.jpg",
