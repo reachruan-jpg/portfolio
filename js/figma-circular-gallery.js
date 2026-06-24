@@ -6,11 +6,11 @@ import { Camera, Mesh, Plane, Program, Renderer, Texture, Transform } from "./ve
 var PORTFOLIO_ITEMS = [
   {
     image: "assets/projects/elem/cover.jpg?v=20260522",
-    text: "饿了么设计品牌升级",
+    text: "饿了么VI升级",
     href: "projects/elem.html",
   },
   { image: "assets/projects/pin/74.jpg", text: "Pin", href: "projects/pin.html" },
-  { image: "assets/projects/周大侠/62.jpg", text: "周大侠", href: "projects/zhouxiaxia.html" },
+  { image: "assets/projects/周大侠/62.jpg", text: "周大虾", href: "projects/zhouxiaxia.html" },
   {
     image: "assets/projects/紫云玄清/紫云玄清_页面_02.jpg",
     text: "紫云玄清",

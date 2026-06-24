@@ -3192,11 +3192,11 @@ Curve.QUADRATICBEZIER = QUADRATICBEZIER;
 var PORTFOLIO_ITEMS = [
   {
     image: "assets/projects/elem/cover.jpg?v=20260522",
-    text: "\u997F\u4E86\u4E48\u8BBE\u8BA1\u54C1\u724C\u5347\u7EA7",
+    text: "\u997F\u4E86\u4E48VI\u5347\u7EA7",
     href: "projects/elem.html"
   },
   { image: "assets/projects/pin/74.jpg", text: "Pin", href: "projects/pin.html" },
-  { image: "assets/projects/\u5468\u5927\u4FA0/62.jpg", text: "\u5468\u5927\u4FA0", href: "projects/zhouxiaxia.html" },
+  { image: "assets/projects/\u5468\u5927\u4FA0/62.jpg", text: "\u5468\u5927\u867E", href: "projects/zhouxiaxia.html" },
   {
     image: "assets/projects/\u7D2B\u4E91\u7384\u6E05/\u7D2B\u4E91\u7384\u6E05_\u9875\u9762_02.jpg",
     text: "\u7D2B\u4E91\u7384\u6E05",
