@@ -46,15 +46,6 @@
       var introRoot = section.querySelector(".figma-exp-intro");
       if (introRoot) {
         addIntro(introRoot.querySelector(".figma-section-kicker"));
-        var title = introRoot.querySelector(".figma-exp-title");
-        if (title) {
-          var titleLines = title.querySelectorAll(".figma-exp-title-line");
-          if (titleLines.length) {
-            titleLines.forEach(addIntro);
-          } else {
-            addIntro(title);
-          }
-        }
         addIntro(introRoot.querySelector(".figma-exp-lede"));
       }
       section.querySelectorAll(".figma-exp-item").forEach(function (el) {
@@ -64,7 +55,6 @@
       var head = section.querySelector(".figma-projects-head");
       if (head) {
         addIntro(head.querySelector(".figma-block-kicker"));
-        head.querySelectorAll(".figma-projects-title-line").forEach(addIntro);
       }
       var gallery = section.querySelector("#portfolio-circular-gallery");
       if (gallery) scroll.push(gallery);
@@ -72,7 +62,6 @@
       var processHead = section.querySelector(".figma-process-head");
       if (processHead) {
         addIntro(processHead.querySelector(".figma-section-kicker"));
-        addIntro(processHead.querySelector(".figma-process-title"));
         addIntro(processHead.querySelector(".figma-process-lede"));
       }
       section.querySelectorAll(".figma-process-card").forEach(function (el) {
@@ -82,7 +71,6 @@
       var footerHead = section.querySelector(".figma-footer-head");
       if (footerHead) {
         addIntro(footerHead.querySelector(".figma-block-kicker"));
-        footerHead.querySelectorAll(".figma-footer-heading-line").forEach(addIntro);
       }
       section.querySelectorAll(".figma-footer-block").forEach(function (el) {
         scroll.push(el);

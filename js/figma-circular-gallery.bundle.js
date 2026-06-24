@@ -3191,7 +3191,7 @@ Curve.QUADRATICBEZIER = QUADRATICBEZIER;
 // js/figma-circular-gallery.js
 var PORTFOLIO_ITEMS = [
   {
-    image: "assets/projects/elem/cover.jpg?v=20260522",
+    image: "assets/projects/elem/cover.jpg?v=20260624",
     text: "\u997F\u4E86\u4E48VI\u5347\u7EA7",
     href: "projects/elem.html"
   },
@@ -3204,7 +3204,7 @@ var PORTFOLIO_ITEMS = [
   },
   { image: "assets/projects/bae/cover.png", text: "BAE", href: "projects/bae.html" },
   {
-    image: "assets/projects/\u997F\u5C0F\u5B9D2.0/cover.jpg?v=20260522",
+    image: "assets/projects/\u997F\u5C0F\u5B9D2.0/cover.jpg?v=20260624",
     text: "\u997F\u5C0F\u5B9D 2.0",
     href: "projects/exiaobao-2.html"
   }

@@ -11,6 +11,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://d8j0ntlcm91z4.cloudfront.net" crossorigin />
+    <link rel="stylesheet" href="css/border-glow.css" />
     <link rel="stylesheet" href="css/figma.css" />
   </head>
   <body>
@@ -225,7 +226,7 @@
           ></div>
           <div id="portfolio-circular-gallery-fallback" class="figma-circular-gallery-fallback">
             <a class="figma-circular-gallery-fallback-item" href="projects/elem.html">
-              <img src="assets/projects/elem/cover.jpg?v=20260522" alt="饿了么VI升级" loading="lazy" decoding="async" />
+              <img src="assets/projects/elem/cover.jpg?v=20260624" alt="饿了么VI升级" loading="lazy" decoding="async" />
             </a>
             <a class="figma-circular-gallery-fallback-item" href="projects/pin.html">
               <img src="assets/projects/pin/74.jpg" alt="Pin" loading="lazy" decoding="async" />
@@ -240,7 +241,7 @@
               <img src="assets/projects/bae/cover.png" alt="BAE" loading="lazy" decoding="async" />
             </a>
             <a class="figma-circular-gallery-fallback-item" href="projects/exiaobao-2.html">
-              <img src="assets/projects/饿小宝2.0/cover.jpg?v=20260522" alt="饿小宝 2.0" loading="lazy" decoding="async" />
+              <img src="assets/projects/饿小宝2.0/cover.jpg?v=20260624" alt="饿小宝 2.0" loading="lazy" decoding="async" />
             </a>
           </div>
         </section>
@@ -272,9 +273,9 @@
                     <path d="M16 16l4.5 4.5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" />
                   </svg>
                 </div>
-                <h3 class="figma-process-card-title">01. Discovery</h3>
+                <h3 class="figma-process-card-title">01. User Research</h3>
                 <p class="figma-process-card-body">
-                  Clarify goals, audience, and constraints up front — research and alignment before the first pixel.
+                  Understand users, market trends, and pain points through research, interviews, and competitive analysis to uncover meaningful opportunities.
                 </p>
               </article>
               <article class="figma-process-card">
@@ -289,9 +290,9 @@
                     />
                   </svg>
                 </div>
-                <h3 class="figma-process-card-title">02. Wireframe</h3>
+                <h3 class="figma-process-card-title">02. Requirement Definition</h3>
                 <p class="figma-process-card-body">
-                  After hashing out the details of the website, it’s easy to throw the ideas onto pen &amp; paper.
+                  Define product goals, user needs, and priorities, then translate insights into clear and actionable requirements.
                 </p>
               </article>
               <article class="figma-process-card">
@@ -302,9 +303,9 @@
                     <path d="M8 7h8M8 11h6" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" />
                   </svg>
                 </div>
-                <h3 class="figma-process-card-title">03. Design</h3>
+                <h3 class="figma-process-card-title">03. Solution Design</h3>
                 <p class="figma-process-card-body">
-                  The most fun part of all — adding pizzaz to the wireframes and bring it to life.
+                  Create user flows, information architecture, interactions, and visual designs that solve identified problems effectively.
                 </p>
               </article>
               <article class="figma-process-card">
@@ -319,9 +320,9 @@
                     />
                   </svg>
                 </div>
-                <h3 class="figma-process-card-title">04. Development</h3>
+                <h3 class="figma-process-card-title">04. Development &amp; Validation</h3>
                 <p class="figma-process-card-body">
-                  The design may be final but it needs to be functional and practical. Development is key.
+                  Build, test, and refine the product to ensure functionality, usability, and technical feasibility before launch.
                 </p>
               </article>
               <article class="figma-process-card">
@@ -337,9 +338,9 @@
                     <path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" />
                   </svg>
                 </div>
-                <h3 class="figma-process-card-title">05. Quality Assurance</h3>
+                <h3 class="figma-process-card-title">05. Launch &amp; Iteration</h3>
                 <p class="figma-process-card-body">
-                  Website load times, SEO, file optimization, etc., weigh in to the quality of the site.
+                  Release the product, measure performance, gather feedback, and continuously improve through data-driven iterations.
                 </p>
               </article>
             </div>
@@ -478,8 +479,13 @@
         }
       }
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js" defer></script>
     <script src="js/figma-nav.js" defer></script>
     <script src="js/figma-reveal.js" defer></script>
+    <script src="js/figma-split-text.js" defer></script>
+    <script src="js/figma-shiny-text.js" defer></script>
+    <script src="js/figma-process-border-glow.js" defer></script>
     <script src="js/figma-hero-text-pressure.js" defer></script>
     <script type="module" src="js/figma-circular-gallery.bundle.js"></script>
     <script type="module" src="js/figma-hero-fluid-glass.js"></script>

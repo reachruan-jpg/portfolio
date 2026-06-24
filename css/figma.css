@@ -156,6 +156,43 @@ body {
   filter: blur(0);
 }
 
+/* 模块标题：逐字进场（figma-split-text.js + GSAP） */
+.split-parent {
+  overflow: hidden;
+}
+
+h2.split-parent {
+  display: block;
+}
+
+.split-char {
+  display: inline-block;
+  will-change: transform, opacity;
+}
+
+/* 模块 kicker 光泽扫过（figma-shiny-text.js） */
+.figma-shiny-text {
+  display: inline-block;
+  --figma-shiny-spread: 120deg;
+  --figma-shiny-color: var(--figma-hero-accent);
+  --figma-shiny-shine: #ffffff;
+  background-image: linear-gradient(
+    var(--figma-shiny-spread),
+    var(--figma-shiny-color) 0%,
+    var(--figma-shiny-color) 35%,
+    var(--figma-shiny-shine) 50%,
+    var(--figma-shiny-color) 65%,
+    var(--figma-shiny-color) 100%
+  );
+  background-size: 200% auto;
+  background-position: 150% center;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  will-change: background-position;
+}
+
 .figma-header {
   position: sticky;
   top: 0;
@@ -1153,7 +1190,7 @@ body.figma-nav-open {
   font-size: clamp(15px, 1.65vw, 17px);
   font-weight: 400;
   line-height: 1.55;
-  color: rgba(255, 255, 255, 0.88);
+  color: rgba(255, 255, 255, 0.5);
 }
 
 .figma-exp-panel {
@@ -1318,7 +1355,7 @@ body.figma-nav-open {
   scroll-padding-inline: var(--figma-pad-x);
   margin-inline: calc(-1 * var(--figma-pad-x));
   padding-inline: var(--figma-pad-x);
-  padding-bottom: 12px;
+  padding-block: clamp(24px, 3vw, 36px) 12px;
   scrollbar-width: thin;
   scrollbar-color: rgba(255, 255, 255, 0.22) transparent;
 }
@@ -1347,19 +1384,30 @@ body.figma-nav-open {
   flex-wrap: nowrap;
   gap: clamp(14px, 2vw, 18px);
   width: max-content;
+  align-items: stretch;
+}
+
+.figma-process-card-glow {
+  flex: 0 0 clamp(240px, 72vw, 300px);
+  scroll-snap-align: start;
+  align-self: stretch;
+}
+
+.figma-process-card-glow .border-glow-inner {
+  height: 100%;
 }
 
 .figma-process-card {
   display: flex;
   flex-direction: column;
   gap: 14px;
-  flex: 0 0 clamp(240px, 72vw, 300px);
-  scroll-snap-align: start;
+  flex: 1 1 auto;
+  width: 100%;
   padding: clamp(20px, 2.5vw, 26px);
-  border-radius: 16px;
-  background: var(--figma-surface);
-  border: 1px solid var(--figma-border);
-  min-height: auto;
+  border-radius: inherit;
+  background: transparent;
+  border: none;
+  min-height: 100%;
 }
 
 .figma-process-icon {
@@ -1395,7 +1443,7 @@ body.figma-nav-open {
   font-size: clamp(13px, 1.35vw, 14px);
   font-weight: 400;
   line-height: 1.55;
-  color: rgba(255, 255, 255, 0.82);
+  color: rgba(255, 255, 255, 0.5);
 }
 
 @media (max-width: 1100px) {
@@ -1628,6 +1676,13 @@ body.figma-nav-open {
   .figma-hero-display-wrap.figma-reveal-item.is-visible {
     transform: translateY(-40px) !important;
     filter: none !important;
+  }
+
+  .figma-shiny-text {
+    background-image: none;
+    -webkit-text-fill-color: var(--figma-hero-accent);
+    color: var(--figma-hero-accent);
+    will-change: auto;
   }
 }
 
