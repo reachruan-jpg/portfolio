@@ -165,7 +165,7 @@ body {
   justify-content: space-between;
   flex-wrap: wrap;
   gap: calc(16px * var(--figma-nav-scale));
-  padding: calc(16px * var(--figma-nav-scale)) var(--figma-pad-x);
+  padding: calc(16px * var(--figma-nav-scale)) 24px;
   min-height: calc(63px * var(--figma-nav-scale));
   background: transparent;
   backdrop-filter: none;
@@ -188,7 +188,7 @@ body {
   }
 }
 
-/* 首页：顶栏浮在 hero 上，背景从视口最顶开始 */
+/* 首页：顶栏浮在 hero 上，背景从视口最顶开始（左右 24px 与详情页一致） */
 .figma-page:not(.figma-page--detail) .figma-header {
   position: fixed;
   top: 0;
@@ -196,7 +196,26 @@ body {
   transform: translateX(-50%);
   width: 100%;
   max-width: var(--figma-artboard-w);
+  padding-left: 24px;
+  padding-right: 24px;
   padding-top: calc(16px * var(--figma-nav-scale) + env(safe-area-inset-top, 0px));
+  transition:
+    opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    backdrop-filter 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    -webkit-backdrop-filter 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+.figma-page:not(.figma-page--detail) .figma-header.figma-header--hidden {
+  transform: translateX(-50%) translateY(calc(-100% - 8px));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .figma-page:not(.figma-page--detail) .figma-header {
+    transition: none;
+  }
 }
 
 .figma-logo img {

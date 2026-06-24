@@ -234,6 +234,30 @@
     }
   }
 
+  var lastHeaderScrollY = window.scrollY;
+  var headerScrollThreshold = 8;
+  var headerTopRevealY = 48;
+
+  function updateHeaderVisibility() {
+    if (!header || reducedMotionMq.matches) return;
+
+    if (document.body.classList.contains("figma-nav-open") || navIgnoreScroll) {
+      header.classList.remove("figma-header--hidden");
+      lastHeaderScrollY = window.scrollY;
+      return;
+    }
+
+    var y = window.scrollY;
+    if (y <= headerTopRevealY) {
+      header.classList.remove("figma-header--hidden");
+    } else if (y > lastHeaderScrollY + headerScrollThreshold) {
+      header.classList.add("figma-header--hidden");
+    } else if (y < lastHeaderScrollY - headerScrollThreshold) {
+      header.classList.remove("figma-header--hidden");
+    }
+    lastHeaderScrollY = y;
+  }
+
   window.addEventListener(
     "scroll",
     function () {
@@ -243,6 +267,7 @@
       } else {
         syncFromScroll();
       }
+      updateHeaderVisibility();
       updateHeaderScrolledBg();
     },
     { passive: true }
@@ -280,33 +305,5 @@
   });
   syncHeaderHeight();
   updateHeaderScrolledBg();
-
-  /* 详情页：向下滚动隐藏顶栏，回顶或向上滑时渐现 */
-  var detailPage = document.querySelector(".figma-page--detail");
-  if (detailPage && header && !reducedMotionMq.matches) {
-    var lastScrollY = window.scrollY;
-    var scrollThreshold = 8;
-    var topRevealY = 48;
-
-    function updateDetailHeaderVisibility() {
-      if (document.body.classList.contains("figma-nav-open")) {
-        header.classList.remove("figma-header--hidden");
-        lastScrollY = window.scrollY;
-        return;
-      }
-
-      var y = window.scrollY;
-      if (y <= topRevealY) {
-        header.classList.remove("figma-header--hidden");
-      } else if (y > lastScrollY + scrollThreshold) {
-        header.classList.add("figma-header--hidden");
-      } else if (y < lastScrollY - scrollThreshold) {
-        header.classList.remove("figma-header--hidden");
-      }
-      lastScrollY = y;
-    }
-
-    window.addEventListener("scroll", updateDetailHeaderVisibility, { passive: true });
-    updateDetailHeaderVisibility();
-  }
+  updateHeaderVisibility();
 })();
