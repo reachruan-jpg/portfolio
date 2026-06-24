@@ -109,27 +109,47 @@ body {
   overflow-x: clip;
 }
 
-/* 模块进场：淡入上移 + 子项错峰 */
+/* 模块进场：淡入 + 上移 + 轻微模糊，子项逐层错峰 */
 .figma-reveal-item {
   opacity: 0;
-  transform: translateY(28px);
+  transform: translateY(36px) scale(0.985);
+  filter: blur(8px);
   transition:
-    opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
-  transition-delay: calc(var(--reveal-i, 0) * 90ms);
+    opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: calc(var(--reveal-i, 0) * 110ms);
+  will-change: opacity, transform, filter;
 }
 
 .figma-reveal-item.is-visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0) scale(1);
+  filter: blur(0);
+}
+
+/* WebGL 画廊：只做位移，避免 opacity 影响 canvas */
+.figma-reveal-item--surface {
+  opacity: 1;
+  filter: none;
+}
+
+.figma-reveal-item--surface:not(.is-visible) {
+  transform: translateY(48px) scale(0.98);
+}
+
+.figma-reveal-item--surface.is-visible {
+  transform: translateY(0) scale(1);
 }
 
 .figma-hero-display-wrap.figma-reveal-item {
-  transform: translateY(calc(-40px + 28px));
+  transform: translateY(calc(-40px + 36px)) scale(0.985);
+  filter: blur(8px);
 }
 
 .figma-hero-display-wrap.figma-reveal-item.is-visible {
-  transform: translateY(-40px);
+  transform: translateY(-40px) scale(1);
+  filter: blur(0);
 }
 
 .figma-header {
@@ -1541,12 +1561,19 @@ body.figma-nav-open {
   .figma-reveal-item {
     opacity: 1 !important;
     transform: none !important;
+    filter: none !important;
     transition: none !important;
+  }
+
+  .figma-reveal-item--surface {
+    opacity: 1 !important;
+    transform: none !important;
   }
 
   .figma-hero-display-wrap.figma-reveal-item,
   .figma-hero-display-wrap.figma-reveal-item.is-visible {
     transform: translateY(-40px) !important;
+    filter: none !important;
   }
 }
 
