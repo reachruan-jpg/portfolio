@@ -50,7 +50,7 @@
   --figma-services-rule: rgba(255, 255, 255, 0.14);
 
   /* 主流程各模块之间的统一竖向间距（模块大标题上方留白；单一变量，避免上下 padding 叠加） */
-  --figma-section-y: 90px;
+  --figma-section-y: 110px;
   /* 模块内部：分区标题 ↔ 主体内容 */
   --figma-section-inner-gap: clamp(28px, 5vw, 48px);
 
@@ -76,6 +76,7 @@
 html {
   scroll-behavior: smooth;
   margin: 0;
+  scroll-padding-top: calc(var(--figma-header-h) + 8px);
 }
 
 body {
@@ -274,7 +275,7 @@ body {
 }
 
 .figma-nav-link:active:not(.figma-nav-link--active) {
-  background: transparent;
+  background: #343434;
 }
 
 .figma-nav-link:hover:active:not(.figma-nav-link--active) {

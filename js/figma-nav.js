@@ -5,19 +5,16 @@
   var links = document.querySelectorAll("a.figma-nav-link");
   var sectionIds = ["hero", "projects-label", "process-heading"];
   var desktopMq = window.matchMedia("(min-width: 721px)");
+  var reducedMotionMq = window.matchMedia("(prefers-reduced-motion: reduce)");
 
-  /** 点击锚点导航后短暂锁定高亮为「即将滚到的区块」，避免 scroll 同步仍判为上一段而造成闪烁 */
   var pendingNavHash = null;
   var navIgnoreScroll = false;
   var navScrollEndTimer = null;
+  var navScrollLockStart = 0;
+  var NAV_SCROLL_SETTLE_MS = 120;
 
-  function scheduleNavScrollLockEnd() {
-    clearTimeout(navScrollEndTimer);
-    navScrollEndTimer = setTimeout(function () {
-      navIgnoreScroll = false;
-      pendingNavHash = null;
-      syncFromScroll();
-    }, 160);
+  function smoothScrollBehavior() {
+    return reducedMotionMq.matches ? "auto" : "smooth";
   }
 
   function linkHash(link) {
@@ -45,6 +42,24 @@
     return header ? header.offsetHeight + 8 : 72;
   }
 
+  function sectionDocumentTop(id) {
+    var el = document.getElementById(id);
+    if (!el) return null;
+    return el.getBoundingClientRect().top + window.scrollY;
+  }
+
+  function activeSectionFromScroll() {
+    var line = window.scrollY + scrollOffset();
+    var activeId = sectionIds[0];
+
+    sectionIds.forEach(function (id) {
+      var top = sectionDocumentTop(id);
+      if (top != null && top <= line + 1) activeId = id;
+    });
+
+    return activeId;
+  }
+
   function syncFromScroll() {
     var hasSection = sectionIds.some(function (id) {
       return document.getElementById(id);
@@ -59,15 +74,7 @@
       return;
     }
 
-    var y = window.scrollY + scrollOffset();
-    var activeId = "hero";
-    sectionIds.forEach(function (id) {
-      var el = document.getElementById(id);
-      if (!el) return;
-      var top = el.getBoundingClientRect().top + window.scrollY;
-      if (top <= y) activeId = id;
-    });
-    setActiveLink("#" + activeId);
+    setActiveLink("#" + activeSectionFromScroll());
   }
 
   function syncActiveFromPill() {
@@ -78,14 +85,84 @@
     setActiveLink(linkHash(active));
   }
 
+  function isNearNavTarget(hash) {
+    if (!hash) return true;
+    var id = hash.charAt(0) === "#" ? hash.slice(1) : hash;
+    if (id === "hero") return window.scrollY <= scrollOffset();
+
+    var el = document.getElementById(id);
+    if (!el) return true;
+    return Math.abs(el.getBoundingClientRect().top - scrollOffset()) <= 48;
+  }
+
+  function releaseNavScrollLock() {
+    navIgnoreScroll = false;
+    pendingNavHash = null;
+    syncFromScroll();
+  }
+
+  function scheduleNavScrollLockEnd() {
+    clearTimeout(navScrollEndTimer);
+    navScrollEndTimer = setTimeout(function () {
+      if (!navIgnoreScroll || !pendingNavHash) return;
+      if (!isNearNavTarget(pendingNavHash)) {
+        scheduleNavScrollLockEnd();
+        return;
+      }
+      releaseNavScrollLock();
+    }, NAV_SCROLL_SETTLE_MS);
+  }
+
+  function updateHistoryHash(hash) {
+    hash = normalizeHash(hash);
+    if (history.replaceState) {
+      history.replaceState(null, "", hash);
+      return;
+    }
+    if (location.hash !== hash) location.hash = hash;
+  }
+
+  function scrollToNavTarget(hash) {
+    hash = normalizeHash(hash);
+    var behavior = smoothScrollBehavior();
+
+    if (hash === "#hero") {
+      window.scrollTo({ top: 0, left: 0, behavior: behavior });
+      return;
+    }
+
+    var el = document.getElementById(hash.slice(1));
+    if (!el) return;
+    el.scrollIntoView({ behavior: behavior, block: "start" });
+  }
+
+  function navigateToHash(hash, fromClick) {
+    hash = normalizeHash(hash);
+    pendingNavHash = hash;
+    navIgnoreScroll = true;
+    navScrollLockStart = Date.now();
+    setActiveLink(hash);
+
+    if (fromClick) {
+      updateHistoryHash(hash);
+    }
+
+    scrollToNavTarget(hash);
+    scheduleNavScrollLockEnd();
+  }
+
   links.forEach(function (link) {
-    link.addEventListener("click", function () {
+    link.addEventListener("click", function (e) {
       var h = linkHash(link);
       if (!h) return;
-      pendingNavHash = normalizeHash(h);
-      navIgnoreScroll = true;
-      setActiveLink(pendingNavHash);
-      scheduleNavScrollLockEnd();
+
+      var hash = normalizeHash(h);
+      var id = hash.slice(1);
+      var target = document.getElementById(id);
+      if (!target) return;
+
+      e.preventDefault();
+      navigateToHash(hash, true);
     });
   });
 
@@ -161,13 +238,25 @@
     "scroll",
     function () {
       if (navIgnoreScroll) {
+        setActiveLink(pendingNavHash);
         scheduleNavScrollLockEnd();
+      } else {
+        syncFromScroll();
       }
-      syncFromScroll();
       updateHeaderScrolledBg();
     },
     { passive: true }
   );
+
+  if ("onscrollend" in window) {
+    window.addEventListener("scrollend", function () {
+      if (!navIgnoreScroll || !pendingNavHash) return;
+      if (!isNearNavTarget(pendingNavHash)) return;
+      clearTimeout(navScrollEndTimer);
+      releaseNavScrollLock();
+    });
+  }
+
   window.addEventListener("resize", function () {
     syncFromScroll();
     onDesktopResize();
@@ -180,17 +269,8 @@
   }
 
   window.addEventListener("hashchange", function () {
-    navIgnoreScroll = false;
-    pendingNavHash = null;
     clearTimeout(navScrollEndTimer);
-    var h = location.hash;
-    if (h === "#top" || h === "") {
-      setActiveLink("#hero");
-      return;
-    }
-    if (["#hero", "#projects-label", "#process-heading"].indexOf(h) !== -1) {
-      setActiveLink(h);
-    }
+    navigateToHash(location.hash || "#hero", false);
   });
 
   syncFromScroll();
@@ -203,7 +283,7 @@
 
   /* 详情页：向下滚动隐藏顶栏，回顶或向上滑时渐现 */
   var detailPage = document.querySelector(".figma-page--detail");
-  if (detailPage && header && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  if (detailPage && header && !reducedMotionMq.matches) {
     var lastScrollY = window.scrollY;
     var scrollThreshold = 8;
     var topRevealY = 48;
