@@ -796,12 +796,14 @@ body.figma-nav-open {
   margin-bottom: var(--figma-section-y);
 }
 
-/* CircularGallery — 左右贴边，预留底部标题空间 */
+/* CircularGallery — 100vw 全幅（与 hero 同方案），预留底部标题空间 */
 .circular-gallery,
 .figma-circular-gallery {
-  width: 100%;
-  height: clamp(520px, 64vh, 660px);
-  margin: 0 calc(-1 * var(--figma-pad-x));
+  width: 100vw;
+  max-width: none;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  height: clamp(540px, 66vh, 680px);
   padding: 0;
   box-sizing: border-box;
   overflow: hidden;
@@ -840,7 +842,10 @@ body.figma-nav-open {
   gap: var(--figma-masonry-gap);
   overflow-x: auto;
   scroll-snap-type: x mandatory;
-  margin: 0 calc(-1 * var(--figma-pad-x));
+  width: 100vw;
+  max-width: none;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
   padding: 0 0 8px 0;
   min-height: clamp(280px, 40vh, 420px);
 }

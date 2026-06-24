@@ -3372,7 +3372,9 @@ Title.prototype.createMesh = function() {
       }
     `,
     uniforms: { tMap: { value: result.texture } },
-    transparent: true
+    transparent: true,
+    depthTest: false,
+    depthWrite: false
   });
   this.mesh = new Mesh(this.gl, { geometry, program });
   var aspect = result.width / result.height;
@@ -3381,11 +3383,14 @@ Title.prototype.createMesh = function() {
   this.mesh.setParent(this.plane);
 };
 Title.prototype.syncLayout = function() {
-  if (!this.mesh || !this.plane) return;
-  var textHeight = this.plane.scale.y * 0.14;
+  if (!this.mesh || !this.plane || !this.textAspect) return;
+  var planeH = this.plane.scale.y;
+  if (!planeH) return;
+  var textHeight = planeH * 0.15;
   var textWidth = textHeight * this.textAspect;
   this.mesh.scale.set(textWidth, textHeight, 1);
-  this.mesh.position.y = -this.plane.scale.y * 0.5 - textHeight * 0.5 - 0.025;
+  this.mesh.position.y = -planeH * 0.5 - textHeight * 0.45;
+  this.mesh.position.z = 0.12;
 };
 function Media(opts) {
   this.extra = 0;
@@ -3406,8 +3411,8 @@ function Media(opts) {
   this.font = opts.font;
   this.createShader();
   this.createMesh();
-  this.createTitle();
   this.onResize();
+  this.createTitle();
 }
 Media.prototype.createShader = function() {
   var self = this;
@@ -3545,7 +3550,7 @@ Media.prototype.onResize = function(opts) {
   }
   this.scale = this.screen.height / 1500;
   this.plane.scale.y = this.viewport.height * (810 * this.scale) / this.screen.height;
-  this.plane.scale.x = this.viewport.width * (700 * this.scale) / this.screen.width;
+  this.plane.scale.x = this.viewport.width * (780 * this.scale) / this.screen.width;
   this.plane.program.uniforms.uPlaneSizes.value = [this.plane.scale.x, this.plane.scale.y];
   this.padding = 2;
   this.width = this.plane.scale.x + this.padding;
@@ -3751,7 +3756,7 @@ App.prototype.onResize = function() {
   var height = 2 * Math.tan(fov / 2) * this.camera.position.z;
   var width = height * this.camera.aspect;
   this.viewport = { width, height };
-  this.scene.position.y = height * 0.075;
+  this.scene.position.y = height * 0.04;
   if (this.medias) {
     var self = this;
     this.medias.forEach(function(media) {
