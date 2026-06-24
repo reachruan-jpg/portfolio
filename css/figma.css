@@ -796,13 +796,13 @@ body.figma-nav-open {
   margin-bottom: var(--figma-section-y);
 }
 
-/* CircularGallery — 左侧与标题对齐，右侧贴边无留白 */
+/* CircularGallery — 左右贴边，预留底部标题空间 */
 .circular-gallery,
 .figma-circular-gallery {
   width: 100%;
-  height: clamp(480px, 60vh, 600px);
-  margin: 0 calc(-1 * var(--figma-pad-x)) 0 0;
-  padding: 0 0 0 var(--figma-pad-x);
+  height: clamp(520px, 64vh, 660px);
+  margin: 0 calc(-1 * var(--figma-pad-x));
+  padding: 0;
   box-sizing: border-box;
   overflow: hidden;
   cursor: grab;
@@ -840,8 +840,8 @@ body.figma-nav-open {
   gap: var(--figma-masonry-gap);
   overflow-x: auto;
   scroll-snap-type: x mandatory;
-  margin: 0 calc(-1 * var(--figma-pad-x)) 0 0;
-  padding: 0 0 8px var(--figma-pad-x);
+  margin: 0 calc(-1 * var(--figma-pad-x));
+  padding: 0 0 8px 0;
   min-height: clamp(280px, 40vh, 420px);
 }
 
@@ -1333,7 +1333,7 @@ body.figma-nav-open {
 }
 
 .figma-process-head {
-  margin-bottom: clamp(28px, 5vw, 44px);
+  margin-bottom: clamp(21px, 3.75vw, 33px);
 }
 
 .figma-process-title {
@@ -1356,7 +1356,7 @@ body.figma-nav-open {
   scroll-padding-inline: var(--figma-pad-x);
   margin-inline: calc(-1 * var(--figma-pad-x));
   padding-inline: var(--figma-pad-x);
-  padding-block: clamp(24px, 3vw, 36px) 12px;
+  padding-block: clamp(18px, 2.25vw, 27px) 12px;
   scrollbar-width: thin;
   scrollbar-color: rgba(255, 255, 255, 0.22) transparent;
 }

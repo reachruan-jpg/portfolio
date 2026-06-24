@@ -207,11 +207,17 @@ Title.prototype.createMesh = function () {
   });
   this.mesh = new Mesh(this.gl, { geometry: geometry, program: program });
   var aspect = result.width / result.height;
-  var textHeight = this.plane.scale.y * 0.15;
-  var textWidth = textHeight * aspect;
-  this.mesh.scale.set(textWidth, textHeight, 1);
-  this.mesh.position.y = -this.plane.scale.y * 0.5 - textHeight * 0.5 - 0.05;
+  this.textAspect = aspect;
+  this.syncLayout();
   this.mesh.setParent(this.plane);
+};
+
+Title.prototype.syncLayout = function () {
+  if (!this.mesh || !this.plane) return;
+  var textHeight = this.plane.scale.y * 0.14;
+  var textWidth = textHeight * this.textAspect;
+  this.mesh.scale.set(textWidth, textHeight, 1);
+  this.mesh.position.y = -this.plane.scale.y * 0.5 - textHeight * 0.5 - 0.025;
 };
 
 function Media(opts) {
@@ -380,13 +386,14 @@ Media.prototype.onResize = function (opts) {
     }
   }
   this.scale = this.screen.height / 1500;
-  this.plane.scale.y = (this.viewport.height * (900 * this.scale)) / this.screen.height;
+  this.plane.scale.y = (this.viewport.height * (810 * this.scale)) / this.screen.height;
   this.plane.scale.x = (this.viewport.width * (700 * this.scale)) / this.screen.width;
   this.plane.program.uniforms.uPlaneSizes.value = [this.plane.scale.x, this.plane.scale.y];
   this.padding = 2;
   this.width = this.plane.scale.x + this.padding;
   this.widthTotal = this.width * this.length;
   this.x = this.width * this.index;
+  if (this.title) this.title.syncLayout();
 };
 
 function App(container, options) {
@@ -609,6 +616,7 @@ App.prototype.onResize = function () {
   var height = 2 * Math.tan(fov / 2) * this.camera.position.z;
   var width = height * this.camera.aspect;
   this.viewport = { width: width, height: height };
+  this.scene.position.y = height * 0.075;
   if (this.medias) {
     var self = this;
     this.medias.forEach(function (media) {
