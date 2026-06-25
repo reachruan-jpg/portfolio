@@ -3207,7 +3207,7 @@ var PORTFOLIO_ITEMS = [
     text: "\u7D2B\u4E91\u7384\u6E05",
     href: "projects/ziyun-xuanqing.html"
   },
-  { image: "assets/projects/bae/cover.png", text: "BAE", href: "projects/bae.html" },
+  { image: "assets/projects/bae/cover.png?v=20260625", text: "BAE", href: "projects/bae.html" },
   {
     image: "assets/projects/\u997F\u5C0F\u5B9D2.0/cover.jpg?v=20260624",
     text: "\u997F\u5C0F\u5B9D 2.0",

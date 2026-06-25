@@ -21,7 +21,7 @@ var PORTFOLIO_ITEMS = [
     text: "紫云玄清",
     href: "projects/ziyun-xuanqing.html",
   },
-  { image: "assets/projects/bae/cover.png", text: "BAE", href: "projects/bae.html" },
+  { image: "assets/projects/bae/cover.png?v=20260625", text: "BAE", href: "projects/bae.html" },
   {
     image: "assets/projects/饿小宝2.0/cover.jpg?v=20260624",
     text: "饿小宝 2.0",
