@@ -3191,6 +3191,11 @@ Curve.QUADRATICBEZIER = QUADRATICBEZIER;
 // js/figma-circular-gallery.js
 var PORTFOLIO_ITEMS = [
   {
+    image: "assets/projects/classin 6.0/cover.jpg?v=20260625",
+    text: "ClassIn 6.0",
+    href: "projects/strike.html"
+  },
+  {
     image: "assets/projects/elem/cover.jpg?v=20260624",
     text: "\u997F\u4E86\u4E48VI\u5347\u7EA7",
     href: "projects/elem.html"

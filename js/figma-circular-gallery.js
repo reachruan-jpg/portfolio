@@ -5,6 +5,11 @@ import { Camera, Mesh, Plane, Program, Renderer, Texture, Transform } from "./ve
 
 var PORTFOLIO_ITEMS = [
   {
+    image: "assets/projects/classin 6.0/cover.jpg?v=20260625",
+    text: "ClassIn 6.0",
+    href: "projects/strike.html",
+  },
+  {
     image: "assets/projects/elem/cover.jpg?v=20260624",
     text: "饿了么VI升级",
     href: "projects/elem.html",
