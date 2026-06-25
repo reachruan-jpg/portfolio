@@ -33,7 +33,6 @@
   function applySplitParentStyles(el) {
     el.classList.add("split-parent");
     el.style.overflow = "hidden";
-    el.style.display = "inline-block";
     el.style.whiteSpace = "normal";
     el.style.wordWrap = "break-word";
   }

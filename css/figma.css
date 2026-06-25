@@ -166,6 +166,12 @@ body {
   max-width: 100%;
 }
 
+.figma-footer-heading-line.split-parent,
+.figma-projects-title-line.split-parent,
+.figma-exp-title-line.split-parent {
+  display: block;
+}
+
 .split-char-mask {
   display: inline-block;
   overflow: hidden;
