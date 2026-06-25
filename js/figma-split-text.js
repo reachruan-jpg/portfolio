@@ -5,7 +5,7 @@
   var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   var CONFIG = {
-    delay: 0.05,
+    delayMs: 50,
     duration: 1.25,
     ease: "power3.out",
     from: { opacity: 0, y: 40 },
@@ -28,29 +28,46 @@
     return "top " + startPct + "%" + sign;
   }
 
+  function applySplitParentStyles(el) {
+    el.classList.add("split-parent");
+    el.style.overflow = "hidden";
+    el.style.display = "inline-block";
+    el.style.whiteSpace = "normal";
+    el.style.wordWrap = "break-word";
+    el.style.willChange = "transform, opacity";
+  }
+
   function splitToChars(el) {
+    if (el.dataset.splitReady === "1") return null;
+
     var text = el.textContent;
-    if (!text || !text.trim()) return [];
+    if (!text || !text.trim()) return null;
 
     el.setAttribute("aria-label", text.trim());
-    el.classList.add("split-parent");
+    applySplitParentStyles(el);
     el.textContent = "";
 
     var chars = [];
     for (var i = 0; i < text.length; i++) {
       var ch = text[i];
+      var mask = document.createElement("span");
+      mask.className = "split-char-mask";
+      mask.setAttribute("aria-hidden", "true");
+
       var span = document.createElement("span");
       span.className = "split-char";
-      span.setAttribute("aria-hidden", "true");
-      span.style.display = "inline-block";
       if (ch === " ") {
         span.innerHTML = "\u00A0";
       } else {
         span.textContent = ch;
       }
-      el.appendChild(span);
+
+      mask.appendChild(span);
+      el.appendChild(mask);
       chars.push(span);
     }
+
+    el.dataset.splitReady = "1";
     return chars;
   }
 
@@ -79,15 +96,15 @@
 
   function animateElement(el) {
     var chars = splitToChars(el);
-    if (!chars.length) return;
+    if (!chars || !chars.length) return;
 
-    gsap.set(chars, Object.assign({ force3D: true, willChange: "transform, opacity" }, CONFIG.from));
-    gsap.to(
+    gsap.fromTo(
       chars,
+      Object.assign({ force3D: true, willChange: "transform, opacity" }, CONFIG.from),
       Object.assign({}, CONFIG.to, {
         duration: CONFIG.duration,
         ease: CONFIG.ease,
-        stagger: CONFIG.delay,
+        stagger: CONFIG.delayMs / 1000,
         scrollTrigger: {
           trigger: el,
           start: buildScrollTriggerStart(CONFIG.threshold, CONFIG.rootMargin),
@@ -103,8 +120,7 @@
     document.querySelectorAll(".split-char").forEach(function (char) {
       var opacity = window.getComputedStyle(char).opacity;
       if (parseFloat(opacity) < 0.05) {
-        char.style.opacity = "1";
-        char.style.transform = "none";
+        gsap.set(char, { opacity: 1, y: 0, clearProps: "transform" });
       }
     });
   }
@@ -116,6 +132,7 @@
     gsap.registerPlugin(ScrollTrigger);
     collectTitles().forEach(animateElement);
     ScrollTrigger.refresh();
+
     window.setTimeout(function () {
       ScrollTrigger.refresh();
       revealStuckChars();

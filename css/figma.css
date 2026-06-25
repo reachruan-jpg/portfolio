@@ -156,22 +156,26 @@ body {
   filter: blur(0);
 }
 
-/* 模块标题：逐字进场（figma-split-text.js + GSAP） */
+/* 模块标题：逐字进场（figma-split-text.js + GSAP，对齐 React Bits SplitText） */
 .split-parent {
   overflow: hidden;
-  /* 为 g / p / y 等降部留空，避免 overflow:hidden 裁切 */
-  padding-bottom: 0.14em;
-  margin-bottom: -0.14em;
+  display: inline-block;
+  white-space: normal;
+  word-wrap: break-word;
+  will-change: transform, opacity;
+  max-width: 100%;
 }
 
-h2.split-parent {
-  display: block;
+.split-char-mask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  line-height: inherit;
 }
 
 .split-char {
   display: inline-block;
   will-change: transform, opacity;
-  vertical-align: top;
 }
 
 /* 模块 kicker 光泽扫过（figma-shiny-text.js） */
