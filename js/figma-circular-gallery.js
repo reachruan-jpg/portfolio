@@ -10,7 +10,7 @@ var PORTFOLIO_ITEMS = [
     href: "projects/strike.html",
   },
   {
-    image: "assets/projects/elem/cover.jpg?v=20260624",
+    image: "assets/projects/elem/cover.jpg?v=20260625",
     text: "饿了么VI升级",
     href: "projects/elem.html",
   },

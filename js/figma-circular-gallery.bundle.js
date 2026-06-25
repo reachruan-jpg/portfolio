@@ -3196,7 +3196,7 @@ var PORTFOLIO_ITEMS = [
     href: "projects/strike.html"
   },
   {
-    image: "assets/projects/elem/cover.jpg?v=20260624",
+    image: "assets/projects/elem/cover.jpg?v=20260625",
     text: "\u997F\u4E86\u4E48VI\u5347\u7EA7",
     href: "projects/elem.html"
   },
