@@ -843,6 +843,7 @@ body.figma-nav-open {
   line-height: 1.2;
   color: rgba(255, 255, 255, 0.92);
   white-space: nowrap;
+  transform-origin: 50% 0;
   will-change: transform, opacity;
 }
 

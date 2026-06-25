@@ -452,22 +452,48 @@ App.prototype.worldToScreen = function (x, y) {
   };
 };
 
+App.prototype.planeLocalToWorld = function (plane, lx, ly) {
+  var rot = plane.rotation.z || 0;
+  var cos = Math.cos(rot);
+  var sin = Math.sin(rot);
+  return {
+    x: plane.position.x + lx * cos - ly * sin,
+    y: this.scene.position.y + plane.position.y + lx * sin + ly * cos,
+  };
+};
+
 App.prototype.updateLabels = function () {
   if (!this.labelEntries || !this.viewport) return;
-  var sceneY = this.scene.position.y;
   var self = this;
-  var gap = this.viewport.height * 0.03;
   this.labelEntries.forEach(function (entry) {
     var plane = entry.media.plane;
     var planeH = plane.scale.y;
-    if (!planeH) return;
-    var rot = plane.rotation.z || 0;
+    var planeW = plane.scale.x;
+    if (!planeH || !planeW) return;
+
     var halfH = planeH * 0.5;
-    var worldX = plane.position.x + halfH * Math.sin(rot);
-    var worldY = sceneY + plane.position.y - halfH * Math.cos(rot) - gap;
-    var point = self.worldToScreen(worldX, worldY);
+    var halfW = planeW * 0.5;
+    var labelGap = planeH * 0.055;
+
+    var bottomLeft = self.planeLocalToWorld(plane, -halfW, -halfH);
+    var bottomRight = self.planeLocalToWorld(plane, halfW, -halfH);
+    var anchor = self.planeLocalToWorld(plane, 0, -halfH - labelGap);
+
+    var pLeft = self.worldToScreen(bottomLeft.x, bottomLeft.y);
+    var pRight = self.worldToScreen(bottomRight.x, bottomRight.y);
+    var point = self.worldToScreen(anchor.x, anchor.y);
+    var angleDeg = (Math.atan2(pRight.y - pLeft.y, pRight.x - pLeft.x) * 180) / Math.PI;
+
+    entry.el.style.transformOrigin = "50% 0";
     entry.el.style.transform =
-      "translate(" + point.x + "px, " + point.y + "px) translate(-50%, 0)";
+      "translate(" +
+      point.x +
+      "px, " +
+      point.y +
+      "px) translate(-50%, 0) rotate(" +
+      angleDeg +
+      "deg)";
+
     var inView =
       point.x > -80 &&
       point.x < self.screen.width + 80 &&
