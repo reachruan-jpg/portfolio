@@ -3412,7 +3412,6 @@ function Media(opts) {
   this.createShader();
   this.createMesh();
   this.onResize();
-  this.createTitle();
 }
 Media.prototype.createShader = function() {
   var self = this;
@@ -3549,8 +3548,8 @@ Media.prototype.onResize = function(opts) {
     }
   }
   this.scale = this.screen.height / 1500;
-  this.plane.scale.y = this.viewport.height * (810 * this.scale) / this.screen.height;
-  this.plane.scale.x = this.viewport.width * (780 * this.scale) / this.screen.width;
+  this.plane.scale.y = this.viewport.height * (900 * this.scale) / this.screen.height;
+  this.plane.scale.x = this.viewport.width * (700 * this.scale) / this.screen.width;
   this.plane.program.uniforms.uPlaneSizes.value = [this.plane.scale.x, this.plane.scale.y];
   this.padding = 2;
   this.width = this.plane.scale.x + this.padding;
@@ -3582,9 +3581,52 @@ function App(container, options) {
     options.borderRadius != null ? options.borderRadius : 0.05,
     options.font || DEFAULT_FONT
   );
+  this.createLabels();
   this.update();
   this.addEventListeners();
 }
+App.prototype.createLabels = function() {
+  this.labelsRoot = document.createElement("div");
+  this.labelsRoot.className = "figma-circular-gallery-labels";
+  this.labelsRoot.setAttribute("aria-hidden", "true");
+  this.container.appendChild(this.labelsRoot);
+  var self = this;
+  this.labelEntries = this.medias.map(function(media) {
+    var el = document.createElement("span");
+    el.className = "figma-circular-gallery-label";
+    el.textContent = media.text;
+    self.labelsRoot.appendChild(el);
+    return { el: el, media: media };
+  });
+};
+App.prototype.worldToScreen = function(x, y) {
+  var vh = this.viewport.height;
+  var vw = this.viewport.width;
+  return {
+    x: (x / vw + 0.5) * this.screen.width,
+    y: (0.5 - y / vh) * this.screen.height
+  };
+};
+App.prototype.updateLabels = function() {
+  if (!this.labelEntries || !this.viewport) return;
+  var sceneY = this.scene.position.y;
+  var self = this;
+  var gap = this.viewport.height * 0.03;
+  this.labelEntries.forEach(function(entry) {
+    var plane = entry.media.plane;
+    var planeH = plane.scale.y;
+    if (!planeH) return;
+    var rot = plane.rotation.z || 0;
+    var halfH = planeH * 0.5;
+    var worldX = plane.position.x + halfH * Math.sin(rot);
+    var worldY = sceneY + plane.position.y - halfH * Math.cos(rot) - gap;
+    var point = self.worldToScreen(worldX, worldY);
+    entry.el.style.transform = "translate(" + point.x + "px, " + point.y + "px) translate(-50%, 0)";
+    var inView = point.x > -80 && point.x < self.screen.width + 80 && point.y > -4 && point.y < self.screen.height + 24;
+    entry.el.style.visibility = inView ? "visible" : "hidden";
+    entry.el.style.opacity = "1";
+  });
+};
 App.prototype.createRenderer = function() {
   this.renderer = new Renderer({
     alpha: true,
@@ -3756,7 +3798,7 @@ App.prototype.onResize = function() {
   var height = 2 * Math.tan(fov / 2) * this.camera.position.z;
   var width = height * this.camera.aspect;
   this.viewport = { width, height };
-  this.scene.position.y = height * 0.04;
+  this.scene.position.y = 0;
   if (this.medias) {
     var self = this;
     this.medias.forEach(function(media) {
@@ -3774,6 +3816,7 @@ App.prototype.update = function() {
     });
   }
   this.renderer.render({ scene: this.scene, camera: this.camera });
+  this.updateLabels();
   this.scroll.last = this.scroll.current;
   this.raf = window.requestAnimationFrame(this.update.bind(this));
 };
@@ -3812,6 +3855,11 @@ App.prototype.destroy = function() {
   if (this.renderer && this.renderer.gl && this.renderer.gl.canvas.parentNode) {
     this.renderer.gl.canvas.parentNode.removeChild(this.renderer.gl.canvas);
   }
+  if (this.labelsRoot && this.labelsRoot.parentNode) {
+    this.labelsRoot.parentNode.removeChild(this.labelsRoot);
+  }
+  this.labelsRoot = null;
+  this.labelEntries = null;
 };
 function withTimeout(promise, ms, fallbackValue) {
   return Promise.race([
@@ -3835,6 +3883,8 @@ function resetGalleryContainer(container) {
   container.hidden = false;
   var canvas = container.querySelector("canvas");
   if (canvas) canvas.remove();
+  var labels = container.querySelector(".figma-circular-gallery-labels");
+  if (labels) labels.remove();
 }
 function destroyGallery() {
   if (galleryApp) {

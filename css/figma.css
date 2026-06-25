@@ -159,6 +159,9 @@ body {
 /* 模块标题：逐字进场（figma-split-text.js + GSAP） */
 .split-parent {
   overflow: hidden;
+  /* 为 g / p / y 等降部留空，避免 overflow:hidden 裁切 */
+  padding-bottom: 0.14em;
+  margin-bottom: -0.14em;
 }
 
 h2.split-parent {
@@ -168,6 +171,7 @@ h2.split-parent {
 .split-char {
   display: inline-block;
   will-change: transform, opacity;
+  vertical-align: top;
 }
 
 /* 模块 kicker 光泽扫过（figma-shiny-text.js） */
@@ -799,6 +803,7 @@ body.figma-nav-open {
 /* CircularGallery — 100vw 全幅（与 hero 同方案），预留底部标题空间 */
 .circular-gallery,
 .figma-circular-gallery {
+  position: relative;
   width: 100vw;
   max-width: none;
   margin-left: calc(50% - 50vw);
@@ -806,10 +811,39 @@ body.figma-nav-open {
   height: clamp(540px, 66vh, 680px);
   padding: 0;
   box-sizing: border-box;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: visible;
   cursor: grab;
   outline: none;
   touch-action: none;
+}
+
+.figma-circular-gallery-labels {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.figma-circular-gallery canvas {
+  position: relative;
+  z-index: 1;
+  display: block;
+}
+
+.figma-circular-gallery-label {
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-family: var(--font-inter);
+  font-size: clamp(13px, 1.45vw, 17px);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  color: rgba(255, 255, 255, 0.92);
+  white-space: nowrap;
+  will-change: transform, opacity;
 }
 
 .circular-gallery:active,
@@ -887,6 +921,7 @@ body.figma-nav-open {
 
 .figma-projects-title-line {
   display: block;
+  line-height: 1.12;
 }
 
 /* Portfolio masonry：奇数组（左 1 · 右 2）↔ 偶数组（左 2 · 右 1）交替；见 index.html */
