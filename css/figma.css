@@ -170,12 +170,16 @@ body {
   display: inline-block;
   overflow: hidden;
   vertical-align: top;
-  line-height: inherit;
+  line-height: 1.15;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 .split-char {
   display: inline-block;
   will-change: transform, opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 /* 模块 kicker 光泽扫过（figma-shiny-text.js） */

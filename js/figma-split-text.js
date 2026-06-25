@@ -14,6 +14,8 @@
     rootMargin: "-100px",
   };
 
+  var splitTweens = [];
+
   function buildScrollTriggerStart(threshold, rootMargin) {
     var startPct = (1 - threshold) * 100;
     var marginMatch = /^(-?\d+(?:\.\d+)?)(px|em|rem|%)?$/.exec(rootMargin);
@@ -34,7 +36,6 @@
     el.style.display = "inline-block";
     el.style.whiteSpace = "normal";
     el.style.wordWrap = "break-word";
-    el.style.willChange = "transform, opacity";
   }
 
   function splitToChars(el) {
@@ -98,30 +99,46 @@
     var chars = splitToChars(el);
     if (!chars || !chars.length) return;
 
-    gsap.fromTo(
+    var tween = gsap.fromTo(
       chars,
-      Object.assign({ force3D: true, willChange: "transform, opacity" }, CONFIG.from),
+      Object.assign({ force3D: true }, CONFIG.from),
       Object.assign({}, CONFIG.to, {
         duration: CONFIG.duration,
         ease: CONFIG.ease,
         stagger: CONFIG.delayMs / 1000,
+        immediateRender: false,
         scrollTrigger: {
           trigger: el,
           start: buildScrollTriggerStart(CONFIG.threshold, CONFIG.rootMargin),
+          toggleActions: "play none none none",
           once: true,
-          fastScrollEnd: true,
-          anticipatePin: 0.4,
+          invalidateOnRefresh: true,
+        },
+        onComplete: function () {
+          gsap.set(chars, { clearProps: "willChange,transform" });
         },
       })
     );
+
+    splitTweens.push(tween);
   }
 
-  function revealStuckChars() {
-    document.querySelectorAll(".split-char").forEach(function (char) {
-      var opacity = window.getComputedStyle(char).opacity;
-      if (parseFloat(opacity) < 0.05) {
-        gsap.set(char, { opacity: 1, y: 0, clearProps: "transform" });
-      }
+  function refreshScrollTriggers() {
+    if (typeof ScrollTrigger === "undefined") return;
+    ScrollTrigger.refresh();
+  }
+
+  function playVisibleMissed() {
+    splitTweens.forEach(function (tween) {
+      if (!tween || !tween.scrollTrigger) return;
+      if (tween.progress() > 0) return;
+
+      var trigger = tween.scrollTrigger.trigger;
+      if (!trigger) return;
+
+      var rect = trigger.getBoundingClientRect();
+      var inView = rect.top < window.innerHeight * 0.92 && rect.bottom > 0;
+      if (inView) tween.play();
     });
   }
 
@@ -131,13 +148,17 @@
 
     gsap.registerPlugin(ScrollTrigger);
     collectTitles().forEach(animateElement);
-    ScrollTrigger.refresh();
+    refreshScrollTriggers();
+
+    window.addEventListener("load", function () {
+      refreshScrollTriggers();
+      playVisibleMissed();
+    });
 
     window.setTimeout(function () {
-      ScrollTrigger.refresh();
-      revealStuckChars();
-    }, 800);
-    window.setTimeout(revealStuckChars, 3500);
+      refreshScrollTriggers();
+      playVisibleMissed();
+    }, 1200);
   }
 
   function waitForGsap(triesLeft, done) {
