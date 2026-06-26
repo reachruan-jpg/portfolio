@@ -1194,6 +1194,9 @@ body.figma-nav-open {
 .figma-experience {
   padding: 0 var(--figma-pad-x);
   margin-bottom: var(--figma-section-y);
+  --figma-exp-logo-size: 32px;
+  --figma-exp-brand-gap: 10px;
+  --figma-exp-brand-indent: calc(var(--figma-exp-logo-size) + var(--figma-exp-brand-gap));
 }
 
 .figma-exp-grid {
@@ -1264,6 +1267,21 @@ body.figma-nav-open {
   border-bottom: 1px solid var(--figma-services-rule);
 }
 
+.figma-experience .figma-exp-item {
+  border-bottom: none;
+  position: relative;
+}
+
+.figma-experience .figma-exp-item::after {
+  content: "";
+  position: absolute;
+  left: var(--figma-exp-brand-indent);
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: var(--figma-services-rule);
+}
+
 .figma-exp-item:first-child {
   padding-top: 0;
 }
@@ -1304,12 +1322,29 @@ body.figma-nav-open {
 .figma-exp-summary-row {
   display: flex;
   flex-wrap: wrap;
-  align-items: baseline;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 12px 20px;
 }
 
+.figma-exp-brand {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--figma-exp-brand-gap, 10px);
+  min-width: 0;
+  flex: 1;
+}
+
+.figma-exp-brand-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  min-width: 0;
+}
+
 .figma-exp-company {
+  display: block;
   font-family: var(--font-inter);
   font-weight: 600;
   font-size: clamp(17px, 1.85vw, 20px);
@@ -1318,12 +1353,21 @@ body.figma-nav-open {
   color: #ffffff;
 }
 
+.figma-exp-logo {
+  flex-shrink: 0;
+  width: var(--figma-exp-logo-size, 32px);
+  height: var(--figma-exp-logo-size, 32px);
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
+
 .figma-exp-role {
   font-family: var(--font-inter);
   font-weight: 500;
   font-size: clamp(14px, 1.45vw, 16px);
   line-height: 1.35;
-  color: rgba(255, 255, 255, 0.72);
+  color: rgba(255, 255, 255, 0.5);
 }
 
 .figma-exp-dates {
@@ -1335,6 +1379,7 @@ body.figma-nav-open {
   white-space: nowrap;
   text-align: right;
   margin-left: auto;
+  padding-top: 2px;
 }
 
 .figma-exp-chevron {
@@ -1360,6 +1405,10 @@ body.figma-nav-open {
 .figma-exp-body {
   padding: clamp(14px, 2vw, 18px) 0 0;
   margin: 0;
+}
+
+.figma-experience .figma-exp-body {
+  padding-left: var(--figma-exp-brand-indent);
 }
 
 .figma-exp-body p {
